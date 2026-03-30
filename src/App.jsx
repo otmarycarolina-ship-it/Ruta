@@ -83,11 +83,9 @@ const App = () => {
 
   const t = temas[temaActual];
 
-  // Estado inicial basado en la fecha real
   const [mesIndice, setMesIndice] = useState(new Date().getMonth());
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
 
-  // Efecto para auto-actualizar el mes si cambia la fecha real (ej: medianoche del 31 al 1)
   useEffect(() => {
     const checkDate = () => {
       const hoy = new Date();
@@ -96,11 +94,7 @@ const App = () => {
         setAnioActual(hoy.getFullYear());
       }
     };
-    
-    // Verificamos cada vez que se carga la app
     checkDate();
-    
-    // Opcional: Verificar cada hora por si el usuario deja la pestaña abierta
     const interval = setInterval(checkDate, 3600000);
     return () => clearInterval(interval);
   }, []);
@@ -117,7 +111,6 @@ const App = () => {
   const timerRef = useRef(null);
 
   const mesActualKey = meses[mesIndice];
-
   const getDiasEnMes = (month, year) => new Date(year, month + 1, 0).getDate();
   const totalDiasMes = getDiasEnMes(mesIndice, anioActual);
 
@@ -170,9 +163,6 @@ const App = () => {
   const registrarActividad = (hInput, mInput) => {
     let h = parseInt(hInput) || 0;
     let m = parseInt(mInput) || 0;
-    
-    // Si el usuario está viendo un mes pasado/futuro, registramos en el día 1 de ese mes.
-    // Si está viendo el mes actual, registramos en el día de hoy.
     const hoyReal = new Date();
     const esMesReal = hoyReal.getMonth() === mesIndice && hoyReal.getFullYear() === anioActual;
     const diaARegistrar = esMesReal ? hoyReal.getDate() : 1; 
@@ -268,7 +258,6 @@ const App = () => {
           </div>
         </div>
 
-        {/* Timer y otros controles se mantienen igual... */}
         <section className={`mb-8 bg-white/80 backdrop-blur-md border ${t.primaryBorder} p-6 rounded-[2.5rem] flex flex-wrap items-center justify-around gap-4 shadow-sm transition-colors`}>
           <div className="flex items-center gap-4">
             <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20` : 'bg-slate-100'} ${isTimerRunning ? 'text-white' : 'text-slate-400'} transition-all`}>
@@ -290,7 +279,7 @@ const App = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-4 space-y-8">
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
-              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">Registro Rápido</h3>
+              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">Registro de hoy</h3>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="space-y-1">
                     <label className="text-[10px] font-bold text-slate-400 ml-2">HORAS</label>
@@ -405,7 +394,18 @@ const App = () => {
               <input type="text" placeholder="Nombre completo" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.nombre} onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}/>
               <div className="grid grid-cols-2 gap-2">
                 <input type="text" placeholder="Día (ej: Lunes)" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.fecha} onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}/>
-                <input type="time" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.horaClase} onChange={e => setFormEstudiante({...formEstudiante, horaClase: e.target.value})}/>
+                
+                <div className="relative flex items-center group/time">
+                  <div className="absolute left-4 text-slate-400 group-focus-within/time:text-slate-600 transition-colors">
+                    <Clock size={18} />
+                  </div>
+                  <input 
+                    type="time" 
+                    className="w-full bg-slate-50 rounded-2xl p-4 pl-12 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all cursor-pointer" 
+                    value={formEstudiante.horaClase} 
+                    onChange={e => setFormEstudiante({...formEstudiante, horaClase: e.target.value})}
+                  />
+                </div>
               </div>
               <input type="text" placeholder="Capítulo / Lección" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.leccion} onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}/>
               <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none resize-none transition-all" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
@@ -424,7 +424,17 @@ const App = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500;700&display=swap');
         .font-sans { font-family: 'Outfit', 'Inter', sans-serif; }
-        ::-webkit-calendar-picker-indicator { filter: invert(0.5); }
+        
+        input[type="time"]::-webkit-calendar-picker-indicator {
+          cursor: pointer;
+          filter: invert(0.5);
+          opacity: 0.6;
+          transition: opacity 0.2s;
+        }
+        input[type="time"]::-webkit-calendar-picker-indicator:hover {
+          opacity: 1;
+        }
+
         input[type="number"]::-webkit-inner-spin-button, 
         input[type="number"]::-webkit-outer-spin-button { 
           -webkit-appearance: none; 
