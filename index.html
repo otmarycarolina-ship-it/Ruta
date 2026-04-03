@@ -11,4 +11,12 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
+  <script> if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('¡Ruta offline lista!'))
+        .catch(err => console.log('Error al registrar:', err));
+    });
+  }
+  </script>
 </html>
