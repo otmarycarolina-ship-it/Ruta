@@ -1,15 +1,22 @@
-const CACHE_NAME = 'ruta-cache-v1';
+const CACHE_NAME = 'ruta-v2';
+const assets = [
+  '/',
+  '/index.html'
+];
 
-// Al instalar, el Service Worker toma el control
-self.addEventListener('install', (event) => {
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(assets);
+    })
+  );
   self.skipWaiting();
 });
 
-// Estrategia: Intentar buscar en internet, si falla, usar lo que esté guardado
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', event => {
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request);
-    })
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    }).catch(() => caches.match('/index.html'))
   );
 });
