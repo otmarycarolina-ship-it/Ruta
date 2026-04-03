@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de Servicio</title> 
-    <link rel="manifest" href="https://progressier.app/AV6XncmSET3o5rYosS0C/progressier.json"/>
-<script defer src="https://progressier.app/AV6XncmSET3o5rYosS0C/script.js"></script>
-  </head>
+    </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('¡Ruta offline lista!'))
+            .catch(err => console.log('Error al registrar:', err));
+        });
+      }
+    </script>
   </body>
-  <script> if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('¡Ruta offline lista!'))
-        .catch(err => console.log('Error al registrar:', err));
-    });
-  }
-  </script>
 </html>
