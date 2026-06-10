@@ -329,7 +329,7 @@ const App = () => {
             <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#7a57d1]' : t.primary}`}><ChevronLeft size={28} /></button>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-slate-800">{mesActualKey}</h2>
-              <p className={`text-[10px] font-bold ${t.accent} tracking-[0.2em] uppercase transition-colors`}>{anioActual}</p>
+              <p className={`text-[10px] font-bold ${t.accent} tracking-[0.2em] uppercase tracking-wide transition-colors`}>{anioActual}</p>
             </div>
             <button onClick={() => cambiarMes(1)} className={`p-2 rounded-xl hover:bg-slate-50 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#e44d9b]' : t.primary}`}><ChevronRight size={28} /></button>
           </div>
@@ -402,7 +402,8 @@ const App = () => {
           <div className="lg:col-span-8 space-y-8">
             <section className="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-100 text-center">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
+                {/* MODIFICACIÓN AQUÍ: Se cambió "Total Horas" por "Total" */}
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
                 <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
                 <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center hover:bg-red-100 hover:text-red-700 transition-colors group"><Trash2 size={24} className="transition-transform group-hover:scale-110" /></button>
