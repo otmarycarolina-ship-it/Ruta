@@ -46,7 +46,7 @@ const App = () => {
       buttonHover: "hover:bg-blue-700",
       gradient: "from-blue-500 to-cyan-600",
       bgOverlay: "bg-purple-50",
-      localImg: "https://www.transparenttextures.com/patterns/nami.png"
+      localImg: ""
     },
     verde: {
       name: "Verde",
@@ -99,19 +99,6 @@ const App = () => {
       gradient: "from-red-500 to-rose-600",
       bgOverlay: "bg-red-50/50",
       localImg: "https://www.transparenttextures.com/patterns/gplay.png"
-    },
-    rosadoClaro: {
-      name: "Rosado Claro",
-      primary: "text-rose-400",
-      primaryBg: "bg-rose-300",
-      primaryLight: "bg-rose-50/60",
-      primaryBorder: "border-rose-100",
-      accent: "text-rose-300",
-      accentBg: "bg-rose-50",
-      buttonHover: "hover:bg-rose-400",
-      gradient: "from-rose-200 to-pink-300",
-      bgOverlay: "bg-rose-50/30",
-      localImg: "https://www.transparenttextures.com/patterns/subtle-dots.png"
     },
     arcoiris: {
       name: "Arcoíris",
@@ -320,10 +307,12 @@ const App = () => {
 
   return (
     <div className={`min-h-screen ${t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 relative overflow-x-hidden transition-all duration-700`}>
-      <div 
-        className="fixed inset-0 z-0 opacity-10 pointer-events-none transition-all duration-700"
-        style={{ backgroundImage: `url('${t.localImg}')` }}
-      ></div>
+      {t.localImg && (
+        <div 
+          className="fixed inset-0 z-0 opacity-10 pointer-events-none transition-all duration-700"
+          style={{ backgroundImage: `url('${t.localImg}')` }}
+        ></div>
+      )}
 
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-12">
@@ -469,8 +458,7 @@ const App = () => {
                                            temas[key].primaryBg.includes('blue') ? '#2563eb' :
                                            temas[key].primaryBg.includes('emerald') ? '#059669' : 
                                            temas[key].primaryBg.includes('amber') ? '#f59e0b' :
-                                           temas[key].primaryBg.includes('red') ? '#dc2626' :
-                                           temas[key].primaryBg.includes('rose') ? '#fda4af' : '#ea580c'
+                                           temas[key].primaryBg.includes('red') ? '#dc2626' : '#ea580c'
                         }}
                         title={temas[key].name}
                     />
