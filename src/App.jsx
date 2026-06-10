@@ -318,7 +318,7 @@ const App = () => {
   const porcentaje = Math.min(100, (totalMinutos / (currentData.meta * 60)) * 100);
 
   return (
-    <div className={`min-h-screen ${t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 dark:text-zinc-300 relative overflow-x-hidden transition-all duration-700`}>
+    <div className={`min-h-screen ${darkMode ? 'bg-[#000000]' : t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 dark:text-zinc-300 relative overflow-x-hidden transition-all duration-700`}>
       {t.localImg && (
         <div 
           className="fixed inset-0 z-0 opacity-10 dark:opacity-5 pointer-events-none transition-all duration-700"
@@ -334,7 +334,7 @@ const App = () => {
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-zinc-100 tracking-tight">
             Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
-          <p className="text-slate-500 dark:text-zinc-400 font-medium mt-2 tracking-wide">Gestiona tu activity con eficiencia</p>
+          <p className="text-slate-500 dark:text-zinc-400 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
