@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile
+  Palette, Smile, Laugh
 } from 'lucide-react';
 
 const App = () => {
@@ -317,7 +317,11 @@ const App = () => {
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-12">
           <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-4 animate-bounce shadow-sm transition-colors`}>
-            <Smile size={48} strokeWidth={2.5} className={temaActual === 'arcoiris' ? "stroke-[url(#rainbow-grad)]" : t.primary} />
+            {temaActual === 'arcoiris' ? (
+              <Laugh size={48} strokeWidth={2.5} className="stroke-[url(#rainbow-grad)]" />
+            ) : (
+              <Smile size={48} strokeWidth={2.5} className={t.primary} />
+            )}
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
             Registro de <span className={temaActual === 'arcoiris' ? "bg-gradient-to-r from-pink-500 via-purple-500 via-blue-500 to-emerald-500 bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
