@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile
+  Palette
 } from 'lucide-react';
 
 const App = () => {
@@ -102,14 +102,14 @@ const App = () => {
     },
     arcoiris: {
       name: "Dúo Vibrante",
-      primary: "text-gradient bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent font-black",
-      primaryBg: "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-gradient-xy",
+      primary: "text-gradient bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-black",
+      primaryBg: "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500", // Eliminado animate-gradient-xy
       primaryLight: "bg-slate-50/90",
       primaryBorder: "border-pink-200",
       accent: "text-pink-500",
       accentBg: "bg-gradient-to-r from-indigo-50/50 to-pink-50/50",
       buttonHover: "hover:brightness-105",
-      gradient: "from-indigo-500 via-purple-500 to-pink-500 animate-gradient-xy",
+      gradient: "from-indigo-500 via-purple-500 to-pink-500", // Eliminado animate-gradient-xy
       bgOverlay: "bg-slate-50/60",
       localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
     }
@@ -146,7 +146,7 @@ const App = () => {
   const [showEditModal, setShowEditModal] = useState(null);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
 
-  // --- MEJORA DEL CRONÓMETRO CON TIMESTAMP ---
+  // --- MEJORA DEL CRONÓMETRO WITH TIMESTAMP ---
   const [isTimerRunning, setIsTimerRunning] = useState(() => {
     return localStorage.getItem('timer_is_running') === 'true';
   });
@@ -205,7 +205,6 @@ const App = () => {
     setSecondsElapsed(0);
     setIsTimerRunning(false);
   };
-  // --- FIN DE LA MEJORA ---
 
   const mesActualKey = meses[mesIndice];
   const getDiasEnMes = (month, year) => new Date(year, month + 1, 0).getDate();
@@ -316,11 +315,29 @@ const App = () => {
 
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-12">
-          <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-4 animate-bounce shadow-sm transition-colors`}>
-            <Smile size={48} strokeWidth={2.5} className={temaActual === 'arcoiris' ? "stroke-[url(#rainbow-grad)]" : t.primary} />
+          {/* CARITA COMPLETA CON DISEÑO FIEL A LA IMAGEN DE REFERENCIA */}
+          <div className="inline-flex items-center justify-center mb-4">
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center relative shadow-sm border p-[3px] bg-white ${temaActual === 'arcoiris' ? 'border-transparent' : t.primaryBorder}`}>
+              {temaActual === 'arcoiris' && (
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-[3px]">
+                  <div className="w-full h-full bg-white rounded-full"></div>
+                </div>
+              )}
+              {/* Contenido de la carita (Ojos y Sonrisa) */}
+              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center gap-[4px] mt-1">
+                {/* Ojos */}
+                <div className="flex gap-[12px]">
+                  <div className={`w-1.5 h-1.5 rounded-full ${temaActual === 'arcoiris' ? 'bg-indigo-500' : t.primaryBg}`}></div>
+                  <div className={`w-1.5 h-1.5 rounded-full ${temaActual === 'arcoiris' ? 'bg-indigo-500' : t.primaryBg}`}></div>
+                </div>
+                {/* Sonrisa curva */}
+                <div className={`w-7 h-3.5 border-b-4 rounded-b-full ${temaActual === 'arcoiris' ? 'border-pink-500' : 'border-current'} ${temaActual !== 'arcoiris' && t.primary}`}></div>
+              </div>
+            </div>
           </div>
+
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
-            Registro de <span className={temaActual === 'arcoiris' ? "bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
+            Registro de <span className={temaActual === 'arcoiris' ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
           <p className="text-slate-500 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
         </header>
@@ -350,7 +367,7 @@ const App = () => {
             <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20 text-white` : 'bg-slate-100 text-slate-400'} transition-all`}>
               <Clock size={24} />
             </div>
-            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'arcoiris' ? 'bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700'}`}>{formatTimer(secondsElapsed)}</p>
+            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'arcoiris' ? 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700'}`}>{formatTimer(secondsElapsed)}</p>
           </div>
           <div className="flex gap-2">
             {!isTimerRunning ? (
@@ -403,7 +420,7 @@ const App = () => {
           <div className="lg:col-span-8 space-y-8">
             <section className="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-100 text-center">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black text-pink-500" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
                 <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
                 <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-100 transition-colors"><Trash2 size={24} /></button>
@@ -498,7 +515,7 @@ const App = () => {
                 </div>
               </div>
               <input type="text" placeholder="Capítulo / Lección" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.leccion} onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}/>
-              <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none resize-none transition-all" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
+              <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none resize-none transition-all" value={formEstudiante.notes} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
               <button onClick={() => {
                 if(formEstudiante.nombre) {
                   const nuevos = showEditModal === 'nuevo' ? [...currentData.estudiantes, { ...formEstudiante, id: Date.now() }] : currentData.estudiantes.map(e => e.id === showEditModal ? formEstudiante : e);
@@ -510,16 +527,6 @@ const App = () => {
           </div>
         </div>
       )}
-
-      {/* SVG Auxiliar para aplicar el degradado solo al trazo del icono de carita (stroke) sin rellenarlo */}
-      <svg width="0" height="0" className="absolute pointer-events-none">
-        <defs>
-          <linearGradient id="rainbow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#6366f1" />
-            <stop offset="100%" stopColor="#ec4899" />
-          </linearGradient>
-        </defs>
-      </svg>
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500;700&display=swap');
@@ -547,16 +554,6 @@ const App = () => {
         .scrollbar-none {
           -ms-overflow-style: none;
           scrollbar-width: none;
-        }
-
-        @keyframes gradientBG {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animate-gradient-xy {
-          background-size: 400% 400%;
-          animation: gradientBG 8s ease infinite;
         }
       `}</style>
     </div>
