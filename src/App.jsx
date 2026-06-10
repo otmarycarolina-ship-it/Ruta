@@ -11,14 +11,14 @@ const App = () => {
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
-      primary: "text-gradient bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black",
-      primaryBg: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b]",
+      primary: "text-gradient bg-gradient-to-r from-[#906ffa] to-[#ff69b4] dark:from-[#a78bfa] dark:to-[#f472b6] bg-clip-text text-transparent font-black",
+      primaryBg: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] dark:from-[#8b5cf6] dark:to-[#ec4899]",
       primaryLight: "bg-slate-100/80 dark:bg-zinc-900/80",
       primaryBorder: "border-indigo-100 dark:border-zinc-800",
-      accent: "text-[#e44d9b]",
+      accent: "text-[#e44d9b] dark:text-[#f472b6]",
       accentBg: "bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50 dark:from-zinc-900/50 dark:via-zinc-950/50 dark:to-zinc-900/50",
       buttonHover: "hover:brightness-105",
-      gradient: "from-[#7a57d1] to-[#e44d9b]",
+      gradient: "from-[#7a57d1] to-[#e44d9b] dark:from-[#8b5cf6] dark:to-[#ec4899]",
       bgOverlay: "bg-slate-50 dark:bg-black",
       localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
     },
@@ -27,7 +27,7 @@ const App = () => {
       primary: "text-pink-600 dark:text-pink-400",
       primaryBg: "bg-pink-600 dark:bg-pink-500",
       primaryLight: "bg-pink-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-pink-200 dark:border-zinc-800",
+      primaryBorder: "border-pink-200 dark:border-zinc-800/80",
       accent: "text-pink-400 dark:text-pink-300",
       accentBg: "bg-pink-100 dark:bg-zinc-900/40",
       buttonHover: "hover:bg-pink-700 dark:hover:bg-pink-600",
@@ -40,7 +40,7 @@ const App = () => {
       primary: "text-purple-600 dark:text-purple-400",
       primaryBg: "bg-purple-600 dark:bg-purple-500",
       primaryLight: "bg-purple-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-purple-200 dark:border-zinc-800",
+      primaryBorder: "border-purple-200 dark:border-zinc-800/80",
       accent: "text-purple-400 dark:text-purple-300",
       accentBg: "bg-purple-100 dark:bg-zinc-900/40",
       buttonHover: "hover:bg-purple-700 dark:hover:bg-purple-600",
@@ -53,7 +53,7 @@ const App = () => {
       primary: "text-blue-600 dark:text-blue-400",
       primaryBg: "bg-blue-600 dark:bg-blue-500",
       primaryLight: "bg-blue-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-blue-200 dark:border-zinc-800",
+      primaryBorder: "border-blue-200 dark:border-zinc-800/80",
       accent: "text-blue-400 dark:text-blue-300",
       accentBg: "bg-blue-100 dark:bg-zinc-900/40",
       buttonHover: "hover:bg-blue-700 dark:hover:bg-blue-600",
@@ -66,7 +66,7 @@ const App = () => {
       primary: "text-emerald-600 dark:text-emerald-400",
       primaryBg: "bg-emerald-600 dark:bg-emerald-500",
       primaryLight: "bg-emerald-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-emerald-200 dark:border-zinc-800",
+      primaryBorder: "border-emerald-200 dark:border-zinc-800/80",
       accent: "text-emerald-400 dark:text-emerald-300",
       accentBg: "bg-emerald-100 dark:bg-zinc-900/40",
       buttonHover: "hover:bg-emerald-700 dark:hover:bg-emerald-600",
@@ -79,7 +79,7 @@ const App = () => {
       primary: "text-orange-600 dark:text-orange-400",
       primaryBg: "bg-orange-600 dark:bg-orange-500",
       primaryLight: "bg-orange-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-orange-200 dark:border-zinc-800",
+      primaryBorder: "border-orange-200 dark:border-zinc-800/80",
       accent: "text-orange-400 dark:text-orange-300",
       accentBg: "bg-orange-100 dark:bg-zinc-900/40",
       buttonHover: "hover:bg-orange-700 dark:hover:bg-orange-600",
@@ -92,7 +92,7 @@ const App = () => {
       primary: "text-amber-600 dark:text-amber-400",
       primaryBg: "bg-amber-500 dark:bg-amber-400",
       primaryLight: "bg-amber-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-amber-200 dark:border-zinc-800",
+      primaryBorder: "border-amber-200 dark:border-zinc-800/80",
       accent: "text-yellow-500 dark:text-yellow-400",
       accentBg: "bg-yellow-100 dark:bg-zinc-900/40",
       buttonHover: "hover:bg-amber-600 dark:hover:bg-amber-500",
@@ -105,7 +105,7 @@ const App = () => {
       primary: "text-red-600 dark:text-red-400",
       primaryBg: "bg-red-600 dark:bg-red-500",
       primaryLight: "bg-red-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-red-200 dark:border-zinc-800",
+      primaryBorder: "border-red-200 dark:border-zinc-800/80",
       accent: "text-rose-500 dark:text-rose-400",
       accentBg: "bg-rose-100 dark:bg-zinc-900/40",
       buttonHover: "hover:bg-red-700 dark:hover:bg-red-600",
@@ -330,29 +330,29 @@ const App = () => {
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-12">
           <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-4 animate-bounce shadow-sm transition-colors`}>
-            <Smile size={48} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1]" : t.primary} />
+            <Smile size={48} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1] dark:text-[#a78bfa]" : t.primary} />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-zinc-100 tracking-tight">
-            Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
+            Registro de <span className={t.primary}>Servicio</span>
           </h1>
           <p className="text-slate-500 dark:text-zinc-400 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm p-6 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-zinc-900 flex items-center justify-between">
-            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#7a57d1]' : t.primary}`}><ChevronLeft size={28} /></button>
+            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#7a57d1] dark:text-[#a78bfa]' : t.primary}`}><ChevronLeft size={28} /></button>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-slate-800 dark:text-zinc-100">{mesActualKey}</h2>
               <p className={`text-[10px] font-bold ${t.accent} tracking-[0.2em] uppercase transition-colors`}>{anioActual}</p>
             </div>
-            <button onClick={() => cambiarMes(1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#e44d9b]' : t.primary}`}><ChevronRight size={28} /></button>
+            <button onClick={() => cambiarMes(1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#e44d9b] dark:text-[#f472b6]' : t.primary}`}><ChevronRight size={28} /></button>
           </div>
 
           <div className={`p-6 rounded-[2.5rem] shadow-lg text-white flex flex-col justify-center relative overflow-hidden transition-all duration-700 ${t.primaryBg}`}>
             <div className="absolute -right-4 -top-4 opacity-20"><Target size={100} /></div>
             <span className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-2 z-10">Meta Mensual</span>
             <div className="flex items-center gap-3 z-10">
-              <input type="number" value={currentData.meta} onChange={(e) => updateCurrentMonth({ meta: Number(e.target.value) })} className="bg-white/20 dark:bg-black/20 w-20 text-3xl font-black rounded-xl text-center focus:outline-none placeholder-white/50 transition-all focus:bg-white/30"/>
+              <input type="number" value={currentData.meta} onChange={(e) => updateCurrentMonth({ meta: Number(e.target.value) })} className="bg-white/20 dark:bg-black/40 w-20 text-3xl font-black rounded-xl text-center focus:outline-none placeholder-white/50 transition-all focus:bg-white/30"/>
               <span className="text-lg font-bold">horas</span>
             </div>
           </div>
@@ -363,7 +363,7 @@ const App = () => {
             <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20 text-white` : 'bg-slate-100 dark:bg-zinc-900 text-slate-400 dark:text-zinc-500'} transition-all`}>
               <Clock size={24} />
             </div>
-            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'gradienteEstatico' ? 'bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700 dark:text-zinc-200'}`}>{formatTimer(secondsElapsed)}</p>
+            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'gradienteEstatico' ? 'bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] dark:from-[#a78bfa] dark:to-[#f472b6] bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700 dark:text-zinc-200'}`}>{formatTimer(secondsElapsed)}</p>
           </div>
           <div className="flex gap-2">
             {!isTimerRunning ? (
@@ -416,8 +416,8 @@ const App = () => {
           <div className="lg:col-span-8 space-y-8">
             <section className="bg-white dark:bg-zinc-950 p-8 rounded-[3rem] shadow-xl border border-slate-100 dark:border-zinc-900 text-center">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="p-4 bg-slate-50 dark:bg-black rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Total Horas</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
-                <div className="p-4 bg-slate-50 dark:bg-black rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
+                <div className="p-4 bg-slate-50 dark:bg-black rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Total Horas</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] dark:from-[#a78bfa] dark:to-[#f472b6] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
+                <div className="p-4 bg-slate-50 dark:bg-black rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b] dark:text-[#f472b6]" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
                 <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
                 <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-950/40 hover:text-red-700 dark:hover:text-red-300 transition-colors group"><Trash2 size={24} className="transition-transform group-hover:scale-110" /></button>
               </div>
