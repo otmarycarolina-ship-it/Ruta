@@ -11,7 +11,7 @@ const App = () => {
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
-      primary: "text-gradient bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black",
+      primary: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black",
       primaryBg: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b]",
       primaryLight: "bg-slate-100/80",
       primaryBorder: "border-indigo-100",
@@ -316,7 +316,11 @@ const App = () => {
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-12">
           <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-4 animate-bounce shadow-sm transition-colors`}>
-            <Smile size={48} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "stroke-[url(#custom-grad)]" : t.primary} />
+            <Smile 
+              size={48} 
+              strokeWidth={2.5} 
+              className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-br from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : t.primary} 
+            />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
             Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
@@ -497,7 +501,7 @@ const App = () => {
                 </div>
               </div>
               <input type="text" placeholder="Capítulo / Lección" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.leccion} onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}/>
-              <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none resize-none transition-all" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
+              <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none resize-none transition-all" value={formEstudiante.notes || formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
               <button onClick={() => {
                 if(formEstudiante.nombre) {
                   const nuevos = showEditModal === 'nuevo' ? [...currentData.estudiantes, { ...formEstudiante, id: Date.now() }] : currentData.estudiantes.map(e => e.id === showEditModal ? formEstudiante : e);
