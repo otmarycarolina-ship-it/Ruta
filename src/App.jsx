@@ -11,106 +11,106 @@ const App = () => {
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
-      primary: "text-gradient bg-gradient-to-r from-[#906ffa] to-[#ff69b4] dark:from-[#a78bfa] dark:to-[#f472b6] bg-clip-text text-transparent font-black",
-      primaryBg: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] dark:from-[#8b5cf6] dark:to-[#ec4899]",
-      primaryLight: "bg-slate-100/80 dark:bg-zinc-900/80",
+      primary: "text-gradient bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black",
+      primaryBg: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b]",
+      primaryLight: "bg-slate-100/80 dark:bg-zinc-800/80",
       primaryBorder: "border-indigo-100 dark:border-zinc-800",
-      accent: "text-[#e44d9b] dark:text-[#f472b6]",
-      accentBg: "bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50 dark:from-zinc-900/50 dark:via-zinc-950/50 dark:to-zinc-900/50",
+      accent: "text-[#e44d9b]",
+      accentBg: "bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50 dark:from-purple-950/20 dark:via-pink-950/20 dark:to-rose-950/20",
       buttonHover: "hover:brightness-105",
-      gradient: "from-[#7a57d1] to-[#e44d9b] dark:from-[#8b5cf6] dark:to-[#ec4899]",
-      bgOverlay: "bg-slate-50 dark:bg-black",
+      gradient: "from-[#7a57d1] to-[#e44d9b]",
+      bgOverlay: "bg-slate-50 dark:bg-[#000000]",
       localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
     },
     sakura: {
       name: "Sakura",
       primary: "text-pink-600 dark:text-pink-400",
-      primaryBg: "bg-pink-600 dark:bg-pink-500",
-      primaryLight: "bg-pink-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-pink-200 dark:border-zinc-800/80",
-      accent: "text-pink-400 dark:text-pink-300",
-      accentBg: "bg-pink-100 dark:bg-zinc-900/40",
-      buttonHover: "hover:bg-pink-700 dark:hover:bg-pink-600",
+      primaryBg: "bg-pink-600",
+      primaryLight: "bg-pink-50 dark:bg-pink-950/30",
+      primaryBorder: "border-pink-200 dark:border-pink-900/50",
+      accent: "text-pink-400",
+      accentBg: "bg-pink-100 dark:bg-pink-950/50",
+      buttonHover: "hover:bg-pink-700",
       gradient: "from-pink-500 to-rose-500",
-      bgOverlay: "bg-pink-50 dark:bg-black",
+      bgOverlay: "bg-pink-50 dark:bg-[#000000]",
       localImg: "https://www.transparenttextures.com/patterns/cubes.png"
     },
     morado: {
       name: "Morado",
       primary: "text-purple-600 dark:text-purple-400",
-      primaryBg: "bg-purple-600 dark:bg-purple-500",
-      primaryLight: "bg-purple-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-purple-200 dark:border-zinc-800/80",
-      accent: "text-purple-400 dark:text-purple-300",
-      accentBg: "bg-purple-100 dark:bg-zinc-900/40",
-      buttonHover: "hover:bg-purple-700 dark:hover:bg-purple-600",
+      primaryBg: "bg-purple-600",
+      primaryLight: "bg-purple-50 dark:bg-purple-950/30",
+      primaryBorder: "border-purple-200 dark:border-purple-900/50",
+      accent: "text-purple-400",
+      accentBg: "bg-purple-100 dark:bg-purple-950/50",
+      buttonHover: "hover:bg-purple-700",
       gradient: "from-purple-500 to-indigo-600",
-      bgOverlay: "bg-purple-50 dark:bg-black",
+      bgOverlay: "bg-purple-50 dark:bg-[#000000]",
       localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png"
     },
     azul: {
       name: "Azul",
       primary: "text-blue-600 dark:text-blue-400",
-      primaryBg: "bg-blue-600 dark:bg-blue-500",
-      primaryLight: "bg-blue-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-blue-200 dark:border-zinc-800/80",
-      accent: "text-blue-400 dark:text-blue-300",
-      accentBg: "bg-blue-100 dark:bg-zinc-900/40",
-      buttonHover: "hover:bg-blue-700 dark:hover:bg-blue-600",
+      primaryBg: "bg-blue-600",
+      primaryLight: "bg-blue-50 dark:bg-blue-950/30",
+      primaryBorder: "border-blue-200 dark:border-blue-900/50",
+      accent: "text-blue-400",
+      accentBg: "bg-blue-100 dark:bg-blue-950/50",
+      buttonHover: "hover:bg-blue-700",
       gradient: "from-blue-500 to-cyan-600",
-      bgOverlay: "bg-blue-50 dark:bg-black",
+      bgOverlay: "bg-purple-50 dark:bg-[#000000]",
       localImg: ""
     },
     verde: {
       name: "Verde",
       primary: "text-emerald-600 dark:text-emerald-400",
-      primaryBg: "bg-emerald-600 dark:bg-emerald-500",
-      primaryLight: "bg-emerald-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-emerald-200 dark:border-zinc-800/80",
-      accent: "text-emerald-400 dark:text-emerald-300",
-      accentBg: "bg-emerald-100 dark:bg-zinc-900/40",
-      buttonHover: "hover:bg-emerald-700 dark:hover:bg-emerald-600",
+      primaryBg: "bg-emerald-600",
+      primaryLight: "bg-emerald-50 dark:bg-emerald-950/30",
+      primaryBorder: "border-emerald-200 dark:border-emerald-900/50",
+      accent: "text-emerald-400",
+      accentBg: "bg-emerald-100 dark:bg-emerald-950/50",
+      buttonHover: "hover:bg-emerald-700",
       gradient: "from-emerald-500 to-teal-600",
-      bgOverlay: "bg-emerald-50 dark:bg-black",
+      bgOverlay: "bg-emerald-50 dark:bg-[#000000]",
       localImg: "https://www.transparenttextures.com/patterns/polygons.png"
     },
     naranja: {
       name: "Naranja",
       primary: "text-orange-600 dark:text-orange-400",
-      primaryBg: "bg-orange-600 dark:bg-orange-500",
-      primaryLight: "bg-orange-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-orange-200 dark:border-zinc-800/80",
-      accent: "text-orange-400 dark:text-orange-300",
-      accentBg: "bg-orange-100 dark:bg-zinc-900/40",
-      buttonHover: "hover:bg-orange-700 dark:hover:bg-orange-600",
+      primaryBg: "bg-orange-600",
+      primaryLight: "bg-orange-50 dark:bg-orange-950/30",
+      primaryBorder: "border-orange-200 dark:border-orange-900/50",
+      accent: "text-orange-400",
+      accentBg: "bg-orange-100 dark:bg-orange-950/50",
+      buttonHover: "hover:bg-orange-700",
       gradient: "from-orange-500 to-amber-600",
-      bgOverlay: "bg-orange-50 dark:bg-black",
+      bgOverlay: "bg-orange-50 dark:bg-[#000000]",
       localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png"
     },
     amarillo: {
       name: "Amarillo",
       primary: "text-amber-600 dark:text-amber-400",
-      primaryBg: "bg-amber-500 dark:bg-amber-400",
-      primaryLight: "bg-amber-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-amber-200 dark:border-zinc-800/80",
-      accent: "text-yellow-500 dark:text-yellow-400",
-      accentBg: "bg-yellow-100 dark:bg-zinc-900/40",
-      buttonHover: "hover:bg-amber-600 dark:hover:bg-amber-500",
+      primaryBg: "bg-amber-500",
+      primaryLight: "bg-amber-50 dark:bg-amber-950/30",
+      primaryBorder: "border-amber-200 dark:border-amber-900/50",
+      accent: "text-yellow-500",
+      accentBg: "bg-yellow-100 dark:bg-yellow-950/50",
+      buttonHover: "hover:bg-amber-600",
       gradient: "from-amber-400 to-yellow-500",
-      bgOverlay: "bg-amber-50/40 dark:bg-black",
+      bgOverlay: "bg-amber-50/40 dark:bg-[#000000]",
       localImg: "https://www.transparenttextures.com/patterns/sandpaper.png"
     },
     rojo: {
       name: "Rojo",
       primary: "text-red-600 dark:text-red-400",
-      primaryBg: "bg-red-600 dark:bg-red-500",
-      primaryLight: "bg-red-50 dark:bg-zinc-900/60",
-      primaryBorder: "border-red-200 dark:border-zinc-800/80",
-      accent: "text-rose-500 dark:text-rose-400",
-      accentBg: "bg-rose-100 dark:bg-zinc-900/40",
-      buttonHover: "hover:bg-red-700 dark:hover:bg-red-600",
+      primaryBg: "bg-red-600",
+      primaryLight: "bg-red-50 dark:bg-red-950/30",
+      primaryBorder: "border-red-200 dark:border-red-900/50",
+      accent: "text-rose-500",
+      accentBg: "bg-rose-100 dark:bg-rose-950/50",
+      buttonHover: "hover:bg-red-700",
       gradient: "from-red-500 to-rose-600",
-      bgOverlay: "bg-red-50/50 dark:bg-black",
+      bgOverlay: "bg-red-50/50 dark:bg-[#000000]",
       localImg: "https://www.transparenttextures.com/patterns/gplay.png"
     }
   };
@@ -120,21 +120,11 @@ const App = () => {
     return salvo && temas[salvo] ? salvo : 'gradienteEstatico';
   });
 
-  const t = temas[temaActual];
-
-  // --- MODO OSCURO ---
   const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('dark_mode') === 'true';
+    return localStorage.getItem('sakura_dark_mode') === 'true';
   });
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('dark_mode', darkMode.toString());
-  }, [darkMode]);
+  const t = temas[temaActual];
 
   const [mesIndice, setMesIndice] = useState(new Date().getMonth());
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
@@ -232,6 +222,15 @@ const App = () => {
     localStorage.setItem('sakura_theme', temaActual);
   }, [temaActual]);
 
+  useEffect(() => {
+    localStorage.setItem('sakura_dark_mode', darkMode.toString());
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
   const formatTimer = (totalSeconds) => {
     const h = Math.floor(totalSeconds / 3600);
     const m = Math.floor((totalSeconds % 3600) / 60);
@@ -322,7 +321,7 @@ const App = () => {
     <div className={`min-h-screen ${t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 dark:text-zinc-300 relative overflow-x-hidden transition-all duration-700`}>
       {t.localImg && (
         <div 
-          className="fixed inset-0 z-0 opacity-10 dark:opacity-[0.02] pointer-events-none transition-all duration-700"
+          className="fixed inset-0 z-0 opacity-10 dark:opacity-5 pointer-events-none transition-all duration-700"
           style={{ backgroundImage: `url('${t.localImg}')` }}
         ></div>
       )}
@@ -330,70 +329,70 @@ const App = () => {
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-12">
           <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-4 animate-bounce shadow-sm transition-colors`}>
-            <Smile size={48} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1] dark:text-[#a78bfa]" : t.primary} />
+            <Smile size={48} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1]" : t.primary} />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-zinc-100 tracking-tight">
-            Registro de <span className={t.primary}>Servicio</span>
+            Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
-          <p className="text-slate-500 dark:text-zinc-400 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
+          <p className="text-slate-500 dark:text-zinc-400 font-medium mt-2 tracking-wide">Gestiona tu activity con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-sm p-6 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-zinc-900 flex items-center justify-between">
-            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#7a57d1] dark:text-[#a78bfa]' : t.primary}`}><ChevronLeft size={28} /></button>
+          <div className="lg:col-span-2 bg-white/90 dark:bg-zinc-900/40 backdrop-blur-sm p-6 rounded-[2.5rem] shadow-sm border border-slate-100 dark:border-zinc-800/80 flex items-center justify-between">
+            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#7a57d1]' : t.primary}`}><ChevronLeft size={28} /></button>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-slate-800 dark:text-zinc-100">{mesActualKey}</h2>
               <p className={`text-[10px] font-bold ${t.accent} tracking-[0.2em] uppercase transition-colors`}>{anioActual}</p>
             </div>
-            <button onClick={() => cambiarMes(1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-900 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#e44d9b] dark:text-[#f472b6]' : t.primary}`}><ChevronRight size={28} /></button>
+            <button onClick={() => cambiarMes(1)} className={`p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#e44d9b]' : t.primary}`}><ChevronRight size={28} /></button>
           </div>
 
           <div className={`p-6 rounded-[2.5rem] shadow-lg text-white flex flex-col justify-center relative overflow-hidden transition-all duration-700 ${t.primaryBg}`}>
             <div className="absolute -right-4 -top-4 opacity-20"><Target size={100} /></div>
             <span className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-2 z-10">Meta Mensual</span>
             <div className="flex items-center gap-3 z-10">
-              <input type="number" value={currentData.meta} onChange={(e) => updateCurrentMonth({ meta: Number(e.target.value) })} className="bg-white/20 dark:bg-black/40 w-20 text-3xl font-black rounded-xl text-center focus:outline-none placeholder-white/50 transition-all focus:bg-white/30"/>
+              <input type="number" value={currentData.meta} onChange={(e) => updateCurrentMonth({ meta: Number(e.target.value) })} className="bg-white/20 w-20 text-3xl font-black rounded-xl text-center focus:outline-none placeholder-white/50 transition-all focus:bg-white/30"/>
               <span className="text-lg font-bold">horas</span>
             </div>
           </div>
         </div>
 
-        <section className={`mb-8 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border ${t.primaryBorder} p-6 rounded-[2.5rem] flex flex-wrap items-center justify-around gap-4 shadow-sm transition-colors`}>
+        <section className={`mb-8 bg-white/80 dark:bg-zinc-900/30 backdrop-blur-md border ${t.primaryBorder} p-6 rounded-[2.5rem] flex flex-wrap items-center justify-around gap-4 shadow-sm transition-colors`}>
           <div className="flex items-center gap-4">
-            <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20 text-white` : 'bg-slate-100 dark:bg-zinc-900 text-slate-400 dark:text-zinc-500'} transition-all`}>
+            <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20 text-white` : 'bg-slate-100 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500'} transition-all`}>
               <Clock size={24} />
             </div>
-            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'gradienteEstatico' ? 'bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] dark:from-[#a78bfa] dark:to-[#f472b6] bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700 dark:text-zinc-200'}`}>{formatTimer(secondsElapsed)}</p>
+            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'gradienteEstatico' ? 'bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700 dark:text-zinc-200'}`}>{formatTimer(secondsElapsed)}</p>
           </div>
           <div className="flex gap-2">
             {!isTimerRunning ? (
               <button onClick={startTimer} className={`p-4 text-white rounded-2xl shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}><Play fill="currentColor" size={20}/></button>
             ) : (
-              <button onClick={pauseTimer} className="p-4 bg-slate-700 text-white rounded-2xl hover:bg-slate-800 dark:bg-zinc-800 dark:hover:bg-zinc-700 active:scale-95 transition-all"><Pause fill="currentColor" size={20}/></button>
+              <button onClick={pauseTimer} className="p-4 bg-slate-700 dark:bg-zinc-800 text-white rounded-2xl hover:bg-slate-800 dark:hover:bg-zinc-700 active:scale-95 transition-all"><Pause fill="currentColor" size={20}/></button>
             )}
-            <button onClick={resetTimer} className={`p-4 bg-slate-100 dark:bg-zinc-900 text-slate-500 dark:text-zinc-400 rounded-2xl hover:bg-slate-200 dark:hover:bg-zinc-800 transition-colors`}><RotateCcw size={20}/></button>
+            <button onClick={resetTimer} className={`p-4 bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 rounded-2xl hover:bg-slate-200 dark:hover:bg-zinc-700 transition-colors`}><RotateCcw size={20}/></button>
             <button onClick={guardarTiempoCronometro} className={`px-6 py-4 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar</button>
           </div>
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-4 space-y-8">
-            <section className="bg-white dark:bg-zinc-950 p-8 rounded-[2.5rem] shadow-sm border border-slate-50 dark:border-zinc-900">
+            <section className="bg-white dark:bg-zinc-900/40 border border-transparent dark:border-zinc-800/60 p-8 rounded-[2.5rem] shadow-sm">
               <h3 className="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest mb-6 flex items-center gap-2">Registro de hoy</h3>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="space-y-1">
                     <label className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 ml-2">HORAS</label>
-                    <input type="number" placeholder="0" className="w-full bg-slate-50 dark:bg-black rounded-2xl p-4 text-2xl font-black text-slate-700 dark:text-zinc-200 focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-900 outline-none transition-all placeholder-slate-300 dark:placeholder-zinc-800" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
+                    <input type="number" placeholder="0" className="w-full bg-slate-50 dark:bg-zinc-950 rounded-2xl p-4 text-2xl font-black text-slate-700 dark:text-zinc-200 focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-800 outline-none transition-all" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
                 </div>
                 <div className="space-y-1">
                     <label className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 ml-2">MINS</label>
-                    <input type="number" placeholder="0" className="w-full bg-slate-50 dark:bg-black rounded-2xl p-4 text-2xl font-black text-slate-700 dark:text-zinc-200 focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-900 outline-none transition-all placeholder-slate-300 dark:placeholder-zinc-800" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
+                    <input type="number" placeholder="0" className="w-full bg-slate-50 dark:bg-zinc-950 rounded-2xl p-4 text-2xl font-black text-slate-700 dark:text-zinc-200 focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-800 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
                 </div>
               </div>
               <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Añadir Tiempo</button>
             </section>
 
-            <section className="bg-white dark:bg-zinc-950 p-8 rounded-[2.5rem] shadow-sm border border-slate-50 dark:border-zinc-900">
+            <section className="bg-white dark:bg-zinc-900/40 border border-transparent dark:border-zinc-800/60 p-8 rounded-[2.5rem] shadow-sm">
               <h3 className="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest mb-6 flex items-center gap-2">Actividad Diaria</h3>
               <div className="grid grid-cols-7 gap-2">
                 {[...Array(totalDiasMes)].map((_, i) => {
@@ -403,7 +402,7 @@ const App = () => {
                     <button 
                       key={dia} 
                       onClick={() => tieneActividad && window.confirm(`¿Borrar registro del día ${dia}?`) && eliminarDia(dia)}
-                      className={`aspect-square rounded-xl text-[10px] font-bold transition-all ${tieneActividad ? `text-white shadow-md ${t.primaryBg}` : `bg-slate-50 dark:bg-black text-slate-400 dark:text-zinc-500 hover:bg-slate-100 dark:hover:bg-zinc-900`}`}
+                      className={`aspect-square rounded-xl text-[10px] font-bold transition-all ${tieneActividad ? `text-white shadow-md ${t.primaryBg}` : `bg-slate-50 dark:bg-zinc-950 text-slate-400 dark:text-zinc-500 hover:bg-slate-100 dark:hover:bg-zinc-800`}`}
                     >
                       {dia}
                     </button>
@@ -414,12 +413,12 @@ const App = () => {
           </div>
 
           <div className="lg:col-span-8 space-y-8">
-            <section className="bg-white dark:bg-zinc-950 p-8 rounded-[3rem] shadow-xl border border-slate-100 dark:border-zinc-900 text-center">
+            <section className="bg-white dark:bg-zinc-900/40 p-8 rounded-[3rem] shadow-xl border border-slate-100 dark:border-zinc-800/80 text-center">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="p-4 bg-slate-50 dark:bg-black rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Total Horas</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] dark:from-[#a78bfa] dark:to-[#f472b6] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
-                <div className="p-4 bg-slate-50 dark:bg-black rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b] dark:text-[#f472b6]" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
+                <div className="p-4 bg-slate-50 dark:bg-zinc-950 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Total Horas</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
+                <div className="p-4 bg-slate-50 dark:bg-zinc-950 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
                 <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
-                <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-950/40 hover:text-red-700 dark:hover:text-red-300 transition-colors group"><Trash2 size={24} className="transition-transform group-hover:scale-110" /></button>
+                <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 dark:bg-red-950/20 text-red-600 dark:text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-950/40 hover:text-red-700 transition-colors group"><Trash2 size={24} className="transition-transform group-hover:scale-110" /></button>
               </div>
 
               <button 
@@ -430,7 +429,7 @@ const App = () => {
               </button>
             </section>
 
-            <section className="bg-white dark:bg-zinc-950 p-8 rounded-[3rem] shadow-sm border border-slate-50 dark:border-zinc-900">
+            <section className="bg-white dark:bg-zinc-900/40 border border-transparent dark:border-zinc-800/60 p-8 rounded-[3rem] shadow-sm">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xs font-black text-slate-400 dark:text-zinc-500 uppercase tracking-widest flex items-center gap-2">Cursos Bíblicos</h3>
                 <button onClick={() => {setFormEstudiante({nombre:'', fecha:'', horaClase:'', leccion:'', notas:''}); setShowEditModal('nuevo')}} className={`text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-2 transition-all ${t.primaryBg}`}><UserPlus size={14} /> Nuevo</button>
@@ -438,18 +437,18 @@ const App = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {currentData.estudiantes.length > 0 ? (
                   currentData.estudiantes.map(est => (
-                    <div key={est.id} onClick={() => {setFormEstudiante(est); setShowEditModal(est.id)}} className="p-5 bg-slate-50 dark:bg-black rounded-[1.5rem] border border-transparent flex justify-between items-center cursor-pointer hover:border-slate-200 dark:hover:border-zinc-800 hover:bg-white dark:hover:bg-zinc-950 hover:shadow-sm transition-all group">
+                    <div key={est.id} onClick={() => {setFormEstudiante(est); setShowEditModal(est.id)}} className="p-5 bg-slate-50 dark:bg-zinc-950 rounded-[1.5rem] border border-transparent dark:border-zinc-800/40 flex justify-between items-center cursor-pointer hover:border-slate-200 dark:hover:border-zinc-700 hover:bg-white dark:hover:bg-zinc-900/60 hover:shadow-sm transition-all group">
                       <div>
                         <p className="font-bold text-slate-800 dark:text-zinc-200 text-sm">{est.nombre}</p>
                         <p className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase tracking-wider mt-1">
                           {est.fecha} {est.horaClase && `• ${formatTime12h(est.horaClase)}`}
                         </p>
                       </div>
-                      <button onClick={(e) => {e.stopPropagation(); updateCurrentMonth({ estudiantes: currentData.estudiantes.filter(i => i.id !== est.id) })}} className="text-slate-400 dark:text-zinc-500 hover:text-red-600 dark:hover:text-red-400 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all p-1"><Trash2 size={16} /></button>
+                      <button onClick={(e) => {e.stopPropagation(); if(window.confirm("¿Estás seguro de que deseas borrar este curso?")) { updateCurrentMonth({ estudiantes: currentData.estudiantes.filter(i => i.id !== est.id) }) }}} className="text-slate-400 dark:text-zinc-500 hover:text-red-600 dark:hover:text-red-400 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all p-1"><Trash2 size={16} /></button>
                     </div>
                   ))
                 ) : (
-                  <p className="col-span-full text-center py-8 text-slate-300 dark:text-zinc-700 text-sm italic">No hay cursos registrados</p>
+                  <p className="col-span-full text-center py-8 text-slate-300 dark:text-zinc-600 text-sm italic">No hay cursos registrados</p>
                 )}
               </div>
             </section>
@@ -457,19 +456,9 @@ const App = () => {
         </div>
       </div>
 
-      {/* CONTROLES FLOTANTES (MODO OSCURO Y TEMAS) */}
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
-        {/* INTERRUPTOR MODO OSCURO / MODO CLARO */}
-        <button 
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-4 rounded-2xl shadow-xl bg-white dark:bg-zinc-950 border border-slate-100 dark:border-zinc-900 text-slate-700 dark:text-amber-400 transition-all hover:scale-110 active:scale-95"
-            title={darkMode ? "Modo Claro" : "Modo Oscuro"}
-        >
-            {darkMode ? <Sun size={24} /> : <Moon size={24} />}
-        </button>
-
         {showThemeSelector && (
-            <div className="bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md p-3 rounded-3xl shadow-2xl border border-slate-100 dark:border-zinc-900 flex flex-col gap-3 max-h-[50vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-4 zoom-in-95 scrollbar-none">
+            <div className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md p-3 rounded-3xl shadow-2xl border border-slate-100 dark:border-zinc-800 flex flex-col gap-3 max-h-[50vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-4 zoom-in-95 scrollbar-none">
                 {['sakura', 'gradienteEstatico', 'morado', 'azul', 'verde', 'naranja', 'amarillo', 'rojo'].map(key => (
                     <button 
                         key={key}
@@ -489,44 +478,49 @@ const App = () => {
             </div>
         )}
         <button 
+            onClick={() => setDarkMode(!darkMode)}
+            className={`p-4 rounded-2xl shadow-xl text-white transition-all hover:scale-110 active:scale-95 shadow-lg shadow-current/20 ${t.primaryBg}`}
+        >
+            {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+        </button>
+        <button 
             onClick={() => setShowThemeSelector(!showThemeSelector)}
             className={`p-4 rounded-2xl shadow-xl text-white transition-all hover:scale-110 active:scale-95 shadow-lg shadow-current/20 ${t.primaryBg}`}
-            title="Cambiar Color de Tema"
         >
             <Palette size={24} />
         </button>
       </div>
 
       {showEditModal && (
-        <div className="fixed inset-0 z-[110] bg-slate-900/40 dark:bg-black/70 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in">
-          <div className="bg-white dark:bg-zinc-950 w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-zinc-900 animate-in slide-in-from-bottom-8 zoom-in-95">
+        <div className="fixed inset-0 z-[110] bg-slate-900/40 dark:bg-black/60 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in">
+          <div className="bg-white dark:bg-zinc-900 w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl border border-slate-100 dark:border-zinc-800 animate-in slide-in-from-bottom-8 zoom-in-95">
             <div className="flex justify-between items-center mb-6">
               <h4 className="text-xl font-bold text-slate-800 dark:text-zinc-100">{showEditModal === 'nuevo' ? 'Nuevo Curso' : 'Editar Curso'}</h4>
-              <button onClick={() => setShowEditModal(null)} className="text-slate-300 dark:text-zinc-600 hover:text-slate-500 dark:hover:text-slate-400 transition-colors"><X /></button>
+              <button onClick={() => setShowEditModal(null)} className="text-slate-300 dark:text-zinc-500 hover:text-slate-500 dark:hover:text-zinc-300 transition-colors"><X /></button>
             </div>
             <div className="space-y-4">
-              <input type="text" placeholder="Nombre completo" className="w-full bg-slate-50 dark:bg-black rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-900 outline-none transition-all text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-600" value={formEstudiante.nombre} onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}/>
+              <input type="text" placeholder="Nombre completo" className="w-full bg-slate-50 dark:bg-zinc-950 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-800 outline-none transition-all dark:text-zinc-200" value={formEstudiante.nombre} onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}/>
               
               <div className="flex gap-2 w-full">
                 <div className="w-[45%]">
-                  <input type="text" placeholder="Día" className="w-full bg-slate-50 dark:bg-black rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-900 outline-none transition-all text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-600" value={formEstudiante.fecha} onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}/>
+                  <input type="text" placeholder="Día" className="w-full bg-slate-50 dark:bg-zinc-950 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-800 outline-none transition-all dark:text-zinc-200" value={formEstudiante.fecha} onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}/>
                 </div>
                 
                 <div className="relative flex items-center group/time w-[55%]">
-                  <div className="absolute left-3 text-slate-400 group-focus-within/time:text-slate-600 transition-colors pointer-events-none">
+                  <div className="absolute left-3 text-slate-400 group-focus-within/time:text-slate-600 dark:group-focus-within/time:text-zinc-400 transition-colors pointer-events-none">
                     <Clock size={16} />
                   </div>
                   <input 
                     type="time" 
-                    className="w-full bg-slate-50 dark:bg-black rounded-2xl p-4 pl-9 pr-3 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-900 outline-none transition-all cursor-pointer text-slate-700 dark:text-zinc-200 min-w-0" 
+                    className="w-full bg-slate-50 dark:bg-zinc-950 rounded-2xl p-4 pl-9 pr-3 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-800 outline-none transition-all cursor-pointer text-slate-700 dark:text-zinc-200 min-w-0" 
                     value={formEstudiante.horaClase} 
                     onChange={e => setFormEstudiante({...formEstudiante, horaClase: e.target.value})}
                   />
                 </div>
               </div>
               
-              <input type="text" placeholder="Capítulo / Lección" className="w-full bg-slate-50 dark:bg-black rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-900 outline-none transition-all text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-600" value={formEstudiante.leccion} onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}/>
-              <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 dark:bg-black rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-900 outline-none resize-none transition-all text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-600" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
+              <input type="text" placeholder="Capítulo / Lección" className="w-full bg-slate-50 dark:bg-zinc-950 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-800 outline-none transition-all dark:text-zinc-200" value={formEstudiante.leccion} onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}/>
+              <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 dark:bg-zinc-950 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 dark:focus:ring-zinc-800 outline-none resize-none transition-all dark:text-zinc-200" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
               <button onClick={() => {
                 if(formEstudiante.nombre) {
                   const nuevos = showEditModal === 'nuevo' ? [...currentData.estudiantes, { ...formEstudiante, id: Date.now() }] : currentData.estudiantes.map(e => e.id === showEditModal ? formEstudiante : e);
@@ -560,10 +554,6 @@ const App = () => {
         }
         input[type="time"]::-webkit-calendar-picker-indicator:hover {
           opacity: 1;
-        }
-
-        .dark input[type="time"]::-webkit-calendar-picker-indicator {
-          filter: invert(0.8) sepia(1) saturate(0) hue-rotate(0deg);
         }
 
         input[type="number"]::-webkit-inner-spin-button, 
