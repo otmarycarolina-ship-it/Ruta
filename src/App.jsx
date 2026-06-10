@@ -73,6 +73,58 @@ const App = () => {
       gradient: "from-orange-500 to-amber-600",
       bgOverlay: "bg-orange-50",
       localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png"
+    },
+    amarillo: {
+      name: "Amarillo",
+      primary: "text-amber-600",
+      primaryBg: "bg-amber-500",
+      primaryLight: "bg-amber-50",
+      primaryBorder: "border-amber-200",
+      accent: "text-yellow-500",
+      accentBg: "bg-yellow-100",
+      buttonHover: "hover:bg-amber-600",
+      gradient: "from-amber-400 to-yellow-500",
+      bgOverlay: "bg-amber-50/40",
+      localImg: "https://www.transparenttextures.com/patterns/sandpaper.png"
+    },
+    rojo: {
+      name: "Rojo",
+      primary: "text-red-600",
+      primaryBg: "bg-red-600",
+      primaryLight: "bg-red-50",
+      primaryBorder: "border-red-200",
+      accent: "text-rose-500",
+      accentBg: "bg-rose-100",
+      buttonHover: "hover:bg-red-700",
+      gradient: "from-red-500 to-rose-600",
+      bgOverlay: "bg-red-50/50",
+      localImg: "https://www.transparenttextures.com/patterns/gplay.png"
+    },
+    rosadoClaro: {
+      name: "Rosado Claro",
+      primary: "text-rose-400",
+      primaryBg: "bg-rose-300",
+      primaryLight: "bg-rose-50/60",
+      primaryBorder: "border-rose-100",
+      accent: "text-rose-300",
+      accentBg: "bg-rose-50",
+      buttonHover: "hover:bg-rose-400",
+      gradient: "from-rose-200 to-pink-300",
+      bgOverlay: "bg-rose-50/30",
+      localImg: "https://www.transparenttextures.com/patterns/subtle-dots.png"
+    },
+    arcoiris: {
+      name: "Arcoíris",
+      primary: "text-gradient bg-gradient-to-r from-pink-500 via-purple-500 via-blue-500 to-emerald-500 bg-clip-text text-transparent font-black",
+      primaryBg: "bg-gradient-to-r from-pink-500 via-purple-500 via-blue-500 to-emerald-500 animate-gradient-xy",
+      primaryLight: "bg-slate-100/80",
+      primaryBorder: "border-indigo-100",
+      accent: "text-indigo-500",
+      accentBg: "bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100",
+      buttonHover: "hover:brightness-110",
+      gradient: "from-pink-500 via-purple-500 via-blue-500 to-emerald-500 animate-gradient-xy",
+      bgOverlay: "bg-slate-50",
+      localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
     }
   };
 
@@ -275,26 +327,26 @@ const App = () => {
 
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-12">
-          <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} ${t.primary} mb-4 animate-bounce shadow-sm transition-colors`}>
-            <Smile size={48} strokeWidth={2.5} />
+          <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-4 animate-bounce shadow-sm transition-colors`}>
+            <Smile size={48} strokeWidth={2.5} className={temaActual === 'arcoiris' ? "stroke-[url(#rainbow-grad)]" : t.primary} />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
-            Registro de <span className={`${t.primary} transition-colors`}>Servicio</span>
+            Registro de <span className={temaActual === 'arcoiris' ? "bg-gradient-to-r from-pink-500 via-purple-500 via-blue-500 to-emerald-500 bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
           <p className="text-slate-500 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-white/90 backdrop-blur-sm p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex items-center justify-between">
-            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 ${t.primary} transition-colors`}><ChevronLeft size={28} /></button>
+            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 transition-colors ${temaActual === 'arcoiris' ? 'text-purple-500' : t.primary}`}><ChevronLeft size={28} /></button>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-slate-800">{mesActualKey}</h2>
               <p className={`text-[10px] font-bold ${t.accent} tracking-[0.2em] uppercase transition-colors`}>{anioActual}</p>
             </div>
-            <button onClick={() => cambiarMes(1)} className={`p-2 rounded-xl hover:bg-slate-50 ${t.primary} transition-colors`}><ChevronRight size={28} /></button>
+            <button onClick={() => cambiarMes(1)} className={`p-2 rounded-xl hover:bg-slate-50 transition-colors ${temaActual === 'arcoiris' ? 'text-emerald-500' : t.primary}`}><ChevronRight size={28} /></button>
           </div>
 
-          <div className={`bg-gradient-to-br ${t.gradient} p-6 rounded-[2.5rem] shadow-lg text-white flex flex-col justify-center relative overflow-hidden transition-all duration-700`}>
+          <div className={`p-6 rounded-[2.5rem] shadow-lg text-white flex flex-col justify-center relative overflow-hidden transition-all duration-700 ${t.primaryBg}`}>
             <div className="absolute -right-4 -top-4 opacity-20"><Target size={100} /></div>
             <span className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-2 z-10">Meta Mensual</span>
             <div className="flex items-center gap-3 z-10">
@@ -306,19 +358,19 @@ const App = () => {
 
         <section className={`mb-8 bg-white/80 backdrop-blur-md border ${t.primaryBorder} p-6 rounded-[2.5rem] flex flex-wrap items-center justify-around gap-4 shadow-sm transition-colors`}>
           <div className="flex items-center gap-4">
-            <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20` : 'bg-slate-100'} ${isTimerRunning ? 'text-white' : 'text-slate-400'} transition-all`}>
+            <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20 text-white` : 'bg-slate-100 text-slate-400'} transition-all`}>
               <Clock size={24} />
             </div>
-            <p className={`text-4xl font-black ${isTimerRunning ? t.primary : 'text-slate-700'} font-mono tabular-nums transition-colors`}>{formatTimer(secondsElapsed)}</p>
+            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'arcoiris' ? 'bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700'}`}>{formatTimer(secondsElapsed)}</p>
           </div>
           <div className="flex gap-2">
             {!isTimerRunning ? (
-              <button onClick={startTimer} className={`p-4 ${t.primaryBg} text-white rounded-2xl ${t.buttonHover} shadow-md active:scale-95 transition-all`}><Play fill="currentColor" size={20}/></button>
+              <button onClick={startTimer} className={`p-4 text-white rounded-2xl shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}><Play fill="currentColor" size={20}/></button>
             ) : (
               <button onClick={pauseTimer} className="p-4 bg-slate-700 text-white rounded-2xl hover:bg-slate-800 active:scale-95 transition-all"><Pause fill="currentColor" size={20}/></button>
             )}
             <button onClick={resetTimer} className={`p-4 bg-slate-100 text-slate-500 rounded-2xl hover:bg-slate-200 transition-colors`}><RotateCcw size={20}/></button>
-            <button onClick={guardarTiempoCronometro} className={`px-6 py-4 ${t.primaryBg} text-white rounded-2xl font-bold text-xs uppercase tracking-widest ${t.buttonHover} shadow-md active:scale-95 transition-all`}>Guardar</button>
+            <button onClick={guardarTiempoCronometro} className={`px-6 py-4 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar</button>
           </div>
         </section>
 
@@ -336,7 +388,7 @@ const App = () => {
                     <input type="number" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
                 </div>
               </div>
-              <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full ${t.primaryBg} text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all`}>Añadir Tiempo</button>
+              <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Añadir Tiempo</button>
             </section>
 
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
@@ -349,7 +401,7 @@ const App = () => {
                     <button 
                       key={dia} 
                       onClick={() => tieneActividad && window.confirm(`¿Borrar registro del día ${dia}?`) && eliminarDia(dia)}
-                      className={`aspect-square rounded-xl text-[10px] font-bold transition-all ${tieneActividad ? `${t.primaryBg} text-white shadow-md` : `bg-slate-50 text-slate-400 hover:bg-slate-100`}`}
+                      className={`aspect-square rounded-xl text-[10px] font-bold transition-all ${tieneActividad ? `text-white shadow-md ${t.primaryBg}` : `bg-slate-50 text-slate-400 hover:bg-slate-100`}`}
                     >
                       {dia}
                     </button>
@@ -362,9 +414,9 @@ const App = () => {
           <div className="lg:col-span-8 space-y-8">
             <section className="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-100 text-center">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={`text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={`text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
-                <div className={`p-4 ${t.primaryBg} rounded-2xl text-white shadow-lg shadow-current/10 transition-colors`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black text-indigo-500" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
+                <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
                 <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-100 transition-colors"><Trash2 size={24} /></button>
               </div>
 
@@ -379,7 +431,7 @@ const App = () => {
             <section className="bg-white p-8 rounded-[3rem] shadow-sm border border-slate-50">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">Cursos Bíblicos</h3>
-                <button onClick={() => {setFormEstudiante({nombre:'', fecha:'', horaClase:'', leccion:'', notas:''}); setShowEditModal('nuevo')}} className={`${t.primaryBg} text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-2 transition-all`}><UserPlus size={14} /> Nuevo</button>
+                <button onClick={() => {setFormEstudiante({nombre:'', fecha:'', horaClase:'', leccion:'', notas:''}); setShowEditModal('nuevo')}} className={`text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-2 transition-all ${t.primaryBg}`}><UserPlus size={14} /> Nuevo</button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {currentData.estudiantes.length > 0 ? (
@@ -405,16 +457,20 @@ const App = () => {
 
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
         {showThemeSelector && (
-            <div className="bg-white/95 backdrop-blur-md p-3 rounded-3xl shadow-2xl border border-slate-100 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-4 zoom-in-95">
+            <div className="bg-white/95 backdrop-blur-md p-3 rounded-3xl shadow-2xl border border-slate-100 flex flex-col gap-3 max-h-[70vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-4 zoom-in-95 scrollbar-none">
                 {Object.keys(temas).map(key => (
                     <button 
                         key={key}
                         onClick={() => {setTemaActual(key); setShowThemeSelector(false)}}
-                        className={`w-10 h-10 rounded-2xl border-2 transition-all hover:scale-110 active:scale-90 ${temaActual === key ? 'border-slate-800' : 'border-transparent'}`}
-                        style={{ backgroundColor: temas[key].primaryBg.includes('pink') ? '#db2777' : 
+                        className={`w-10 h-10 rounded-2xl border-2 transition-all hover:scale-110 active:scale-90 flex-shrink-0 ${temaActual === key ? 'border-slate-800' : 'border-transparent'}`}
+                        style={{ background: key === 'arcoiris' ? 'linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6, #10b981)' : 
+                                           temas[key].primaryBg.includes('pink') ? '#db2777' : 
                                            temas[key].primaryBg.includes('purple') ? '#9333ea' :
                                            temas[key].primaryBg.includes('blue') ? '#2563eb' :
-                                           temas[key].primaryBg.includes('emerald') ? '#059669' : '#ea580c'
+                                           temas[key].primaryBg.includes('emerald') ? '#059669' : 
+                                           temas[key].primaryBg.includes('amber') ? '#f59e0b' :
+                                           temas[key].primaryBg.includes('red') ? '#dc2626' :
+                                           temas[key].primaryBg.includes('rose') ? '#fda4af' : '#ea580c'
                         }}
                         title={temas[key].name}
                     />
@@ -423,7 +479,7 @@ const App = () => {
         )}
         <button 
             onClick={() => setShowThemeSelector(!showThemeSelector)}
-            className={`p-4 rounded-2xl shadow-xl ${t.primaryBg} text-white transition-all hover:scale-110 active:scale-95 shadow-lg shadow-current/20`}
+            className={`p-4 rounded-2xl shadow-xl text-white transition-all hover:scale-110 active:scale-95 shadow-lg shadow-current/20 ${t.primaryBg}`}
         >
             <Palette size={24} />
         </button>
@@ -461,11 +517,23 @@ const App = () => {
                   updateCurrentMonth({ estudiantes: nuevos });
                   setShowEditModal(null);
                 }
-              }} className={`w-full ${t.primaryBg} text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-current/20 active:scale-95 transition-all`}>Guardar Cambios</button>
+              }} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-current/20 active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar Cambios</button>
             </div>
           </div>
         </div>
       )}
+
+      {/* SVG Auxiliar necesario para el degradado en iconos vectoriales del tema Arcoíris */}
+      <svg width="0" height="0" className="absolute pointer-events-none">
+        <defs>
+          <linearGradient id="rainbow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ec4899" />
+            <stop offset="33%" stopColor="#8b5cf6" />
+            <stop offset="66%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#10b981" />
+          </linearGradient>
+        </defs>
+      </svg>
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500;700&display=swap');
@@ -485,6 +553,24 @@ const App = () => {
         input[type="number"]::-webkit-outer-spin-button { 
           -webkit-appearance: none; 
           margin: 0; 
+        }
+
+        .scrollbar-none::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-none {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+
+        @keyframes gradientBG {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-xy {
+          background-size: 400% 400%;
+          animation: gradientBG 12s ease infinite;
         }
       `}</style>
     </div>
