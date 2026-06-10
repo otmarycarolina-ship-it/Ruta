@@ -508,7 +508,9 @@ const App = () => {
                   updateCurrentMonth({ estudiantes: nuevos });
                   setShowEditModal(null);
                 }
-              }} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-current/20 active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar Cambios</button>
+              }} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-current/20 active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>
+                {showEditModal === 'nuevo' ? 'Guardar' : 'Guardar Cambios'}
+              </button>
             </div>
           </div>
         </div>
