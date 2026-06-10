@@ -45,7 +45,7 @@ const App = () => {
       accentBg: "bg-blue-100",
       buttonHover: "hover:bg-blue-700",
       gradient: "from-blue-500 to-cyan-600",
-      bgOverlay: "bg-blue-50",
+      bgOverlay: "bg-purple-50",
       localImg: "https://www.transparenttextures.com/patterns/nami.png"
     },
     verde: {
@@ -106,9 +106,67 @@ const App = () => {
   
   const [showEditModal, setShowEditModal] = useState(null);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [secondsElapsed, setSecondsElapsed] = useState(0);
+
+  // --- MEJORA DEL CRONÓMETRO CON TIMESTAMP ---
+  const [isTimerRunning, setIsTimerRunning] = useState(() => {
+    return localStorage.getItem('timer_is_running') === 'true';
+  });
+  
+  const [secondsElapsed, setSecondsElapsed] = useState(() => {
+    const savedSeconds = parseInt(localStorage.getItem('timer_seconds_elapsed')) || 0;
+    const isRunning = localStorage.getItem('timer_is_running') === 'true';
+    
+    if (isRunning) {
+      const startTime = parseInt(localStorage.getItem('timer_start_time'));
+      if (startTime) {
+        const now = Math.floor(Date.now() / 1000);
+        return savedSeconds + (now - startTime);
+      }
+    }
+    return savedSeconds;
+  });
+
   const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (isTimerRunning) {
+      timerRef.current = setInterval(() => {
+        const startTime = parseInt(localStorage.getItem('timer_start_time'));
+        const savedSeconds = parseInt(localStorage.getItem('timer_seconds_elapsed')) || 0;
+        if (startTime) {
+          const now = Math.floor(Date.now() / 1000);
+          setSecondsElapsed(savedSeconds + (now - startTime));
+        }
+      }, 1000);
+    } else {
+      clearInterval(timerRef.current);
+    }
+    return () => clearInterval(timerRef.current);
+  }, [isTimerRunning]);
+
+  const startTimer = () => {
+    const now = Math.floor(Date.now() / 1000);
+    localStorage.setItem('timer_start_time', now.toString());
+    localStorage.setItem('timer_is_running', 'true');
+    setIsTimerRunning(true);
+  };
+
+  const pauseTimer = () => {
+    localStorage.setItem('timer_seconds_elapsed', secondsElapsed.toString());
+    localStorage.setItem('timer_is_running', 'false');
+    localStorage.removeItem('timer_start_time');
+    setIsTimerRunning(false);
+  };
+
+  const resetTimer = () => {
+    clearInterval(timerRef.current);
+    localStorage.setItem('timer_seconds_elapsed', '0');
+    localStorage.setItem('timer_is_running', 'false');
+    localStorage.removeItem('timer_start_time');
+    setSecondsElapsed(0);
+    setIsTimerRunning(false);
+  };
+  // --- FIN DE LA MEJORA ---
 
   const mesActualKey = meses[mesIndice];
   const getDiasEnMes = (month, year) => new Date(year, month + 1, 0).getDate();
@@ -121,17 +179,6 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem('sakura_theme', temaActual);
   }, [temaActual]);
-
-  useEffect(() => {
-    if (isTimerRunning) {
-      timerRef.current = setInterval(() => {
-        setSecondsElapsed(prev => prev + 1);
-      }, 1000);
-    } else {
-      clearInterval(timerRef.current);
-    }
-    return () => clearInterval(timerRef.current);
-  }, [isTimerRunning]);
 
   const formatTimer = (totalSeconds) => {
     const h = Math.floor(totalSeconds / 3600);
@@ -179,8 +226,7 @@ const App = () => {
     const minsParaSumar = Math.floor(secondsElapsed / 60);
     if (minsParaSumar > 0) {
       registrarActividad(0, minsParaSumar);
-      setSecondsElapsed(0);
-      setIsTimerRunning(false);
+      resetTimer();
     }
   };
 
@@ -267,11 +313,11 @@ const App = () => {
           </div>
           <div className="flex gap-2">
             {!isTimerRunning ? (
-              <button onClick={() => setIsTimerRunning(true)} className={`p-4 ${t.primaryBg} text-white rounded-2xl ${t.buttonHover} shadow-md active:scale-95 transition-all`}><Play fill="currentColor" size={20}/></button>
+              <button onClick={startTimer} className={`p-4 ${t.primaryBg} text-white rounded-2xl ${t.buttonHover} shadow-md active:scale-95 transition-all`}><Play fill="currentColor" size={20}/></button>
             ) : (
-              <button onClick={() => setIsTimerRunning(false)} className="p-4 bg-slate-700 text-white rounded-2xl hover:bg-slate-800 active:scale-95 transition-all"><Pause fill="currentColor" size={20}/></button>
+              <button onClick={pauseTimer} className="p-4 bg-slate-700 text-white rounded-2xl hover:bg-slate-800 active:scale-95 transition-all"><Pause fill="currentColor" size={20}/></button>
             )}
-            <button onClick={() => {setIsTimerRunning(false); setSecondsElapsed(0);}} className={`p-4 bg-slate-100 text-slate-500 rounded-2xl hover:bg-slate-200 transition-colors`}><RotateCcw size={20}/></button>
+            <button onClick={resetTimer} className={`p-4 bg-slate-100 text-slate-500 rounded-2xl hover:bg-slate-200 transition-colors`}><RotateCcw size={20}/></button>
             <button onClick={guardarTiempoCronometro} className={`px-6 py-4 ${t.primaryBg} text-white rounded-2xl font-bold text-xs uppercase tracking-widest ${t.buttonHover} shadow-md active:scale-95 transition-all`}>Guardar</button>
           </div>
         </section>
@@ -446,4 +492,3 @@ const App = () => {
 };
 
 export default App;
-
