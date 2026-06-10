@@ -446,7 +446,8 @@ const App = () => {
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
         {showThemeSelector && (
             <div className="bg-white/95 backdrop-blur-md p-3 rounded-3xl shadow-2xl border border-slate-100 flex flex-col gap-3 max-h-[70vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-4 zoom-in-95 scrollbar-none">
-                {Object.keys(temas).map(key => (
+                {/* Lista organizada: sakura (rosado), gradienteEstatico (degradado), morado, y los demás continúan igual */}
+                {['sakura', 'gradienteEstatico', 'morado', 'azul', 'verde', 'naranja', 'amarillo', 'rojo'].map(key => (
                     <button 
                         key={key}
                         onClick={() => {setTemaActual(key); setShowThemeSelector(false)}}
