@@ -101,15 +101,15 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/gplay.png"
     },
     arcoiris: {
-      name: "Mix Pastel",
-      primary: "text-gradient bg-gradient-to-r from-pink-500 via-sky-400 via-emerald-400 via-amber-300 to-pink-500 bg-clip-text text-transparent font-black",
-      primaryBg: "bg-gradient-to-r from-pink-500 via-sky-400 via-emerald-400 via-amber-300 to-pink-500 animate-gradient-xy",
+      name: "Dúo Vibrante",
+      primary: "text-gradient bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent font-black",
+      primaryBg: "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-gradient-xy",
       primaryLight: "bg-slate-50/90",
       primaryBorder: "border-pink-200",
       accent: "text-pink-500",
-      accentBg: "bg-gradient-to-r from-pink-50 via-sky-50 to-emerald-50",
+      accentBg: "bg-gradient-to-r from-indigo-50/50 to-pink-50/50",
       buttonHover: "hover:brightness-105",
-      gradient: "from-pink-500 via-sky-400 via-emerald-400 via-amber-300 to-pink-500 animate-gradient-xy",
+      gradient: "from-indigo-500 via-purple-500 to-pink-500 animate-gradient-xy",
       bgOverlay: "bg-slate-50/60",
       localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
     }
@@ -234,7 +234,7 @@ const App = () => {
     Object.values(currentData.historial || {}).forEach(dia => {
       totalMinutos += (dia.h * 60) + dia.m;
     });
-    return { horas: Math.floor(totalMinutos / 60), minutos: totalMinutos % 60, totalMinutos };
+    return { horas: Math.floor(totalMinutos / 60), minutes: totalMinutos % 60, totalMinutos };
   };
 
   const { horas, minutos, totalMinutos } = calcularTotales();
@@ -320,14 +320,14 @@ const App = () => {
             <Smile size={48} strokeWidth={2.5} className={temaActual === 'arcoiris' ? "stroke-[url(#rainbow-grad)]" : t.primary} />
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
-            Registro de <span className={temaActual === 'arcoiris' ? "bg-gradient-to-r from-pink-500 via-sky-400 via-emerald-400 via-amber-300 to-pink-500 bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
+            Registro de <span className={temaActual === 'arcoiris' ? "bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
           <p className="text-slate-500 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-white/90 backdrop-blur-sm p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex items-center justify-between">
-            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 transition-colors ${temaActual === 'arcoiris' ? 'text-pink-500' : t.primary}`}><ChevronLeft size={28} /></button>
+            <button onClick={() => cambiarMes(-1)} className={`p-2 rounded-xl hover:bg-slate-50 transition-colors ${temaActual === 'arcoiris' ? 'text-indigo-500' : t.primary}`}><ChevronLeft size={28} /></button>
             <div className="text-center">
               <h2 className="text-2xl font-bold text-slate-800">{mesActualKey}</h2>
               <p className={`text-[10px] font-bold ${t.accent} tracking-[0.2em] uppercase transition-colors`}>{anioActual}</p>
@@ -350,7 +350,7 @@ const App = () => {
             <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg shadow-current/20 text-white` : 'bg-slate-100 text-slate-400'} transition-all`}>
               <Clock size={24} />
             </div>
-            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'arcoiris' ? 'bg-gradient-to-r from-pink-500 via-sky-400 via-emerald-400 via-amber-300 to-pink-500 bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700'}`}>{formatTimer(secondsElapsed)}</p>
+            <p className={`text-4xl font-black font-mono tabular-nums transition-colors ${isTimerRunning && temaActual === 'arcoiris' ? 'bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent' : isTimerRunning ? t.primary : 'text-slate-700'}`}>{formatTimer(secondsElapsed)}</p>
           </div>
           <div className="flex gap-2">
             {!isTimerRunning ? (
@@ -403,7 +403,7 @@ const App = () => {
           <div className="lg:col-span-8 space-y-8">
             <section className="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-100 text-center">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black bg-gradient-to-r from-pink-500 via-sky-400 via-emerald-400 via-amber-300 to-pink-500 bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={temaActual === 'arcoiris' ? "text-2xl font-black text-pink-500" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
                 <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
                 <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-100 transition-colors"><Trash2 size={24} /></button>
@@ -452,7 +452,7 @@ const App = () => {
                         key={key}
                         onClick={() => {setTemaActual(key); setShowThemeSelector(false)}}
                         className={`w-10 h-10 rounded-2xl border-2 transition-all hover:scale-110 active:scale-90 flex-shrink-0 ${temaActual === key ? 'border-slate-800' : 'border-transparent'}`}
-                        style={{ background: key === 'arcoiris' ? 'linear-gradient(135deg, #ec4899, #38bdf8, #34d399, #fcd34d, #ec4899)' : 
+                        style={{ background: key === 'arcoiris' ? 'linear-gradient(135deg, #6366f1, #ec4899)' : 
                                            temas[key].primaryBg.includes('pink') ? '#db2777' : 
                                            temas[key].primaryBg.includes('purple') ? '#9333ea' :
                                            temas[key].primaryBg.includes('blue') ? '#2563eb' :
@@ -511,14 +511,11 @@ const App = () => {
         </div>
       )}
 
-      {/* SVG Auxiliar para el degradado en iconos vectoriales */}
+      {/* SVG Auxiliar para aplicar el degradado solo al trazo del icono de carita (stroke) sin rellenarlo */}
       <svg width="0" height="0" className="absolute pointer-events-none">
         <defs>
-          <linearGradient id="rainbow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ec4899" />
-            <stop offset="25%" stopColor="#38bdf8" />
-            <stop offset="50%" stopColor="#34d399" />
-            <stop offset="75%" stopColor="#fcd34d" />
+          <linearGradient id="rainbow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#6366f1" />
             <stop offset="100%" stopColor="#ec4899" />
           </linearGradient>
         </defs>
@@ -559,7 +556,7 @@ const App = () => {
         }
         .animate-gradient-xy {
           background-size: 400% 400%;
-          animation: gradientBG 12s ease infinite;
+          animation: gradientBG 8s ease infinite;
         }
       `}</style>
     </div>
