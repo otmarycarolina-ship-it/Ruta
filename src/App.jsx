@@ -284,7 +284,7 @@ const App = () => {
   };
 
   const enviarWhatsApp = () => {
-    const mensaje = `📋 *Mi informe de servicio* 📋\n\n📅 *Mes:* ${mesActualKey} ${anioActual}\n⏱️ *Horas:* ${horas}h ${minutos}m\n📖 *Cursos Bíblicos:* ${currentData.estudiantes.length}\n\n_Enviado desde mi Registro Personal_`;
+    const mensaje = `📋 *Mi informe de servicio* 📋\n\n📅 *Mes:* ${mesActualKey} ${anioActual}\n⏱️ *Horas:* ${horas}h ${minutos}m\n📖 *Cursos Bíblicos:* ${currentData.estudiantes.length}`;
     const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
   };
@@ -405,7 +405,6 @@ const App = () => {
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary} transition-colors`}>{currentData.estudiantes.length}</p></div>
                 <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
-                {/* SOLUCIÓN PAPELERA MENSUAL: Se cambió text-red-400 por text-red-600 para máxima visibilidad en pantallas */}
                 <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}, estudiantes:[]})}} className="p-4 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center hover:bg-red-100 hover:text-red-700 transition-colors group"><Trash2 size={24} className="transition-transform group-hover:scale-110" /></button>
               </div>
 
@@ -432,7 +431,6 @@ const App = () => {
                           {est.fecha} {est.horaClase && `• ${formatTime12h(est.horaClase)}`}
                         </p>
                       </div>
-                      {/* SOLUCIÓN PAPELERA DE CURSO INDIVIDUAL: Cambiado a text-slate-400 y hover:text-red-600 para que se vea siempre y destaque al pasar el dedo/mouse */}
                       <button onClick={(e) => {e.stopPropagation(); updateCurrentMonth({ estudiantes: currentData.estudiantes.filter(i => i.id !== est.id) })}} className="text-slate-400 hover:text-red-600 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all p-1"><Trash2 size={16} /></button>
                     </div>
                   ))
@@ -483,22 +481,26 @@ const App = () => {
             </div>
             <div className="space-y-4">
               <input type="text" placeholder="Nombre completo" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.nombre} onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}/>
-              <div className="grid grid-cols-2 gap-2">
-                <input type="text" placeholder="Día (ej: Lunes)" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.fecha} onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}/>
+              
+              {/* CAMBIO REALIZADO: Ajuste asimétrico en flexbox (45% vs 55%) y menor padding horizontal en el input para evitar cortes en el texto a.m./p.m. de Android */}
+              <div className="flex gap-2 w-full">
+                <div className="w-[45%]">
+                  <input type="text" placeholder="Día (ej: Lunes)" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.fecha} onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}/>
+                </div>
                 
-                {/* SOLUCIÓN HORA ADAPTATIVA: Se eliminó el padding rígido a la izquierda (pl-12 -> pl-10) y se usó un ancho flexible con pr-2 para dar espacio a selectores AM/PM nativos de Android/iOS */}
-                <div className="relative flex items-center group/time min-w-0 flex-1">
+                <div className="relative flex items-center group/time w-[55%]">
                   <div className="absolute left-3 text-slate-400 group-focus-within/time:text-slate-600 transition-colors pointer-events-none">
                     <Clock size={16} />
                   </div>
                   <input 
                     type="time" 
-                    className="w-full bg-slate-50 rounded-2xl p-4 pl-9 pr-2 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all cursor-pointer select-none text-slate-700 min-w-0" 
+                    className="w-full bg-slate-50 rounded-2xl p-4 pl-9 pr-3 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all cursor-pointer text-slate-700 min-w-0" 
                     value={formEstudiante.horaClase} 
                     onChange={e => setFormEstudiante({...formEstudiante, horaClase: e.target.value})}
                   />
                 </div>
               </div>
+              
               <input type="text" placeholder="Capítulo / Lección" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={formEstudiante.leccion} onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}/>
               <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none resize-none transition-all" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
               <button onClick={() => {
