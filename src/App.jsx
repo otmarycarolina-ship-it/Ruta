@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile, Sun, Moon
+  Palette, Smile
 } from 'lucide-react';
 
 const App = () => {
@@ -120,10 +120,6 @@ const App = () => {
     return salvo && temas[salvo] ? salvo : 'gradienteEstatico';
   });
 
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('sakura_dark_mode') === 'true';
-  });
-
   const t = temas[temaActual];
 
   const [mesIndice, setMesIndice] = useState(new Date().getMonth());
@@ -222,15 +218,6 @@ const App = () => {
     localStorage.setItem('sakura_theme', temaActual);
   }, [temaActual]);
 
-  useEffect(() => {
-    localStorage.setItem('sakura_dark_mode', darkMode.toString());
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
   const formatTimer = (totalSeconds) => {
     const h = Math.floor(totalSeconds / 3600);
     const m = Math.floor((totalSeconds % 3600) / 60);
@@ -318,7 +305,7 @@ const App = () => {
   const porcentaje = Math.min(100, (totalMinutos / (currentData.meta * 60)) * 100);
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-[#0b141a]' : t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 dark:text-zinc-300 relative overflow-x-hidden transition-all duration-700`}>
+    <div className={`min-h-screen ${t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 dark:text-zinc-300 relative overflow-x-hidden transition-all duration-700`}>
       {t.localImg && (
         <div 
           className="fixed inset-0 z-0 opacity-10 dark:opacity-5 pointer-events-none transition-all duration-700"
@@ -334,7 +321,7 @@ const App = () => {
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
             Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
-          <p className="text-slate-500 dark:text-zinc-400 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
+          <p className="text-slate-500 dark:text-zinc-400 font-medium mt-2 tracking-wide">Gestiona tu activity con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -477,12 +464,6 @@ const App = () => {
                 ))}
             </div>
         )}
-        <button 
-            onClick={() => setDarkMode(!darkMode)}
-            className={`p-4 rounded-2xl shadow-xl text-white transition-all hover:scale-110 active:scale-95 shadow-lg shadow-current/20 ${t.primaryBg}`}
-        >
-            {darkMode ? <Sun size={24} /> : <Moon size={24} />}
-        </button>
         <button 
             onClick={() => setShowThemeSelector(!showThemeSelector)}
             className={`p-4 rounded-2xl shadow-xl text-white transition-all hover:scale-110 active:scale-95 shadow-lg shadow-current/20 ${t.primaryBg}`}
