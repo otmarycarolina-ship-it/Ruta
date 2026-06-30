@@ -332,7 +332,7 @@ const App = () => {
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
             Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
-          <p className="text-slate-500 font-medium mt-2 tracking-wide">Gestiona tu activity con eficiencia</p>
+          <p className="text-slate-500 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
