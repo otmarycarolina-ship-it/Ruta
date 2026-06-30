@@ -8,7 +8,7 @@ import {
 const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   
-  // MODIFICACIÓN: Abreviaturas solicitadas más estéticas
+  // MODIFICADO: Abreviaturas de los días de la semana actualizadas y estilizadas
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
   const temas = {
@@ -369,7 +369,7 @@ const App = () => {
               <button onClick={pauseTimer} className="p-4 bg-slate-700 text-white rounded-2xl hover:bg-slate-800 active:scale-95 transition-all"><Pause fill="currentColor" size={20}/></button>
             )}
             <button onClick={resetTimer} className={`p-4 bg-slate-100 text-slate-500 rounded-2xl hover:bg-slate-200 transition-colors`}><RotateCcw size={20}/></button>
-            <button onClick={guardarTiempoCronorche} className={`px-6 py-4 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar</button>
+            <button onClick={guardarTiempoCronometro} className={`px-6 py-4 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar</button>
           </div>
         </section>
 
@@ -403,7 +403,7 @@ const App = () => {
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">Actividad Diaria</h3>
               
-              {/* Encabezado con abreviaturas bonitas actualizadas */}
+              {/* Encabezado con abreviaturas bonitas de los días de la semana */}
               <div className="grid grid-cols-7 gap-2 text-center mb-2">
                 {diasSemana.map((d, index) => (
                   <span key={index} className="text-[10px] font-bold text-slate-400 uppercase">
