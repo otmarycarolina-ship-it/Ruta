@@ -7,7 +7,6 @@ import {
 
 const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  const diasSemana Cortos = ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"];
   
   const temas = {
     gradienteEstatico: {
@@ -125,12 +124,7 @@ const App = () => {
 
   const [mesIndice, setMesIndice] = useState(new Date().getMonth());
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
-
-  // Estado para el día seleccionado en el panel de registro de actividad
-  const [diaSeleccionado, setDiaSeleccionado] = useState(() => {
-    const hoyReal = new Date();
-    return hoyReal.getDate();
-  });
+  const [diaSeleccionado, setDiaSeleccionado] = useState(new Date().getDate());
 
   useEffect(() => {
     const checkDate = () => {
@@ -145,11 +139,11 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Actualizar el día seleccionado de forma inteligente si se cambia el mes de navegación
+  // Actualizar el día seleccionado por defecto al cambiar de mes
   useEffect(() => {
-    const hoyReal = new Date();
-    if (hoyReal.getMonth() === mesIndice && hoyReal.getFullYear() === anioActual) {
-      setDiaSeleccionado(hoyReal.getDate());
+    const hoy = new Date();
+    if (hoy.getMonth() === mesIndice && hoy.getFullYear() === anioActual) {
+      setDiaSeleccionado(hoy.getDate());
     } else {
       setDiaSeleccionado(1);
     }
@@ -262,10 +256,16 @@ const App = () => {
   const [nuevoMinuto, setNuevoMinuto] = useState('');
   const [formEstudiante, setFormEstudiante] = useState({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' });
 
-  // Modificado para usar "diaARegistrar" basado en el estado manipulable diaSeleccionado
-  const registrarActividad = (hInput, mInput, diaARegistrar = diaSeleccionado) => {
+  const registrarActividad = (hInput, mInput, diaEspecifico = null) => {
     let h = parseInt(hInput) || 0;
     let m = parseInt(mInput) || 0;
+    
+    let diaARegistrar = diaEspecifico;
+    if (!diaARegistrar) {
+      const hoyReal = new Date();
+      const esMesReal = hoyReal.getMonth() === mesIndice && hoyReal.getFullYear() === anioActual;
+      diaARegistrar = esMesReal ? hoyReal.getDate() : 1;
+    }
 
     if (h > 0 || m > 0) {
       const historialActualizado = { ...currentData.historial };
@@ -278,7 +278,6 @@ const App = () => {
   const guardarTiempoCronometro = () => {
     const minsParaSumar = Math.floor(secondsElapsed / 60);
     if (minsParaSumar > 0) {
-      // Se registra en el día seleccionado (por defecto hoy)
       registrarActividad(0, minsParaSumar, diaSeleccionado);
       resetTimer();
     }
@@ -320,11 +319,10 @@ const App = () => {
 
   const porcentaje = Math.min(100, (totalMinutos / (currentData.meta * 60)) * 100);
 
-  // Obtener nombre del día corto según fecha en el mes/año actual
-  const getNombreDiaCorto = (dia) => {
-    const fecha = new Date(anioActual, mesIndice, dia);
-    return diasSemanaCortos[fecha.getDay()];
-  };
+  // Obtener el día de la semana para el primer día del mes (0: Domingo, 1: Lunes, etc.)
+  const primerDiaSemana = new Date(anioActual, mesIndice, 1).getDay();
+  // Ajustar para que la semana empiece en Lunes (0: Lun, 1: Mar, ..., 6: Dom)
+  const offsetDias = primerDiaSemana === 0 ? 6 : primerDiaSemana - 1;
 
   return (
     <div className={`min-h-screen ${t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 relative overflow-x-hidden transition-all duration-700`}>
@@ -343,7 +341,7 @@ const App = () => {
           <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
             Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
-          <p className="text-slate-500 font-medium mt-2 tracking-wide">Gestiona tu activity con eficiencia</p>
+          <p className="text-slate-500 font-medium mt-2 tracking-wide">Gestiona tu actividad con eficiencia</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -387,49 +385,37 @@ const App = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-4 space-y-8">
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
-              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">Registro de actividad</h3>
-              
-              {/* NUEVO COMPONENTE DE CALENDARIO DESLIZABLE HORIZONTAL */}
-              <div className="mb-4">
-                <label className="text-[10px] font-bold text-slate-400 ml-2 block mb-2">SELECCIONA EL DÍA</label>
-                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none snap-x">
-                  {[...Array(totalDiasMes)].map((_, i) => {
-                    const dia = i + 1;
-                    const esSeleccionado = diaSeleccionado === dia;
-                    return (
-                      <button
-                        key={`sel-${dia}`}
-                        onClick={() => setDiaSeleccionado(dia)}
-                        className={`flex flex-col items-center justify-center min-w-[42px] h-14 rounded-xl text-[10px] font-bold snap-center transition-all ${
-                          esSeleccionado 
-                            ? `text-white shadow-md ${t.primaryBg}` 
-                            : `bg-slate-50 text-slate-500 hover:bg-slate-100`
-                        }`}
-                      >
-                        <span className="opacity-60 font-medium text-[8px] uppercase">{getNombreDiaCorto(dia)}</span>
-                        <span className="text-xs font-black mt-0.5">{dia}</span>
-                      </button>
-                    );
-                  })}
+              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">Registro de Actividad</h3>
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-slate-400 ml-2">DÍA</label>
+                    <select className="w-full bg-slate-50 rounded-2xl p-4 text-xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all text-center appearance-none" value={diaSeleccionado} onChange={e => setDiaSeleccionado(Number(e.target.value))}>
+                      {[...Array(totalDiasMes)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>{i + 1}</option>
+                      ))}
+                    </select>
                 </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="space-y-1">
                     <label className="text-[10px] font-bold text-slate-400 ml-2">HORAS</label>
-                    <input type="number" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
+                    <input type="number" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
                 </div>
                 <div className="space-y-1">
                     <label className="text-[10px] font-bold text-slate-400 ml-2">MINS</label>
-                    <input type="number" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
+                    <input type="number" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
                 </div>
               </div>
-              <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Añadir Tiempo</button>
+              <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto, diaSeleccionado); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Añadir Tiempo</button>
             </section>
 
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">Actividad Diaria</h3>
+              <div className="grid grid-cols-7 gap-2 text-center text-[9px] font-black text-slate-400 mb-2 uppercase tracking-tighter">
+                <div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div>
+              </div>
               <div className="grid grid-cols-7 gap-2">
+                {[...Array(offsetDias)].map((_, i) => (
+                  <div key={`empty-${i}`} />
+                ))}
                 {[...Array(totalDiasMes)].map((_, i) => {
                   const dia = i + 1;
                   const tieneActividad = currentData.historial && currentData.historial[dia];
