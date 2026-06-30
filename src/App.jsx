@@ -7,7 +7,9 @@ import {
 
 const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  const diasSemana = ["L", "M", "M", "J", "V", "S", "D"];
+  
+  // MODIFICACIÓN: Abreviaturas solicitadas más estéticas
+  const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
   const temas = {
     gradienteEstatico: {
@@ -126,7 +128,6 @@ const App = () => {
   const [mesIndice, setMesIndice] = useState(new Date().getMonth());
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
   
-  // NUEVO: Estado para saber qué día está seleccionado en el calendario (por defecto hoy)
   const [diaSeleccionado, setDiaSeleccionado] = useState(new Date().getDate());
 
   useEffect(() => {
@@ -215,8 +216,6 @@ const App = () => {
   const getDiasEnMes = (month, year) => new Date(year, month + 1, 0).getDate();
   const totalDiasMes = getDiasEnMes(mesIndice, anioActual);
 
-  // NUEVO: Calcular qué día de la semana cae el primer día del mes para alinear las columnas
-  // 0 = Lunes, 6 = Domingo en formato adaptado
   const getPrimerDiaSemanaIndice = (month, year) => {
     let day = new Date(year, month, 1).getDay();
     return day === 0 ? 6 : day - 1; 
@@ -258,7 +257,6 @@ const App = () => {
   const [nuevoMinuto, setNuevoMinuto] = useState('');
   const [formEstudiante, setFormEstudiante] = useState({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' });
 
-  // AJUSTE: Ahora registra la actividad directamente en el 'diaSeleccionado' en lugar de obligar al día real actual
   const registrarActividad = (hInput, mInput) => {
     let h = parseInt(hInput) || 0;
     let m = parseInt(mInput) || 0;
@@ -312,8 +310,6 @@ const App = () => {
     }
     setMesIndice(nuevoIndice);
     setAnioActual(nuevoAnio);
-    
-    // Resetear al día 1 al cambiar de mes para evitar desbordamientos
     setDiaSeleccionado(1);
   };
 
@@ -373,13 +369,12 @@ const App = () => {
               <button onClick={pauseTimer} className="p-4 bg-slate-700 text-white rounded-2xl hover:bg-slate-800 active:scale-95 transition-all"><Pause fill="currentColor" size={20}/></button>
             )}
             <button onClick={resetTimer} className={`p-4 bg-slate-100 text-slate-500 rounded-2xl hover:bg-slate-200 transition-colors`}><RotateCcw size={20}/></button>
-            <button onClick={guardarTiempoCronometro} className={`px-6 py-4 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar</button>
+            <button onClick={guardarTiempoCronorche} className={`px-6 py-4 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Guardar</button>
           </div>
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-4 space-y-8">
-            {/* AJUSTE: El título ahora cambia dinámicamente según el día que selecciones en el calendario */}
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center justify-between">
                 <span>Registrar Día {diaSeleccionado}</span>
@@ -405,11 +400,10 @@ const App = () => {
               <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>Añadir Tiempo</button>
             </section>
 
-            {/* MODIFICACIÓN AQUÍ: Sección de Actividad Diaria adaptada a formato calendario interactivo */}
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">Actividad Diaria</h3>
               
-              {/* Encabezado con iniciales de días de la semana */}
+              {/* Encabezado con abreviaturas bonitas actualizadas */}
               <div className="grid grid-cols-7 gap-2 text-center mb-2">
                 {diasSemana.map((d, index) => (
                   <span key={index} className="text-[10px] font-bold text-slate-400 uppercase">
@@ -419,12 +413,10 @@ const App = () => {
               </div>
 
               <div className="grid grid-cols-7 gap-2">
-                {/* Espacios vacíos para alinear el primer día correctamente */}
                 {[...Array(primerDiaOffset)].map((_, i) => (
                   <div key={`empty-${i}`} className="aspect-square"></div>
                 ))}
 
-                {/* Días del mes transmutados en botones interactivos de selección */}
                 {[...Array(totalDiasMes)].map((_, i) => {
                   const dia = i + 1;
                   const tieneActividad = currentData.historial && currentData.historial[dia];
