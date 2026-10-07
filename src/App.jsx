@@ -9,6 +9,7 @@ const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
+  // Organizados por tonalidad/rueda cromática
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
@@ -22,18 +23,6 @@ const App = () => {
       bgOverlay: "bg-slate-50",
       localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
     },
-    sakura: {
-      name: "Sakura",
-      primary: "text-pink-600",
-      primaryBg: "bg-pink-600",
-      primaryLight: "bg-pink-50",
-      primaryBorder: "border-pink-200",
-      accent: "text-pink-500",
-      accentBg: "bg-pink-100",
-      buttonHover: "hover:bg-pink-700",
-      bgOverlay: "bg-pink-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/cubes.png"
-    },
     rosadoClaro: {
       name: "Rosado Claro",
       primary: "text-pink-400",
@@ -46,41 +35,17 @@ const App = () => {
       bgOverlay: "bg-pink-50/30",
       localImg: ""
     },
-    morado: {
-      name: "Morado",
-      primary: "text-purple-600",
-      primaryBg: "bg-purple-600",
-      primaryLight: "bg-purple-50",
-      primaryBorder: "border-purple-200",
-      accent: "text-purple-500",
-      accentBg: "bg-purple-100",
-      buttonHover: "hover:bg-purple-700",
-      bgOverlay: "bg-purple-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png"
-    },
-    azul: {
-      name: "Azul",
-      primary: "text-blue-600",
-      primaryBg: "bg-blue-600",
-      primaryLight: "bg-blue-50",
-      primaryBorder: "border-blue-200",
-      accent: "text-blue-500",
-      accentBg: "bg-blue-100",
-      buttonHover: "hover:bg-blue-700",
-      bgOverlay: "bg-blue-50/50",
-      localImg: ""
-    },
-    verde: {
-      name: "Verde",
-      primary: "text-emerald-600",
-      primaryBg: "bg-emerald-600",
-      primaryLight: "bg-emerald-50",
-      primaryBorder: "border-emerald-200",
-      accent: "text-emerald-500",
-      accentBg: "bg-emerald-100",
-      buttonHover: "hover:bg-emerald-700",
-      bgOverlay: "bg-emerald-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/polygons.png"
+    sakura: {
+      name: "Sakura",
+      primary: "text-pink-600",
+      primaryBg: "bg-pink-600",
+      primaryLight: "bg-pink-50",
+      primaryBorder: "border-pink-200",
+      accent: "text-pink-500",
+      accentBg: "bg-pink-100",
+      buttonHover: "hover:bg-pink-700",
+      bgOverlay: "bg-pink-50/50",
+      localImg: "https://www.transparenttextures.com/patterns/cubes.png"
     },
     rojo: {
       name: "Rojo",
@@ -92,6 +57,30 @@ const App = () => {
       accentBg: "bg-rose-100",
       buttonHover: "hover:bg-rose-700",
       bgOverlay: "bg-rose-50/40",
+      localImg: ""
+    },
+    naranja: {
+      name: "Naranja",
+      primary: "text-orange-600",
+      primaryBg: "bg-orange-600",
+      primaryLight: "bg-orange-50",
+      primaryBorder: "border-orange-200",
+      accent: "text-orange-500",
+      accentBg: "bg-orange-100",
+      buttonHover: "hover:bg-orange-700",
+      bgOverlay: "bg-orange-50/50",
+      localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png"
+    },
+    amarillo: {
+      name: "Amarillo",
+      primary: "text-amber-500",
+      primaryBg: "bg-amber-500",
+      primaryLight: "bg-amber-50",
+      primaryBorder: "border-amber-200",
+      accent: "text-amber-600",
+      accentBg: "bg-amber-100",
+      buttonHover: "hover:bg-amber-600",
+      bgOverlay: "bg-amber-50/30",
       localImg: ""
     },
     marron: {
@@ -106,29 +95,41 @@ const App = () => {
       bgOverlay: "bg-amber-50/30",
       localImg: ""
     },
-    amarillo: {
-      name: "Amarillo",
-      primary: "text-amber-500",
-      primaryBg: "bg-amber-500",
-      primaryLight: "bg-amber-50",
-      primaryBorder: "border-amber-200",
-      accent: "text-amber-600",
-      accentBg: "bg-amber-100",
-      buttonHover: "hover:bg-amber-600",
-      bgOverlay: "bg-amber-50/30",
+    verde: {
+      name: "Verde",
+      primary: "text-emerald-600",
+      primaryBg: "bg-emerald-600",
+      primaryLight: "bg-emerald-50",
+      primaryBorder: "border-emerald-200",
+      accent: "text-emerald-500",
+      accentBg: "bg-emerald-100",
+      buttonHover: "hover:bg-emerald-700",
+      bgOverlay: "bg-emerald-50/50",
+      localImg: "https://www.transparenttextures.com/patterns/polygons.png"
+    },
+    azul: {
+      name: "Azul",
+      primary: "text-blue-600",
+      primaryBg: "bg-blue-600",
+      primaryLight: "bg-blue-50",
+      primaryBorder: "border-blue-200",
+      accent: "text-blue-500",
+      accentBg: "bg-blue-100",
+      buttonHover: "hover:bg-blue-700",
+      bgOverlay: "bg-blue-50/50",
       localImg: ""
     },
-    naranja: {
-      name: "Naranja",
-      primary: "text-orange-600",
-      primaryBg: "bg-orange-600",
-      primaryLight: "bg-orange-50",
-      primaryBorder: "border-orange-200",
-      accent: "text-orange-500",
-      accentBg: "bg-orange-100",
-      buttonHover: "hover:bg-orange-700",
-      bgOverlay: "bg-orange-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png"
+    morado: {
+      name: "Morado",
+      primary: "text-purple-600",
+      primaryBg: "bg-purple-600",
+      primaryLight: "bg-purple-50",
+      primaryBorder: "border-purple-200",
+      accent: "text-purple-500",
+      accentBg: "bg-purple-100",
+      buttonHover: "hover:bg-purple-700",
+      bgOverlay: "bg-purple-50/50",
+      localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png"
     }
   };
 
@@ -170,7 +171,7 @@ const App = () => {
   const [showEditModal, setShowEditModal] = useState(null);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
 
-  // --- CRONÓMETRO CON RECALCULO AUTOMÁTICO EN SEGUNDO PLANO ---
+  // --- CRONÓMETRO CON RECALCULO AUTOMÁTICO ---
   const [isTimerRunning, setIsTimerRunning] = useState(() => {
     return localStorage.getItem('timer_is_running') === 'true';
   });
@@ -297,6 +298,8 @@ const App = () => {
 
   const [nuevaHora, setNuevaHora] = useState('');
   const [nuevoMinuto, setNuevoMinuto] = useState('');
+  
+  // Estado para el formulario (por defecto en blanco)
   const [formEstudiante, setFormEstudiante] = useState({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' });
 
   const registrarActividad = (hInput, mInput) => {
@@ -342,6 +345,14 @@ const App = () => {
     const suffix = hours >= 12 ? 'PM' : 'AM';
     const hours12 = hours % 12 || 12;
     return `${hours12}:${m} ${suffix}`;
+  };
+
+  // Función para darle formato exacto a las horas y minutos en cada casilla del calendario
+  const formatearTiempoCalendario = (h, m) => {
+    if (h > 0 && m > 0) return `${h}h ${m}m`;
+    if (h > 0) return `${h}h`;
+    if (m > 0) return `${m}m`;
+    return '';
   };
 
   const enviarWhatsApp = () => {
@@ -504,15 +515,15 @@ const App = () => {
                     <button 
                       key={dia} 
                       onClick={() => setDiaSeleccionado(dia)}
-                      className={`aspect-square rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center
+                      className={`aspect-square rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1
                         ${tieneActividad ? `text-white shadow-sm ${t.primaryBg}` : `bg-slate-50 text-slate-600 hover:bg-slate-100`}
                         ${esSeleccionado ? 'ring-2 ring-slate-800 ring-offset-2 scale-105 z-10 font-black' : ''}
                       `}
                     >
                       <span>{dia}</span>
                       {reg && (
-                        <span className="text-[8px] opacity-90 font-mono font-normal">
-                          {reg.h > 0 ? `${reg.h}h` : `${reg.m}m`}
+                        <span className="text-[7.5px] opacity-95 font-mono leading-tight font-semibold">
+                          {formatearTiempoCalendario(reg.h, reg.m)}
                         </span>
                       )}
                     </button>
@@ -577,7 +588,10 @@ const App = () => {
                   <BookOpen size={16} /> Cursos Bíblicos
                 </h3>
                 <button 
-                  onClick={() => {setFormEstudiante({nombre:'', fecha:'', horaClase:'', leccion:'', notas:''}); setShowEditModal('nuevo')}} 
+                  onClick={() => {
+                    setFormEstudiante({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' }); 
+                    setShowEditModal('nuevo');
+                  }} 
                   className={`text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-1.5 transition-all ${t.primaryBg}`}
                 >
                   <UserPlus size={14} /> Nuevo Curso
@@ -633,7 +647,7 @@ const App = () => {
         </div>
       </div>
 
-      {/* SELECTOR FLOTANTE DE TEMAS */}
+      {/* SELECTOR FLOTANTE DE TEMAS ORGANIZADO POR TONALIDAD */}
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
         {showThemeSelector && (
             <div className="bg-white/95 backdrop-blur-md p-3 rounded-3xl shadow-2xl border border-slate-100 flex flex-col gap-3 max-h-[70vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-4 scrollbar-none">
@@ -681,13 +695,25 @@ const App = () => {
             <div className="space-y-4">
               <div>
                 <label className="text-[10px] font-bold text-slate-400 ml-2">NOMBRE COMPLETO</label>
-                <input type="text" placeholder="Ej: Maria Perez" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" value={formEstudiante.nombre} onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}/>
+                <input 
+                  type="text" 
+                  placeholder="Ej: Maria Perez" 
+                  className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
+                  value={formEstudiante.nombre} 
+                  onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}
+                />
               </div>
               
               <div className="flex gap-3 w-full">
                 <div className="w-1/2">
                   <label className="text-[10px] font-bold text-slate-400 ml-2">DÍA DE LA SEMANA</label>
-                  <input type="text" placeholder="Ej: Lunes" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" value={formEstudiante.fecha} onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}/>
+                  <input 
+                    type="text" 
+                    placeholder="Ej: Lunes" 
+                    className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
+                    value={formEstudiante.fecha} 
+                    onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}
+                  />
                 </div>
                 
                 <div className="w-1/2">
@@ -703,12 +729,24 @@ const App = () => {
               
               <div>
                 <label className="text-[10px] font-bold text-slate-400 ml-2">CAPÍTULO / LECCIÓN ACTUAL</label>
-                <input type="text" placeholder="Ej: Lección 4 - Pág 12" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" value={formEstudiante.leccion} onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}/>
+                <input 
+                  type="text" 
+                  placeholder="Ej: Lección 4 - Pág 12" 
+                  className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
+                  value={formEstudiante.leccion} 
+                  onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}
+                />
               </div>
 
               <div>
                 <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
-                <textarea placeholder="Detalles de interés..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
+                <textarea 
+                  placeholder="Detalles de interés..." 
+                  rows="2" 
+                  className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" 
+                  value={formEstudiante.notas} 
+                  onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}
+                />
               </div>
 
               <button 
