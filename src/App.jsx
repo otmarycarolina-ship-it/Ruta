@@ -721,8 +721,7 @@ const App = () => {
                 <div className="w-1/2">
                   <label className="text-[10px] font-bold text-slate-400 ml-2">HORA</label>
                   <input 
-                    type="text" 
-                    placeholder="" 
+                    type="time" 
                     className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all cursor-pointer text-slate-700 min-w-0 mt-1" 
                     value={formEstudiante.horaClase} 
                     onChange={e => setFormEstudiante({...formEstudiante, horaClase: e.target.value})}
