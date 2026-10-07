@@ -34,6 +34,18 @@ const App = () => {
       bgOverlay: "bg-pink-50/50",
       localImg: "https://www.transparenttextures.com/patterns/cubes.png"
     },
+    rosadoClaro: {
+      name: "Rosado Claro",
+      primary: "text-pink-400",
+      primaryBg: "bg-pink-400",
+      primaryLight: "bg-pink-50/80",
+      primaryBorder: "border-pink-100",
+      accent: "text-pink-400",
+      accentBg: "bg-pink-50",
+      buttonHover: "hover:bg-pink-500",
+      bgOverlay: "bg-pink-50/30",
+      localImg: ""
+    },
     morado: {
       name: "Morado",
       primary: "text-purple-600",
@@ -69,6 +81,42 @@ const App = () => {
       buttonHover: "hover:bg-emerald-700",
       bgOverlay: "bg-emerald-50/50",
       localImg: "https://www.transparenttextures.com/patterns/polygons.png"
+    },
+    rojo: {
+      name: "Rojo",
+      primary: "text-rose-600",
+      primaryBg: "bg-rose-600",
+      primaryLight: "bg-rose-50",
+      primaryBorder: "border-rose-200",
+      accent: "text-rose-500",
+      accentBg: "bg-rose-100",
+      buttonHover: "hover:bg-rose-700",
+      bgOverlay: "bg-rose-50/40",
+      localImg: ""
+    },
+    marron: {
+      name: "Marrón",
+      primary: "text-amber-800",
+      primaryBg: "bg-amber-800",
+      primaryLight: "bg-amber-50",
+      primaryBorder: "border-amber-200",
+      accent: "text-amber-700",
+      accentBg: "bg-amber-100",
+      buttonHover: "hover:bg-amber-900",
+      bgOverlay: "bg-amber-50/30",
+      localImg: ""
+    },
+    amarillo: {
+      name: "Amarillo",
+      primary: "text-amber-500",
+      primaryBg: "bg-amber-500",
+      primaryLight: "bg-amber-50",
+      primaryBorder: "border-amber-200",
+      accent: "text-amber-600",
+      accentBg: "bg-amber-100",
+      buttonHover: "hover:bg-amber-600",
+      bgOverlay: "bg-amber-50/30",
+      localImg: ""
     },
     naranja: {
       name: "Naranja",
@@ -255,7 +303,6 @@ const App = () => {
     let h = parseInt(hInput) || 0;
     let m = parseInt(mInput) || 0;
 
-    // Ajustar si los minutos sobrepasan 60
     if (m >= 60) {
       h += Math.floor(m / 60);
       m = m % 60;
@@ -331,7 +378,7 @@ const App = () => {
 
       <div className="max-w-5xl mx-auto relative z-10">
         <header className="text-center mb-10">
-          <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-3 shadow-sm transition-colors`}>
+          <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-3 shadow-sm transition-colors animate-bounce`}>
             <Smile size={42} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1]" : t.primary} />
           </div>
           <h1 className="text-3xl md:text-5xl font-extrabold text-slate-800 tracking-tight">
@@ -371,7 +418,7 @@ const App = () => {
         </div>
 
         {/* CRONÓMETRO */}
-        <section className={`mb-8 bg-white/80 backdrop-blur-md border ${t.primaryBorder} p-6 rounded-[2.5rem] flex flex-wrap items-center justify-around gap-4 shadow-sm transition-colors`}>
+        <section className={`mb-8 bg-white/80 backdrop-blur-md border border-slate-100 p-6 rounded-[2.5rem] flex flex-wrap items-center justify-around gap-4 shadow-sm transition-colors`}>
           <div className="flex items-center gap-4">
             <div className={`p-4 rounded-2xl ${isTimerRunning ? `${t.primaryBg} animate-pulse shadow-lg text-white` : 'bg-slate-100 text-slate-400'} transition-all`}>
               <Clock size={26} />
@@ -394,7 +441,7 @@ const App = () => {
               <RotateCcw size={20}/>
             </button>
             <button onClick={guardarTiempoCronometro} className={`px-6 py-4 text-white rounded-2xl font-bold text-xs uppercase tracking-widest shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>
-              Guardar Mins
+              Guardar
             </button>
           </div>
         </section>
@@ -577,7 +624,7 @@ const App = () => {
                   ))
                 ) : (
                   <p className="col-span-full text-center py-8 text-slate-400 text-sm italic">
-                    No hay cursos bíblicos activos guardados
+                    No hay cursos bíblicos guardados
                   </p>
                 )}
               </div>
@@ -596,6 +643,10 @@ const App = () => {
                         onClick={() => {setTemaActual(key); setShowThemeSelector(false)}}
                         className={`w-10 h-10 rounded-2xl border-2 transition-all hover:scale-110 active:scale-90 flex-shrink-0 ${temaActual === key ? 'border-slate-800' : 'border-transparent'}`}
                         style={{ background: key === 'gradienteEstatico' ? 'linear-gradient(135deg, #7a57d1, #e44d9b)' : 
+                                           key === 'rosadoClaro' ? '#f472b6' :
+                                           key === 'rojo' ? '#e11d48' :
+                                           key === 'marron' ? '#92400e' :
+                                           key === 'amarillo' ? '#f59e0b' :
                                            temas[key].primaryBg.includes('pink') ? '#db2777' : 
                                            temas[key].primaryBg.includes('purple') ? '#9333ea' :
                                            temas[key].primaryBg.includes('blue') ? '#2563eb' :
@@ -656,7 +707,7 @@ const App = () => {
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-slate-400 ml-2">OBSERVACIONES O NOTAS</label>
+                <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
                 <textarea placeholder="Detalles de interés..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
               </div>
 
