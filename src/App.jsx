@@ -340,8 +340,10 @@ const App = () => {
 
   const formatTime12h = (time24) => {
     if (!time24) return '';
+    if (!time24.includes(':')) return time24;
     const [h, m] = time24.split(':');
     const hours = parseInt(h);
+    if (isNaN(hours)) return time24;
     const suffix = hours >= 12 ? 'PM' : 'AM';
     const hours12 = hours % 12 || 12;
     return `${hours12}:${m} ${suffix}`;
@@ -697,7 +699,7 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">NOMBRE COMPLETO</label>
                 <input 
                   type="text" 
-                  placeholder="Ej: Maria Perez" 
+                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.nombre} 
                   onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}
@@ -709,7 +711,7 @@ const App = () => {
                   <label className="text-[10px] font-bold text-slate-400 ml-2">DÍA DE LA SEMANA</label>
                   <input 
                     type="text" 
-                    placeholder="Ej: Lunes" 
+                    placeholder="" 
                     className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                     value={formEstudiante.fecha} 
                     onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}
@@ -719,7 +721,8 @@ const App = () => {
                 <div className="w-1/2">
                   <label className="text-[10px] font-bold text-slate-400 ml-2">HORA</label>
                   <input 
-                    type="time" 
+                    type="text" 
+                    placeholder="" 
                     className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all cursor-pointer text-slate-700 min-w-0 mt-1" 
                     value={formEstudiante.horaClase} 
                     onChange={e => setFormEstudiante({...formEstudiante, horaClase: e.target.value})}
@@ -731,7 +734,7 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">CAPÍTULO / LECCIÓN ACTUAL</label>
                 <input 
                   type="text" 
-                  placeholder="Ej: Lección 4 - Pág 12" 
+                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.leccion} 
                   onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}
@@ -741,8 +744,8 @@ const App = () => {
               <div>
                 <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
                 <textarea 
-                  placeholder="Detalles de interés..." 
-                  rows="2" 
+                  placeholder="" 
+                  rows={2} 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" 
                   value={formEstudiante.notas} 
                   onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}
@@ -771,12 +774,6 @@ const App = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500;700&display=swap');
         .font-sans { font-family: 'Outfit', 'Inter', sans-serif; }
-        
-        input[type="time"]::-webkit-calendar-picker-indicator {
-          cursor: pointer;
-          filter: invert(0.5);
-          opacity: 0.6;
-        }
 
         input[type="number"]::-webkit-inner-spin-button, 
         input[type="number"]::-webkit-outer-spin-button { 
