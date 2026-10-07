@@ -8,7 +8,6 @@ import {
 const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   
-  // MODIFICADO: Abreviaturas de los días de la semana actualizadas y estilizadas
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
   const temas = {
@@ -152,7 +151,6 @@ const App = () => {
   const [estudiantesGlobales, setEstudiantesGlobales] = useState(() => {
     const salvo = localStorage.getItem('sakura_estudiantes_v1');
     if (salvo) return JSON.parse(salvo);
-    // Si no existen globales aun, tomar los del mes inicial si existían
     const salvoData = localStorage.getItem('sakura_data_v6');
     if (salvoData) {
       const parsed = JSON.parse(salvoData);
@@ -259,6 +257,18 @@ const App = () => {
   const storageKey = `${mesActualKey}_${anioActual}`;
   const currentData = datosMensuales[storageKey] || { meta: 50, historial: {} };
 
+  // Filtrar estudiantes visibles para el mes/año actual
+  const estudiantesVisibles = estudiantesGlobales.filter(est => {
+    if (!est.mesRegistro) return true; // Cursos antiguos sin fecha de registro
+    const [mesReg, anioReg] = est.mesRegistro.split('_');
+    const idxReg = meses.indexOf(mesReg);
+    const numAnioReg = parseInt(anioReg);
+
+    if (anioActual > numAnioReg) return true;
+    if (anioActual === numAnioReg && mesIndice >= idxReg) return true;
+    return false;
+  });
+
   const calcularTotales = () => {
     let totalMinutos = 0;
     Object.values(currentData.historial || {}).forEach(dia => {
@@ -312,7 +322,7 @@ const App = () => {
   };
 
   const enviarWhatsApp = () => {
-    const mensaje = `📋 *Mi informe de servicio* 📋\n\n📅 *Mes:* ${mesActualKey} ${anioActual}\n⏱️ *Horas:* ${horas}h ${minutos}m\n📖 *Cursos Bíblicos:* ${estudiantesGlobales.length}`;
+    const mensaje = `📋 *Mi informe de servicio* 📋\n\n📅 *Mes:* ${mesActualKey} ${anioActual}\n⏱️ *Horas:* ${horas}h ${minutos}m\n📖 *Cursos Bíblicos:* ${estudiantesVisibles.length}`;
     const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
   };
@@ -422,7 +432,6 @@ const App = () => {
             <section className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-50">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">Actividad Diaria</h3>
               
-              {/* Encabezado con abreviaturas bonitas de los días de la semana */}
               <div className="grid grid-cols-7 gap-2 text-center mb-2">
                 {diasSemana.map((d, index) => (
                   <span key={index} className="text-[10px] font-bold text-slate-400 uppercase">
@@ -462,7 +471,7 @@ const App = () => {
             <section className="bg-white p-8 rounded-[3rem] shadow-xl border border-slate-100 text-center">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary} transition-colors`}>{horas}h {minutos}m</p></div>
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary} transition-colors`}>{estudiantesGlobales.length}</p></div>
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner"><p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p><p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary} transition-colors`}>{estudiantesVisibles.length}</p></div>
                 <div className={`p-4 rounded-2xl text-white shadow-lg shadow-current/10 transition-colors ${t.primaryBg}`}><p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p><p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p></div>
                 <button onClick={() => {if(window.confirm("¿Reiniciar todo el mes?")) updateCurrentMonth({historial:{}})}} className="p-4 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center hover:bg-red-100 hover:text-red-700 transition-colors group"><Trash2 size={24} className="transition-transform group-hover:scale-110" /></button>
               </div>
@@ -481,8 +490,8 @@ const App = () => {
                 <button onClick={() => {setFormEstudiante({nombre:'', fecha:'', horaClase:'', leccion:'', notas:''}); setShowEditModal('nuevo')}} className={`text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-2 transition-all ${t.primaryBg}`}><UserPlus size={14} /> Nuevo</button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {estudiantesGlobales.length > 0 ? (
-                  estudiantesGlobales.map(est => (
+                {estudiantesVisibles.length > 0 ? (
+                  estudiantesVisibles.map(est => (
                     <div key={est.id} onClick={() => {setFormEstudiante(est); setShowEditModal(est.id)}} className="p-5 bg-slate-50 rounded-[1.5rem] border border-transparent flex justify-between items-center cursor-pointer hover:border-slate-200 hover:bg-white hover:shadow-sm transition-all group">
                       <div>
                         <p className="font-bold text-slate-800 text-sm">{est.nombre}</p>
@@ -494,7 +503,7 @@ const App = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="col-span-full text-center py-8 text-slate-300 text-sm italic">No hay cursos registrados</p>
+                  <p className="col-span-full text-center py-8 text-slate-300 text-sm italic">No hay cursos registrados para este mes</p>
                 )}
               </div>
             </section>
@@ -560,7 +569,9 @@ const App = () => {
               <textarea placeholder="Observaciones..." rows="2" className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-4 focus:ring-slate-100 outline-none resize-none transition-all" value={formEstudiante.notas} onChange={e => setFormEstudiante({...formEstudiante, notas: e.target.value})}/>
               <button onClick={() => {
                 if(formEstudiante.nombre) {
-                  const nuevos = showEditModal === 'nuevo' ? [...estudiantesGlobales, { ...formEstudiante, id: Date.now() }] : estudiantesGlobales.map(e => e.id === showEditModal ? formEstudiante : e);
+                  const nuevos = showEditModal === 'nuevo' 
+                    ? [...estudiantesGlobales, { ...formEstudiante, id: Date.now(), mesRegistro: `${mesActualKey}_${anioActual}` }] 
+                    : estudiantesGlobales.map(e => e.id === showEditModal ? formEstudiante : e);
                   setEstudiantesGlobales(nuevos);
                   setShowEditModal(null);
                 }
@@ -593,6 +604,14 @@ const App = () => {
         }
         input[type="time"]::-webkit-calendar-picker-indicator:hover {
           opacity: 1;
+        }
+
+        /* Eliminar líneas interiores no deseadas del selector de hora */
+        input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+          padding: 0;
+        }
+        input[type="time"]::-webkit-datetime-edit-text {
+          padding: 0 0.2em;
         }
 
         input[type="number"]::-webkit-inner-spin-button, 
