@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile, CheckCircle2, Bookmark
+  Palette, Smile, CheckCircle2, Bookmark, Download, Upload
 } from 'lucide-react';
 
 const App = () => {
@@ -204,8 +204,7 @@ const App = () => {
   };
 
   const [temaActual, setTemaActual] = useState(() => {
-    const salvo = localStorage.getItem('sakura_theme');
-    return salvo && temas[salvo] ? salvo : 'gradienteEstatico';
+    return localStorage.getItem('sakura_theme_definitivo') || 'gradienteEstatico';
   });
 
   const t = temas[temaActual] || temas.gradienteEstatico;
@@ -234,20 +233,35 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // --- LLAVES UNIFICADAS Y DEFINITIVAS PARA QUE NUNCA SE PIERDAN LOS DATOS ---
   const [datosMensuales, setDatosMensuales] = useState(() => {
-    const salvo = localStorage.getItem('sakura_data_v7');
-    return salvo ? JSON.parse(salvo) : {};
+    // Intenta buscar la llave nueva definitiva, si no, rescata automáticamente las versiones anteriores (v6, v7)
+    const guardadoDefinitivo = localStorage.getItem('sakura_datos_mensuales_definitivo');
+    if (guardadoDefinitivo) return JSON.parse(guardadoDefinitivo);
+
+    const rescatarV7 = localStorage.getItem('sakura_data_v7');
+    if (rescatarV7) return JSON.parse(rescatarV7);
+
+    const rescatarV6 = localStorage.getItem('sakura_data_v6');
+    if (rescatarV6) return JSON.parse(rescatarV6);
+
+    return {};
   });
 
   const [estudiantesGlobales, setEstudiantesGlobales] = useState(() => {
-    const salvo = localStorage.getItem('sakura_estudiantes_v1');
-    return salvo ? JSON.parse(salvo) : [];
+    const guardadoEstudiantes = localStorage.getItem('sakura_estudiantes_definitivo');
+    if (guardadoEstudiantes) return JSON.parse(guardadoEstudiantes);
+
+    const rescatarAntiguos = localStorage.getItem('sakura_estudiantes_v1');
+    if (rescatarAntiguos) return JSON.parse(rescatarAntiguos);
+
+    return [];
   });
   
   const [showEditModal, setShowEditModal] = useState(null);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
 
-  // --- CRONÓMETRO CON RECALCULO AUTOMÁTICO CORREGIDO ---
+  // --- CRONÓMETRO CON RECALCULO AUTOMÁTICO ---
   const [isTimerRunning, setIsTimerRunning] = useState(() => {
     return localStorage.getItem('timer_is_running') === 'true';
   });
@@ -266,21 +280,24 @@ const App = () => {
 
   const timerRef = useRef(null);
 
+  const syncTimer = () => {
+    if (localStorage.getItem('timer_is_running') === 'true') {
+      const startTime = parseInt(localStorage.getItem('timer_start_time'));
+      const savedSeconds = parseInt(localStorage.getItem('timer_seconds_elapsed')) || 0;
+      if (startTime) {
+        setSecondsElapsed(savedSeconds + (Math.floor(Date.now() / 1000) - startTime));
+      }
+    }
+  };
+
   useEffect(() => {
     if (isTimerRunning) {
-      const updateElapsed = () => {
-        const startTime = parseInt(localStorage.getItem('timer_start_time')) || Math.floor(Date.now() / 1000);
-        const savedSeconds = parseInt(localStorage.getItem('timer_seconds_elapsed')) || 0;
-        setSecondsElapsed(savedSeconds + (Math.floor(Date.now() / 1000) - startTime));
-      };
-
-      updateElapsed();
-      timerRef.current = setInterval(updateElapsed, 1000);
-
-      const handleVisibilityChange = () => {
-        if (!document.hidden) updateElapsed();
-      };
+      syncTimer();
+      timerRef.current = setInterval(syncTimer, 1000);
       
+      const handleVisibilityChange = () => {
+        if (!document.hidden) syncTimer();
+      };
       document.addEventListener('visibilitychange', handleVisibilityChange);
       return () => {
         clearInterval(timerRef.current);
@@ -293,22 +310,15 @@ const App = () => {
 
   const startTimer = () => {
     const now = Math.floor(Date.now() / 1000);
-    localStorage.setItem('timer_seconds_elapsed', secondsElapsed.toString());
     localStorage.setItem('timer_start_time', now.toString());
     localStorage.setItem('timer_is_running', 'true');
     setIsTimerRunning(true);
   };
 
   const pauseTimer = () => {
-    const startTime = parseInt(localStorage.getItem('timer_start_time')) || Math.floor(Date.now() / 1000);
-    const savedSeconds = parseInt(localStorage.getItem('timer_seconds_elapsed')) || 0;
-    const totalCurrent = savedSeconds + (Math.floor(Date.now() / 1000) - startTime);
-    
-    localStorage.setItem('timer_seconds_elapsed', totalCurrent.toString());
+    localStorage.setItem('timer_seconds_elapsed', secondsElapsed.toString());
     localStorage.setItem('timer_is_running', 'false');
     localStorage.removeItem('timer_start_time');
-    
-    setSecondsElapsed(totalCurrent);
     setIsTimerRunning(false);
   };
 
@@ -330,17 +340,57 @@ const App = () => {
   };
   const primerDiaOffset = getPrimerDiaSemanaIndice(mesIndice, anioActual);
 
+  // Guardado automático con llaves fijas definitivas
   useEffect(() => {
-    localStorage.setItem('sakura_data_v7', JSON.stringify(datosMensuales));
+    localStorage.setItem('sakura_datos_mensuales_definitivo', JSON.stringify(datosMensuales));
   }, [datosMensuales]);
 
   useEffect(() => {
-    localStorage.setItem('sakura_estudiantes_v1', JSON.stringify(estudiantesGlobales));
+    localStorage.setItem('sakura_estudiantes_definitivo', JSON.stringify(estudiantesGlobales));
   }, [estudiantesGlobales]);
 
   useEffect(() => {
-    localStorage.setItem('sakura_theme', temaActual);
+    localStorage.setItem('sakura_theme_definitivo', temaActual);
   }, [temaActual]);
+
+  // --- FUNCIONES DE RESPALDO (EXPORTAR E IMPORTAR DATOS) ---
+  const exportarRespaldo = () => {
+    const dataBackup = {
+      datosMensuales,
+      estudiantesGlobales,
+      temaActual,
+      fechaRespaldo: new Date().toLocaleDateString()
+    };
+    const blob = new Blob([JSON.stringify(dataBackup, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `respaldo_servicio_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const importarRespaldo = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target.result);
+        if (parsed.datosMensuales && parsed.estudiantesGlobales) {
+          setDatosMensuales(parsed.datosMensuales);
+          setEstudiantesGlobales(parsed.estudiantesGlobales);
+          if (parsed.temaActual) setTemaActual(parsed.temaActual);
+          alert("¡Respaldo cargado con éxito! Tus datos anteriores están restaurados.");
+        } else {
+          alert("El archivo no tiene el formato correcto.");
+        }
+      } catch (err) {
+        alert("Error al leer el archivo de respaldo.");
+      }
+    };
+    reader.readAsText(file);
+  };
 
   const formatTimer = (totalSeconds) => {
     const h = Math.floor(totalSeconds / 3600);
@@ -520,6 +570,21 @@ const App = () => {
             Registro de <span className={temaActual === 'gradienteEstatico' ? "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent font-black" : `${t.primary} transition-colors`}>Servicio</span>
           </h1>
           <p className="text-slate-500 font-medium mt-1 tracking-wide text-sm md:text-base">Organiza tu actividad mensual de forma práctica</p>
+          
+          {/* BOTONES DE RESPALDO DE DATOS (PARA QUE NUNCA SE PIERDAN) */}
+          <div className="flex justify-center items-center gap-3 mt-4">
+            <button 
+              onClick={exportarRespaldo}
+              className="px-4 py-2 bg-white/80 hover:bg-white text-slate-600 rounded-xl text-xs font-bold shadow-sm border border-slate-200 flex items-center gap-1.5 transition-all"
+              title="Descargar copia de seguridad de tus registros"
+            >
+              <Download size={14} /> Respaldar Datos
+            </button>
+            <label className="px-4 py-2 bg-white/80 hover:bg-white text-slate-600 rounded-xl text-xs font-bold shadow-sm border border-slate-200 flex items-center gap-1.5 transition-all cursor-pointer">
+              <Upload size={14} /> Restaurar Copia
+              <input type="file" accept=".json" onChange={importarRespaldo} className="hidden" />
+            </label>
+          </div>
         </header>
 
         {/* NAVEGACIÓN DE MES & META */}
@@ -836,7 +901,7 @@ const App = () => {
         </div>
       </div>
 
-      {/* MODAL ESTÉTICO (SIN PLACEHOLDER GRIS) */}
+      {/* MODAL ESTÉTICO PARA NOTA EN BLANCO */}
       {modalNotaDia !== null && (
         <div className="fixed inset-0 z-[120] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
           <div className="bg-white w-full max-w-sm rounded-[2.5rem] p-6 md:p-8 shadow-2xl border border-slate-100 animate-in slide-in-from-bottom-6">
@@ -894,7 +959,7 @@ const App = () => {
                                            key === 'amarillo' ? '#f59e0b' :
                                            temas[key].primaryBg.includes('pink') ? '#db2777' : 
                                            temas[key].primaryBg.includes('purple') ? '#9333ea' :
-                                           temas[key].primaryBg.includes('blue') ? '#2563eb' :
+                                           temas[key].primaryBg.includes('blue' ) ? '#2563eb' :
                                            temas[key].primaryBg.includes('emerald') ? '#059669' : '#ea580c'
                         }}
                         title={temas[key].name}
@@ -945,7 +1010,7 @@ const App = () => {
                   />
                 </div>
                 
-                <div className="w-1/2">
+                <div className="y 1/2">
                   <label className="text-[10px] font-bold text-slate-400 ml-2">HORA</label>
                   <input 
                     type="time" 
