@@ -9,7 +9,7 @@ const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
-  // Organizados con 4 tonalidades distintas y bien diferenciadas para cada paleta
+  // Organizados por tonalidad con variaciones de intensidad para el horario mensual
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
@@ -24,10 +24,10 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png",
       bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
       variants: [
-        "bg-purple-300 text-purple-950 shadow-sm font-bold",
-        "bg-purple-500 text-white shadow-sm font-bold",
-        "bg-fuchsia-600 text-white shadow-sm font-bold",
-        "bg-[#7a57d1] text-white shadow-sm font-bold"
+        "bg-purple-400 text-white shadow-sm",
+        "bg-pink-500 text-white shadow-sm",
+        "bg-purple-600 text-white shadow-sm",
+        "bg-rose-400 text-white shadow-sm"
       ]
     },
     rosadoClaro: {
@@ -43,10 +43,10 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-pink-100 text-pink-900 border-pink-200",
       variants: [
-        "bg-pink-200 text-pink-950 shadow-sm font-bold",
-        "bg-pink-400 text-white shadow-sm font-bold",
-        "bg-rose-500 text-white shadow-sm font-bold",
-        "bg-pink-700 text-white shadow-sm font-bold"
+        "bg-pink-300 text-pink-950 shadow-sm",
+        "bg-pink-400 text-white shadow-sm",
+        "bg-rose-300 text-rose-950 shadow-sm",
+        "bg-pink-500 text-white shadow-sm"
       ]
     },
     sakura: {
@@ -62,10 +62,10 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/cubes.png",
       bubbleBg: "bg-pink-200 text-pink-900 border-pink-300",
       variants: [
-        "bg-pink-300 text-pink-950 shadow-sm font-bold",
-        "bg-pink-500 text-white shadow-sm font-bold",
-        "bg-rose-600 text-white shadow-sm font-bold",
-        "bg-pink-800 text-white shadow-sm font-bold"
+        "bg-pink-400 text-white shadow-sm",
+        "bg-pink-600 text-white shadow-sm",
+        "bg-rose-500 text-white shadow-sm",
+        "bg-pink-700 text-white shadow-sm"
       ]
     },
     rojo: {
@@ -81,10 +81,10 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-rose-100 text-rose-900 border-rose-200",
       variants: [
-        "bg-rose-300 text-rose-950 shadow-sm font-bold",
-        "bg-rose-500 text-white shadow-sm font-bold",
-        "bg-red-600 text-white shadow-sm font-bold",
-        "bg-rose-900 text-white shadow-sm font-bold"
+        "bg-rose-400 text-white shadow-sm",
+        "bg-rose-600 text-white shadow-sm",
+        "bg-red-400 text-white shadow-sm",
+        "bg-rose-700 text-white shadow-sm"
       ]
     },
     naranja: {
@@ -100,10 +100,10 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png",
       bubbleBg: "bg-orange-100 text-orange-900 border-orange-200",
       variants: [
-        "bg-amber-200 text-amber-950 shadow-sm font-bold",
-        "bg-orange-400 text-white shadow-sm font-bold",
-        "bg-orange-600 text-white shadow-sm font-bold",
-        "bg-amber-800 text-white shadow-sm font-bold"
+        "bg-amber-400 text-amber-950 shadow-sm",
+        "bg-orange-500 text-white shadow-sm",
+        "bg-orange-600 text-white shadow-sm",
+        "bg-amber-600 text-white shadow-sm"
       ]
     },
     amarillo: {
@@ -119,10 +119,10 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-amber-100 text-amber-900 border-amber-200",
       variants: [
-        "bg-yellow-200 text-amber-950 shadow-sm font-bold",
-        "bg-amber-400 text-amber-950 shadow-sm font-bold",
-        "bg-amber-500 text-white shadow-sm font-bold",
-        "bg-yellow-700 text-white shadow-sm font-bold"
+        "bg-amber-300 text-amber-950 shadow-sm",
+        "bg-amber-400 text-amber-950 shadow-sm",
+        "bg-yellow-500 text-white shadow-sm",
+        "bg-amber-500 text-white shadow-sm"
       ]
     },
     marron: {
@@ -138,10 +138,10 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-amber-200 text-amber-950 border-amber-300",
       variants: [
-        "bg-amber-300 text-amber-950 shadow-sm font-bold",
-        "bg-amber-600 text-white shadow-sm font-bold",
-        "bg-amber-800 text-white shadow-sm font-bold",
-        "bg-stone-900 text-white shadow-sm font-bold"
+        "bg-amber-600 text-white shadow-sm",
+        "bg-amber-700 text-white shadow-sm",
+        "bg-yellow-800 text-white shadow-sm",
+        "bg-amber-900 text-white shadow-sm"
       ]
     },
     verde: {
@@ -157,10 +157,10 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/polygons.png",
       bubbleBg: "bg-emerald-100 text-emerald-900 border-emerald-200",
       variants: [
-        "bg-emerald-200 text-emerald-950 shadow-sm font-bold",
-        "bg-emerald-400 text-white shadow-sm font-bold",
-        "bg-emerald-600 text-white shadow-sm font-bold",
-        "bg-teal-900 text-white shadow-sm font-bold"
+        "bg-emerald-400 text-white shadow-sm",
+        "bg-emerald-500 text-white shadow-sm",
+        "bg-teal-600 text-white shadow-sm",
+        "bg-emerald-600 text-white shadow-sm"
       ]
     },
     azul: {
@@ -176,10 +176,10 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-blue-100 text-blue-900 border-blue-200",
       variants: [
-        "bg-sky-200 text-sky-950 shadow-sm font-bold",
-        "bg-sky-400 text-white shadow-sm font-bold",
-        "bg-blue-600 text-white shadow-sm font-bold",
-        "bg-indigo-900 text-white shadow-sm font-bold"
+        "bg-sky-300 text-sky-950 shadow-sm",
+        "bg-blue-400 text-white shadow-sm",
+        "bg-blue-600 text-white shadow-sm",
+        "bg-indigo-600 text-white shadow-sm"
       ]
     },
     morado: {
@@ -195,10 +195,10 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png",
       bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
       variants: [
-        "bg-purple-200 text-purple-950 shadow-sm font-bold",
-        "bg-purple-400 text-white shadow-sm font-bold",
-        "bg-purple-700 text-white shadow-sm font-bold",
-        "bg-indigo-950 text-white shadow-sm font-bold"
+        "bg-purple-300 text-purple-950 shadow-sm",
+        "bg-purple-500 text-white shadow-sm",
+        "bg-purple-700 text-white shadow-sm",
+        "bg-indigo-500 text-white shadow-sm"
       ]
     }
   };
@@ -652,14 +652,13 @@ const App = () => {
                     const reg = currentData.historial && currentData.historial[dia];
                     const tieneActividad = !!reg;
                     const esSeleccionado = diaSeleccionado === dia;
-                    const varianteClass = t.variants[(dia - 1) % t.variants.length];
                     
                     return (
                       <button 
                         key={dia} 
                         onClick={() => setDiaSeleccionado(dia)}
                         className={`aspect-square rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1
-                          ${tieneActividad ? `${varianteClass} shadow-sm` : `bg-slate-50 text-slate-600 hover:bg-slate-100`}
+                          ${tieneActividad ? `text-white shadow-sm ${t.primaryBg}` : `bg-slate-50 text-slate-600 hover:bg-slate-100`}
                           ${esSeleccionado ? 'ring-2 ring-slate-800 ring-offset-2 scale-105 z-10 font-black' : ''}
                         `}
                       >
@@ -833,35 +832,32 @@ const App = () => {
         </div>
       </div>
 
-      {/* MODAL ESTÉTICO Y LINDO PARA EL RECUADRO DE ACTIVIDADES */}
+      {/* MODAL ESTÉTICO (SIN PLACEHOLDER GRIS) */}
       {modalNotaDia !== null && (
-        <div className="fixed inset-0 z-[120] bg-slate-900/30 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-white/95 backdrop-blur-xl w-full max-w-sm rounded-[2.5rem] p-7 md:p-8 shadow-2xl border border-white/40 ring-1 ring-slate-900/5 animate-in slide-in-from-bottom-6">
+        <div className="fixed inset-0 z-[120] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
+          <div className="bg-white w-full max-w-sm rounded-[2.5rem] p-6 md:p-8 shadow-2xl border border-slate-100 animate-in slide-in-from-bottom-6">
             <div className="flex justify-between items-center mb-4">
-              <div>
-                <span className={`text-[10px] font-black uppercase tracking-widest ${t.accent}`}>Planificación</span>
-                <h4 className="text-lg font-extrabold text-slate-800">
-                  Día {modalNotaDia}
-                </h4>
-              </div>
-              <button onClick={() => setModalNotaDia(null)} className="p-2 rounded-full bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
-                <X size={16} />
+              <h4 className="text-base font-bold text-slate-800">
+                Actividad para el día {modalNotaDia}
+              </h4>
+              <button onClick={() => setModalNotaDia(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                <X size={18} />
               </button>
             </div>
             
-            <p className="text-xs font-medium text-slate-400 mb-4">¿Qué tienes programado realizar este día?</p>
+            <p className="text-xs text-slate-500 mb-4">Escribe lo que tienes planeado hacer:</p>
             
-            {/* Recuadro de escritura rediseñado para verse mucho más lindo y combinar con la estética */}
+            {/* Se removió el placeholder para que aparezca completamente en blanco */}
             <input 
               type="text" 
               autoFocus
-              className="w-full bg-slate-50/80 border-2 border-slate-100 rounded-2xl px-5 py-4 text-sm font-semibold text-slate-700 focus:outline-none focus:border-slate-300 focus:bg-white shadow-inner transition-all mb-6"
+              className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-300 transition-all mb-6"
               value={textoNotaInput}
               onChange={(e) => setTextoNotaInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && guardarNotaModal()}
             />
 
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               <button 
                 onClick={() => setModalNotaDia(null)} 
                 className="w-1/2 bg-slate-100 text-slate-600 py-3.5 rounded-2xl font-bold uppercase tracking-widest text-[10px] hover:bg-slate-200 transition-all"
@@ -870,7 +866,7 @@ const App = () => {
               </button>
               <button 
                 onClick={guardarNotaModal} 
-                className={`w-1/2 text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}
+                className={`w-1/2 text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}
               >
                 Guardar
               </button>
