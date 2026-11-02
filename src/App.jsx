@@ -9,7 +9,7 @@ const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
-  // Organizados por tonalidad con variaciones de intensidad para el horario mensual
+  // Organizados por tonalidad con variaciones adaptadas al color principal de cada tema
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
@@ -25,7 +25,7 @@ const App = () => {
       bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
       variants: [
         "bg-purple-400 text-white shadow-sm",
-        "bg-pink-500 text-white shadow-sm",
+        "bg-pink-400 text-white shadow-sm",
         "bg-purple-600 text-white shadow-sm",
         "bg-rose-400 text-white shadow-sm"
       ]
@@ -62,10 +62,10 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/cubes.png",
       bubbleBg: "bg-pink-200 text-pink-900 border-pink-300",
       variants: [
+        "bg-pink-300 text-pink-950 shadow-sm",
         "bg-pink-400 text-white shadow-sm",
-        "bg-pink-600 text-white shadow-sm",
-        "bg-rose-500 text-white shadow-sm",
-        "bg-pink-700 text-white shadow-sm"
+        "bg-pink-500 text-white shadow-sm",
+        "bg-pink-600 text-white shadow-sm"
       ]
     },
     rojo: {
@@ -81,10 +81,10 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-rose-100 text-rose-900 border-rose-200",
       variants: [
+        "bg-rose-300 text-rose-950 shadow-sm",
         "bg-rose-400 text-white shadow-sm",
-        "bg-rose-600 text-white shadow-sm",
-        "bg-red-400 text-white shadow-sm",
-        "bg-rose-700 text-white shadow-sm"
+        "bg-rose-500 text-white shadow-sm",
+        "bg-rose-600 text-white shadow-sm"
       ]
     },
     naranja: {
@@ -100,10 +100,10 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png",
       bubbleBg: "bg-orange-100 text-orange-900 border-orange-200",
       variants: [
-        "bg-amber-400 text-amber-950 shadow-sm",
+        "bg-orange-300 text-orange-950 shadow-sm",
+        "bg-orange-400 text-white shadow-sm",
         "bg-orange-500 text-white shadow-sm",
-        "bg-orange-600 text-white shadow-sm",
-        "bg-amber-600 text-white shadow-sm"
+        "bg-orange-600 text-white shadow-sm"
       ]
     },
     amarillo: {
@@ -119,9 +119,9 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-amber-100 text-amber-900 border-amber-200",
       variants: [
+        "bg-amber-200 text-amber-950 shadow-sm",
         "bg-amber-300 text-amber-950 shadow-sm",
         "bg-amber-400 text-amber-950 shadow-sm",
-        "bg-yellow-500 text-white shadow-sm",
         "bg-amber-500 text-white shadow-sm"
       ]
     },
@@ -140,7 +140,7 @@ const App = () => {
       variants: [
         "bg-amber-600 text-white shadow-sm",
         "bg-amber-700 text-white shadow-sm",
-        "bg-yellow-800 text-white shadow-sm",
+        "bg-amber-800 text-white shadow-sm",
         "bg-amber-900 text-white shadow-sm"
       ]
     },
@@ -157,9 +157,9 @@ const App = () => {
       localImg: "https://www.transparenttextures.com/patterns/polygons.png",
       bubbleBg: "bg-emerald-100 text-emerald-900 border-emerald-200",
       variants: [
+        "bg-emerald-300 text-emerald-950 shadow-sm",
         "bg-emerald-400 text-white shadow-sm",
         "bg-emerald-500 text-white shadow-sm",
-        "bg-teal-600 text-white shadow-sm",
         "bg-emerald-600 text-white shadow-sm"
       ]
     },
@@ -176,10 +176,10 @@ const App = () => {
       localImg: "",
       bubbleBg: "bg-blue-100 text-blue-900 border-blue-200",
       variants: [
-        "bg-sky-300 text-sky-950 shadow-sm",
+        "bg-blue-300 text-blue-950 shadow-sm",
         "bg-blue-400 text-white shadow-sm",
-        "bg-blue-600 text-white shadow-sm",
-        "bg-indigo-600 text-white shadow-sm"
+        "bg-blue-500 text-white shadow-sm",
+        "bg-blue-600 text-white shadow-sm"
       ]
     },
     morado: {
@@ -196,9 +196,9 @@ const App = () => {
       bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
       variants: [
         "bg-purple-300 text-purple-950 shadow-sm",
+        "bg-purple-400 text-white shadow-sm",
         "bg-purple-500 text-white shadow-sm",
-        "bg-purple-700 text-white shadow-sm",
-        "bg-indigo-500 text-white shadow-sm"
+        "bg-purple-600 text-white shadow-sm"
       ]
     }
   };
@@ -249,7 +249,7 @@ const App = () => {
 
   // --- CRONÓMETRO CON RECALCULO AUTOMÁTICO ---
   const [isTimerRunning, setIsTimerRunning] = useState(() => {
-    return localStorage.getItem('timer_is_running') === 'true';
+    return localStorage.getItem('timer_is_running'] === 'true';
   });
   
   const [secondsElapsed, setSecondsElapsed] = useState(() => {
@@ -431,11 +431,10 @@ const App = () => {
   const guardarNotaModal = () => {
     if (modalNotaDia !== null && textoNotaInput.trim() !== '') {
       const horarioActual = { ...(currentData.horarioActividades || {}) };
-      const varianteIndex = (modalNotaDia - 1) % t.variants.length;
       
+      // Guardamos únicamente la nota. El estilo de color se calculará dinámicamente según el tema actual.
       horarioActual[modalNotaDia] = { 
-        nota: textoNotaInput.trim(), 
-        variantStyle: t.variants[varianteIndex] 
+        nota: textoNotaInput.trim() 
       };
       
       updateCurrentMonth({ horarioActividades: horarioActual });
@@ -685,7 +684,8 @@ const App = () => {
                     const estaMarcado = !!infoHorario;
                     const mostrarBurbuja = diaBurbujaAbierta === dia;
                     
-                    const varianteClass = infoHorario?.variantStyle || t.variants[(dia - 1) % t.variants.length];
+                    // Se mapea en tiempo real al tema actual seleccionado para que cambie inmediatamente al cambiar de color
+                    const varianteClass = t.variants[(dia - 1) % t.variants.length];
 
                     return (
                       <div key={`h-${dia}`} className="relative">
@@ -847,7 +847,6 @@ const App = () => {
             
             <p className="text-xs text-slate-500 mb-4">Escribe lo que tienes planeado hacer:</p>
             
-            {/* Se removió el placeholder para que aparezca completamente en blanco */}
             <input 
               type="text" 
               autoFocus
