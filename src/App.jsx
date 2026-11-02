@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile, CheckCircle2, Bookmark
+  Palette, Smile, CheckCircle2, Bookmark, Check
 } from 'lucide-react';
 
 const App = () => {
@@ -144,6 +144,9 @@ const App = () => {
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
   const [diaSeleccionado, setDiaSeleccionado] = useState(new Date().getDate());
 
+  // Estado para alternar entre las vistas de calendario (Registro y Horario Semanal)
+  const [vistaActiva, setVistaActiva] = useState('registro'); // 'registro' o 'horario'
+
   useEffect(() => {
     const checkDate = () => {
       const hoy = new Date();
@@ -168,6 +171,20 @@ const App = () => {
     return salvo ? JSON.parse(salvo) : [];
   });
   
+  // Estado para el Horario Semanal Personalizado
+  const [horarioSemanal, setHorarioSemanal] = useState(() => {
+    const salvo = localStorage.getItem('sakura_horario_semanal_v1');
+    return salvo ? JSON.parse(salvo) : {
+      "Lunes": { activo: true, tipos: ["Predicar"] },
+      "Martes": { activo: false, tipos: [] },
+      "Miércoles": { activo: true, tipos: ["Predicar"] },
+      "Jueves": { activo: false, tipos: [] },
+      "Viernes": { activo: true, tipos: ["Cartas"] },
+      "Sábado": { activo: false, tipos: [] },
+      "Domingo": { activo: true, tipos: ["WhatsApp"] }
+    };
+  });
+
   const [showEditModal, setShowEditModal] = useState(null);
   const [showThemeSelector, setShowThemeSelector] = useState(false);
 
@@ -259,6 +276,10 @@ const App = () => {
   }, [estudiantesGlobales]);
 
   useEffect(() => {
+    localStorage.setItem('sakura_horario_semanal_v1', JSON.stringify(horarioSemanal));
+  }, [horarioSemanal]);
+
+  useEffect(() => {
     localStorage.setItem('sakura_theme', temaActual);
   }, [temaActual]);
 
@@ -299,7 +320,6 @@ const App = () => {
   const [nuevaHora, setNuevaHora] = useState('');
   const [nuevoMinuto, setNuevoMinuto] = useState('');
   
-  // Estado para el formulario (por defecto en blanco)
   const [formEstudiante, setFormEstudiante] = useState({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' });
 
   const registrarActividad = (hInput, mInput) => {
@@ -349,7 +369,6 @@ const App = () => {
     return `${hours12}:${m} ${suffix}`;
   };
 
-  // Función para darle formato exacto a las horas y minutos en cada casilla del calendario
   const formatearTiempoCalendario = (h, m) => {
     if (h > 0 && m > 0) return `${h}h ${m}m`;
     if (h > 0) return `${h}h`;
@@ -378,7 +397,45 @@ const App = () => {
     setDiaSeleccionado(1);
   };
 
+  // Funciones auxiliares para el manejo de actividades en el Horario Semanal
+  const toggleDiaHorario = (diaNombre) => {
+    setHorarioSemanal(prev => ({
+      ...prev,
+      [diaNombre]: {
+        ...prev[diaNombre],
+        activo: !prev[diaNombre].activo
+      }
+    }));
+  };
+
+  const toggleTipoActividad = (diaNombre, tipo) => {
+    setHorarioSemanal(prev => {
+      const actual = prev[diaNombre] || { activo: false, tipos: [] };
+      let nuevosTipos = [...actual.tipos];
+      if (nuevosTipos.includes(tipo)) {
+        nuevosTipos = nuevosTipos.filter(t => t !== tipo);
+      } else {
+        nuevosTipos.push(tipo);
+      }
+      return {
+        ...prev,
+        [diaNombre]: {
+          ...actual,
+          tipos: nuevosTipos,
+          activo: nuevosTipos.length > 0 ? true : actual.activo
+        }
+      };
+    });
+  };
+
   const porcentaje = Math.min(100, (totalMinutos / ((currentData.meta || 1) * 60)) * 100);
+
+  const diasCompletosSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+  const tiposDisponibles = [
+    { id: "Predicar", label: "Predicación", color: "bg-purple-100 text-purple-700 border-purple-200" },
+    { id: "Cartas", label: "Cartas", color: "bg-pink-100 text-pink-700 border-pink-200" },
+    { id: "WhatsApp", label: "WhatsApp", color: "bg-emerald-100 text-emerald-700 border-emerald-200" }
+  ];
 
   return (
     <div className={`min-h-screen ${t.bgOverlay} p-4 md:p-10 font-sans text-slate-700 relative overflow-x-hidden transition-all duration-700`}>
@@ -401,7 +458,7 @@ const App = () => {
         </header>
 
         {/* NAVEGACIÓN DE MES & META */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div className="lg:col-span-2 bg-white/90 backdrop-blur-sm p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex items-center justify-between">
             <button onClick={() => cambiarMes(-1)} className={`p-3 rounded-2xl hover:bg-slate-100 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#7a57d1]' : t.primary}`}>
               <ChevronLeft size={28} />
@@ -427,6 +484,28 @@ const App = () => {
               />
               <span className="text-lg font-bold">horas</span>
             </div>
+          </div>
+        </div>
+
+        {/* SELECTOR DE VISTAS (PESTAÑAS: CALENDARIO DE REGISTRO vs HORARIO SEMANAL) */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-2xl shadow-sm border border-slate-100 inline-flex gap-2">
+            <button
+              onClick={() => setVistaActiva('registro')}
+              className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
+                vistaActiva === 'registro' ? `${t.primaryBg} text-white shadow-md` : 'text-slate-500 hover:bg-slate-100'
+              }`}
+            >
+              📅 Calendario y Registro
+            </button>
+            <button
+              onClick={() => setVistaActiva('horario')}
+              className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
+                vistaActiva === 'horario' ? `${t.primaryBg} text-white shadow-md` : 'text-slate-500 hover:bg-slate-100'
+              }`}
+            >
+              ⏰ Horario Semanal
+            </button>
           </div>
         </div>
 
@@ -459,194 +538,275 @@ const App = () => {
           </div>
         </section>
 
-        {/* GRID PRINCIPAL */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* PANEL IZQUIERDO: FORMULARIO Y CALENDARIO */}
-          <div className="lg:col-span-5 space-y-8">
-            <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center justify-between">
-                <span>Registrar Día {diaSeleccionado}</span>
-                {currentData.historial && currentData.historial[diaSeleccionado] && (
-                  <button 
-                    onClick={() => window.confirm(`¿Borrar registro del día ${diaSeleccionado}?`) && eliminarDia(diaSeleccionado)}
-                    className="text-red-500 hover:text-red-700 flex items-center gap-1 normal-case font-bold text-[11px]"
-                  >
-                    <Trash2 size={13}/> Borrar hoy
-                  </button>
-                )}
-              </h3>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-400 ml-2">HORAS</label>
-                    <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
+        {/* CONDICIONAL DE VISTAS: VISTA DE REGISTRO / CALENDARIO VS VISTA DE HORARIO PERSONALIZADO */}
+        {vistaActiva === 'registro' ? (
+          /* GRID PRINCIPAL DE REGISTRO */
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            {/* PANEL IZQUIERDO: FORMULARIO Y CALENDARIO */}
+            <div className="lg:col-span-5 space-y-8">
+              <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center justify-between">
+                  <span>Registrar Día {diaSeleccionado}</span>
+                  {currentData.historial && currentData.historial[diaSeleccionado] && (
+                    <button 
+                      onClick={() => window.confirm(`¿Borrar registro del día ${diaSeleccionado}?`) && eliminarDia(diaSeleccionado)}
+                      className="text-red-500 hover:text-red-700 flex items-center gap-1 normal-case font-bold text-[11px]"
+                    >
+                      <Trash2 size={13}/> Borrar hoy
+                    </button>
+                  )}
+                </h3>
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-slate-400 ml-2">HORAS</label>
+                      <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
+                  </div>
+                  <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-slate-400 ml-2">MINUTOS</label>
+                      <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
+                  </div>
                 </div>
-                <div className="space-y-1">
-                    <label className="text-[10px] font-bold text-slate-400 ml-2">MINUTOS</label>
-                    <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
-                </div>
-              </div>
-              <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>
-                Añadir Tiempo
-              </button>
-            </section>
+                <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>
+                  Añadir Tiempo
+                </button>
+              </section>
 
-            <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Calendario de Actividad</h3>
-              
-              <div className="grid grid-cols-7 gap-1 text-center mb-3">
-                {diasSemana.map((d, index) => (
-                  <span key={index} className="text-[10px] font-bold text-slate-400 uppercase">
-                    {d}
+              <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Calendario de Actividad</h3>
+                
+                <div className="grid grid-cols-7 gap-1 text-center mb-3">
+                  {diasSemana.map((d, index) => (
+                    <span key={index} className="text-[10px] font-bold text-slate-400 uppercase">
+                      {d}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-7 gap-1.5">
+                  {[...Array(primerDiaOffset)].map((_, i) => (
+                    <div key={`empty-${i}`} className="aspect-square"></div>
+                  ))}
+
+                  {[...Array(totalDiasMes)].map((_, i) => {
+                    const dia = i + 1;
+                    const reg = currentData.historial && currentData.historial[dia];
+                    const tieneActividad = !!reg;
+                    const esSeleccionado = diaSeleccionado === dia;
+                    
+                    return (
+                      <button 
+                        key={dia} 
+                        onClick={() => setDiaSeleccionado(dia)}
+                        className={`aspect-square rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1
+                          ${tieneActividad ? `text-white shadow-sm ${t.primaryBg}` : `bg-slate-50 text-slate-600 hover:bg-slate-100`}
+                          ${esSeleccionado ? 'ring-2 ring-slate-800 ring-offset-2 scale-105 z-10 font-black' : ''}
+                        `}
+                      >
+                        <span>{dia}</span>
+                        {reg && (
+                          <span className="text-[7.5px] opacity-95 font-mono leading-tight font-semibold">
+                            {formatearTiempoCalendario(reg.h, reg.m)}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            </div>
+
+            {/* PANEL DERECHO: MÉTRICAS, INFORMES Y ESTUDIANTES */}
+            <div className="lg:col-span-7 space-y-8">
+              <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100 text-center">
+                
+                {/* METRICAS PRINCIPALES */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p>
+                    <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary}`}>
+                      {horas}h {minutos}m
+                    </p>
+                  </div>
+                  <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
+                    <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p>
+                    <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary}`}>
+                      {estudiantesVisibles.length}
+                    </p>
+                  </div>
+                  <div className={`p-4 rounded-2xl text-white shadow-md transition-colors ${t.primaryBg}`}>
+                    <p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p>
+                    <p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p>
+                  </div>
+                  <button 
+                    onClick={() => {if(window.confirm("¿Deseas reiniciar todos los registros de este mes?")) updateCurrentMonth({historial:{}})}} 
+                    className="p-4 bg-red-50 text-red-500 rounded-2xl flex flex-col items-center justify-center hover:bg-red-100 transition-colors group"
+                    title="Reiniciar mes"
+                  >
+                    <Trash2 size={20} className="transition-transform group-hover:scale-110 mb-0.5" />
+                    <span className="text-[9px] font-black uppercase">Limpiar</span>
+                  </button>
+                </div>
+
+                {/* BARRA DE PROGRESO */}
+                <div className="mb-8 bg-slate-100 h-3 rounded-full overflow-hidden p-0.5">
+                  <div 
+                    className={`h-full rounded-full transition-all duration-1000 ${t.primaryBg}`} 
+                    style={{ width: `${porcentaje}%` }}
+                  ></div>
+                </div>
+
+                <button 
+                  onClick={enviarWhatsApp} 
+                  className="w-full bg-[#25D366] text-white py-4 px-8 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm shadow-lg hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-3"
+                >
+                  <Send size={18} className="fill-white" /> ENVIAR INFORME POR WHATSAPP
+                </button>
+              </section>
+
+              {/* CURSOS BÍBLICOS DETALLADOS */}
+              <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100">
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                    <BookOpen size={16} /> Cursos Bíblicos
+                  </h3>
+                  <button 
+                    onClick={() => {
+                      setFormEstudiante({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' }); 
+                      setShowEditModal('nuevo');
+                    }} 
+                    className={`text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-1.5 transition-all ${t.primaryBg}`}
+                  >
+                    <UserPlus size={14} /> Nuevo Curso
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {estudiantesVisibles.length > 0 ? (
+                    estudiantesVisibles.map(est => (
+                      <div 
+                        key={est.id} 
+                        onClick={() => {setFormEstudiante(est); setShowEditModal(est.id)}} 
+                        className="p-5 bg-slate-50/80 rounded-[1.5rem] border border-slate-100 flex justify-between items-start cursor-pointer hover:border-slate-300 hover:bg-white hover:shadow-md transition-all group"
+                      >
+                        <div className="space-y-1">
+                          <p className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                            {est.nombre}
+                          </p>
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                            🗓️ {est.fecha || 'Sin día'} {est.horaClase && `• ${formatTime12h(est.horaClase)}`}
+                          </p>
+                          {est.leccion && (
+                            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-200/60 text-slate-600 text-[10px] font-semibold mt-1">
+                              <Bookmark size={10} /> {est.leccion}
+                            </div>
+                          )}
+                          {est.notas && (
+                            <p className="text-[11px] text-slate-500 italic line-clamp-1 mt-1">"{est.notas}"</p>
+                          )}
+                        </div>
+                        <button 
+                          onClick={(e) => {
+                            e.stopPropagation(); 
+                            if(window.confirm(`¿Borrar el curso de ${est.nombre}?`)) {
+                              setEstudiantesGlobales(prev => prev.filter(i => i.id !== est.id));
+                            }
+                          }} 
+                          className="text-slate-300 hover:text-red-500 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all p-1"
+                          title="Eliminar curso"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="col-span-full text-center py-8 text-slate-400 text-sm italic">
+                      No hay cursos bíblicos guardados
+                    </p>
+                  )}
+                </div>
+              </section>
+            </div>
+          </div>
+        ) : (
+          /* NUEVA VISTA: HORARIO SEMANAL PERSONALIZADO DE ACTIVIDADES */
+          <div className="bg-white p-6 md:p-10 rounded-[3rem] shadow-sm border border-slate-100 animate-in fade-in duration-300">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-slate-100 pb-6">
+              <div>
+                <h3 className="text-xl md:text-2xl font-black text-slate-800 flex items-center gap-2">
+                  <Clock className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1]" : t.primary} /> Horario y Días de Actividad
+                </h3>
+                <p className="text-sm text-slate-500 mt-1">Marca o desmarca los días de la semana y asigna qué tipo de servicio realizarás.</p>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                {tiposDisponibles.map(tipo => (
+                  <span key={tipo.id} className={`text-[10px] font-bold px-3 py-1.5 rounded-full border ${tipo.color}`}>
+                    ● {tipo.label}
                   </span>
                 ))}
               </div>
+            </div>
 
-              <div className="grid grid-cols-7 gap-1.5">
-                {[...Array(primerDiaOffset)].map((_, i) => (
-                  <div key={`empty-${i}`} className="aspect-square"></div>
-                ))}
-
-                {[...Array(totalDiasMes)].map((_, i) => {
-                  const dia = i + 1;
-                  const reg = currentData.historial && currentData.historial[dia];
-                  const tieneActividad = !!reg;
-                  const esSeleccionado = diaSeleccionado === dia;
-                  
-                  return (
-                    <button 
-                      key={dia} 
-                      onClick={() => setDiaSeleccionado(dia)}
-                      className={`aspect-square rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1
-                        ${tieneActividad ? `text-white shadow-sm ${t.primaryBg}` : `bg-slate-50 text-slate-600 hover:bg-slate-100`}
-                        ${esSeleccionado ? 'ring-2 ring-slate-800 ring-offset-2 scale-105 z-10 font-black' : ''}
-                      `}
-                    >
-                      <span>{dia}</span>
-                      {reg && (
-                        <span className="text-[7.5px] opacity-95 font-mono leading-tight font-semibold">
-                          {formatearTiempoCalendario(reg.h, reg.m)}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-          </div>
-
-          {/* PANEL DERECHO: MÉTRICAS, INFORMES Y ESTUDIANTES */}
-          <div className="lg:col-span-7 space-y-8">
-            <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100 text-center">
-              
-              {/* METRICAS PRINCIPALES */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p>
-                  <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary}`}>
-                    {horas}h {minutos}m
-                  </p>
-                </div>
-                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p>
-                  <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary}`}>
-                    {estudiantesVisibles.length}
-                  </p>
-                </div>
-                <div className={`p-4 rounded-2xl text-white shadow-md transition-colors ${t.primaryBg}`}>
-                  <p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p>
-                  <p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p>
-                </div>
-                <button 
-                  onClick={() => {if(window.confirm("¿Deseas reiniciar todos los registros de este mes?")) updateCurrentMonth({historial:{}})}} 
-                  className="p-4 bg-red-50 text-red-500 rounded-2xl flex flex-col items-center justify-center hover:bg-red-100 transition-colors group"
-                  title="Reiniciar mes"
-                >
-                  <Trash2 size={20} className="transition-transform group-hover:scale-110 mb-0.5" />
-                  <span className="text-[9px] font-black uppercase">Limpiar</span>
-                </button>
-              </div>
-
-              {/* BARRA DE PROGRESO */}
-              <div className="mb-8 bg-slate-100 h-3 rounded-full overflow-hidden p-0.5">
-                <div 
-                  className={`h-full rounded-full transition-all duration-1000 ${t.primaryBg}`} 
-                  style={{ width: `${porcentaje}%` }}
-                ></div>
-              </div>
-
-              <button 
-                onClick={enviarWhatsApp} 
-                className="w-full bg-[#25D366] text-white py-4 px-8 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm shadow-lg hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-3"
-              >
-                <Send size={18} className="fill-white" /> ENVIAR INFORME POR WHATSAPP
-              </button>
-            </section>
-
-            {/* CURSOS BÍBLICOS DETALLADOS */}
-            <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                  <BookOpen size={16} /> Cursos Bíblicos
-                </h3>
-                <button 
-                  onClick={() => {
-                    setFormEstudiante({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' }); 
-                    setShowEditModal('nuevo');
-                  }} 
-                  className={`text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-1.5 transition-all ${t.primaryBg}`}
-                >
-                  <UserPlus size={14} /> Nuevo Curso
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {estudiantesVisibles.length > 0 ? (
-                  estudiantesVisibles.map(est => (
-                    <div 
-                      key={est.id} 
-                      onClick={() => {setFormEstudiante(est); setShowEditModal(est.id)}} 
-                      className="p-5 bg-slate-50/80 rounded-[1.5rem] border border-slate-100 flex justify-between items-start cursor-pointer hover:border-slate-300 hover:bg-white hover:shadow-md transition-all group"
-                    >
-                      <div className="space-y-1">
-                        <p className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
-                          {est.nombre}
-                        </p>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                          🗓️ {est.fecha || 'Sin día'} {est.horaClase && `• ${formatTime12h(est.horaClase)}`}
-                        </p>
-                        {est.leccion && (
-                          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-200/60 text-slate-600 text-[10px] font-semibold mt-1">
-                            <Bookmark size={10} /> {est.leccion}
-                          </div>
-                        )}
-                        {est.notas && (
-                          <p className="text-[11px] text-slate-500 italic line-clamp-1 mt-1">"{est.notas}"</p>
-                        )}
-                      </div>
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation(); 
-                          if(window.confirm(`¿Borrar el curso de ${est.nombre}?`)) {
-                            setEstudiantesGlobales(prev => prev.filter(i => i.id !== est.id));
-                          }
-                        }} 
-                        className="text-slate-300 hover:text-red-500 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all p-1"
-                        title="Eliminar curso"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {diasCompletosSemana.map(diaNombre => {
+                const infoDia = horarioSemanal[diaNombre] || { activo: false, tipos: [] };
+                
+                return (
+                  <div 
+                    key={diaNombre}
+                    className={`p-5 rounded-[2rem] border transition-all flex flex-col justify-between gap-4 ${
+                      infoDia.activo ? 'border-purple-200 bg-purple-50/20 shadow-sm' : 'border-slate-100 bg-slate-50/50 opacity-80'
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="font-black text-slate-800 text-base">{diaNombre}</span>
+                      <button
+                        onClick={() => toggleDiaHorario(diaNombre)}
+                        className={`w-12 h-6 rounded-full transition-colors relative p-1 ${infoDia.activo ? t.primaryBg : 'bg-slate-300'}`}
                       >
-                        <Trash2 size={16} />
+                        <div className={`w-4 h-4 rounded-full bg-white transition-transform ${infoDia.activo ? 'translate-x-6' : 'translate-x-0'}`}></div>
                       </button>
                     </div>
-                  ))
-                ) : (
-                  <p className="col-span-full text-center py-8 text-slate-400 text-sm italic">
-                    No hay cursos bíblicos guardados
-                  </p>
-                )}
+
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      {tiposDisponibles.map(tipo => {
+                        const seleccionado = infoDia.tipos.includes(tipo.id);
+                        return (
+                          <button
+                            key={tipo.id}
+                            onClick={() => toggleTipoActividad(diaNombre, tipo.id)}
+                            className={`text-xs font-bold px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+                              seleccionado 
+                                ? `${t.primaryBg} text-white border-transparent shadow-sm` 
+                                : 'bg-white text-slate-500 border-slate-200 hover:border-slate-300'
+                            }`}
+                          >
+                            {seleccionado && <Check size={12} strokeWidth={3} />}
+                            {tipo.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 p-6 bg-slate-50 rounded-[2rem] border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="space-y-1 text-center md:text-left">
+                <p className="font-bold text-slate-800 text-sm">💡 Consejo para tu organización</p>
+                <p className="text-xs text-slate-500">Este horario es totalmente independiente de tu calendario mensual de horas para ayudarte a planificar tus rutinas semanales fijas.</p>
               </div>
-            </section>
+              <button
+                onClick={() => setVistaActiva('registro')}
+                className={`text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md transition-all ${t.primaryBg} ${t.buttonHover}`}
+              >
+                Ver Calendario de Horas
+              </button>
+            </div>
           </div>
-        </div>
+        )}
+
       </div>
 
       {/* SELECTOR FLOTANTE DE TEMAS ORGANIZADO POR TONALIDAD */}
