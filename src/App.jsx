@@ -2,15 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile, CheckCircle2, Bookmark, Check
+  Palette, Smile, CheckCircle2, Bookmark
 } from 'lucide-react';
 
 const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
-  const diasCompletos = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
   
-  // Organizados por tonalidad/rueda cromática
+  // Organizados por tonalidad/rueda cromática con clases de acento para el horario mensual
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
@@ -22,7 +21,9 @@ const App = () => {
       accentBg: "bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50",
       buttonHover: "hover:brightness-105",
       bgOverlay: "bg-slate-50",
-      localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
+      localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png",
+      bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
+      activeDayBg: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] text-white"
     },
     rosadoClaro: {
       name: "Rosado Claro",
@@ -34,7 +35,9 @@ const App = () => {
       accentBg: "bg-pink-50",
       buttonHover: "hover:bg-pink-500",
       bgOverlay: "bg-pink-50/30",
-      localImg: ""
+      localImg: "",
+      bubbleBg: "bg-pink-100 text-pink-900 border-pink-200",
+      activeDayBg: "bg-pink-400 text-white"
     },
     sakura: {
       name: "Sakura",
@@ -46,7 +49,9 @@ const App = () => {
       accentBg: "bg-pink-100",
       buttonHover: "hover:bg-pink-700",
       bgOverlay: "bg-pink-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/cubes.png"
+      localImg: "https://www.transparenttextures.com/patterns/cubes.png",
+      bubbleBg: "bg-pink-200 text-pink-900 border-pink-300",
+      activeDayBg: "bg-pink-600 text-white"
     },
     rojo: {
       name: "Rojo",
@@ -58,7 +63,9 @@ const App = () => {
       accentBg: "bg-rose-100",
       buttonHover: "hover:bg-rose-700",
       bgOverlay: "bg-rose-50/40",
-      localImg: ""
+      localImg: "",
+      bubbleBg: "bg-rose-100 text-rose-900 border-rose-200",
+      activeDayBg: "bg-rose-600 text-white"
     },
     naranja: {
       name: "Naranja",
@@ -70,7 +77,9 @@ const App = () => {
       accentBg: "bg-orange-100",
       buttonHover: "hover:bg-orange-700",
       bgOverlay: "bg-orange-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png"
+      localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png",
+      bubbleBg: "bg-orange-100 text-orange-900 border-orange-200",
+      activeDayBg: "bg-orange-600 text-white"
     },
     amarillo: {
       name: "Amarillo",
@@ -82,7 +91,9 @@ const App = () => {
       accentBg: "bg-amber-100",
       buttonHover: "hover:bg-amber-600",
       bgOverlay: "bg-amber-50/30",
-      localImg: ""
+      localImg: "",
+      bubbleBg: "bg-amber-100 text-amber-900 border-amber-200",
+      activeDayBg: "bg-amber-500 text-white"
     },
     marron: {
       name: "Marrón",
@@ -94,7 +105,9 @@ const App = () => {
       accentBg: "bg-amber-100",
       buttonHover: "hover:bg-amber-900",
       bgOverlay: "bg-amber-50/30",
-      localImg: ""
+      localImg: "",
+      bubbleBg: "bg-amber-200 text-amber-950 border-amber-300",
+      activeDayBg: "bg-amber-800 text-white"
     },
     verde: {
       name: "Verde",
@@ -106,7 +119,9 @@ const App = () => {
       accentBg: "bg-emerald-100",
       buttonHover: "hover:bg-emerald-700",
       bgOverlay: "bg-emerald-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/polygons.png"
+      localImg: "https://www.transparenttextures.com/patterns/polygons.png",
+      bubbleBg: "bg-emerald-100 text-emerald-900 border-emerald-200",
+      activeDayBg: "bg-emerald-600 text-white"
     },
     azul: {
       name: "Azul",
@@ -118,7 +133,9 @@ const App = () => {
       accentBg: "bg-blue-100",
       buttonHover: "hover:bg-blue-700",
       bgOverlay: "bg-blue-50/50",
-      localImg: ""
+      localImg: "",
+      bubbleBg: "bg-blue-100 text-blue-900 border-blue-200",
+      activeDayBg: "bg-blue-600 text-white"
     },
     morado: {
       name: "Morado",
@@ -130,7 +147,9 @@ const App = () => {
       accentBg: "bg-purple-100",
       buttonHover: "hover:bg-purple-700",
       bgOverlay: "bg-purple-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png"
+      localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png",
+      bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
+      activeDayBg: "bg-purple-600 text-white"
     }
   };
 
@@ -145,8 +164,11 @@ const App = () => {
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
   const [diaSeleccionado, setDiaSeleccionado] = useState(new Date().getDate());
 
-  // Estado para alternar entre vistas de manera minimalista
-  const [vistaActiva, setVistaActiva] = useState('registro'); // 'registro' o 'horario'
+  // Estado para alternar entre la vista del calendario de registro y el horario mensual de actividades
+  const [modoCalendario, setModoCalendario] = useState('registro'); // 'registro' o 'horarioMensual'
+  
+  // Estado para las burbujas de pensamiento visibles (guardamos el ID del día cuya burbuja está abierta)
+  const [diaBurbujaAbierta, setDiaBurbujaAbierta] = useState(null);
 
   useEffect(() => {
     const checkDate = () => {
@@ -163,27 +185,13 @@ const App = () => {
   }, []);
 
   const [datosMensuales, setDatosMensuales] = useState(() => {
-    const salvo = localStorage.getItem('sakura_data_v6');
+    const salvo = localStorage.getItem('sakura_data_v7');
     return salvo ? JSON.parse(salvo) : {};
   });
 
   const [estudiantesGlobales, setEstudiantesGlobales] = useState(() => {
     const salvo = localStorage.getItem('sakura_estudiantes_v1');
     return salvo ? JSON.parse(salvo) : [];
-  });
-  
-  // Estado para el Horario Semanal Personalizado con texto libre por día
-  const [horarioSemanal, setHorarioSemanal] = useState(() => {
-    const salvo = localStorage.getItem('sakura_horario_custom_v1');
-    return salvo ? JSON.parse(salvo) : {
-      "Lunes": { activo: true, nota: "Predicar" },
-      "Martes": { activo: false, nota: "" },
-      "Miércoles": { activo: true, nota: "Predicar" },
-      "Jueves": { activo: false, nota: "" },
-      "Viernes": { activo: true, nota: "Hacer cartas" },
-      "Sábado": { activo: false, nota: "" },
-      "Domingo": { activo: true, nota: "Predicar por WhatsApp" }
-    };
   });
   
   const [showEditModal, setShowEditModal] = useState(null);
@@ -269,16 +277,12 @@ const App = () => {
   const primerDiaOffset = getPrimerDiaSemanaIndice(mesIndice, anioActual);
 
   useEffect(() => {
-    localStorage.setItem('sakura_data_v6', JSON.stringify(datosMensuales));
+    localStorage.setItem('sakura_data_v7', JSON.stringify(datosMensuales));
   }, [datosMensuales]);
 
   useEffect(() => {
     localStorage.setItem('sakura_estudiantes_v1', JSON.stringify(estudiantesGlobales));
   }, [estudiantesGlobales]);
-
-  useEffect(() => {
-    localStorage.setItem('sakura_horario_custom_v1', JSON.stringify(horarioSemanal));
-  }, [horarioSemanal]);
 
   useEffect(() => {
     localStorage.setItem('sakura_theme', temaActual);
@@ -292,7 +296,7 @@ const App = () => {
   };
 
   const storageKey = `${mesActualKey}_${anioActual}`;
-  const currentData = datosMensuales[storageKey] || { meta: 50, historial: {} };
+  const currentData = datosMensuales[storageKey] || { meta: 50, historial: {}, horarioActividades: {} };
 
   const estudiantesVisibles = estudiantesGlobales.filter(est => {
     if (!est.mesRegistro) return true;
@@ -320,7 +324,6 @@ const App = () => {
 
   const [nuevaHora, setNuevaHora] = useState('');
   const [nuevoMinuto, setNuevoMinuto] = useState('');
-  
   const [formEstudiante, setFormEstudiante] = useState({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' });
 
   const registrarActividad = (hInput, mInput) => {
@@ -359,6 +362,41 @@ const App = () => {
     updateCurrentMonth({ historial: nuevoHistorial });
   };
 
+  // --- LÓGICA DE INTERACCIÓN PARA EL HORARIO MENSUAL DE ACTIVIDADES ---
+  const manejarClickDiaHorario = (dia) => {
+    const horarioActual = { ...(currentData.horarioActividades || {}) };
+    const diaInfo = horarioActual[dia];
+
+    if (!diaInfo) {
+      // 1er toque: el día no está marcado -> se marca y pide la nota
+      const nota = prompt(`¿Qué actividad tienes planeada para el día ${dia}?`);
+      if (nota !== null && nota.trim() !== "") {
+        horarioActual[dia] = { nota: nota.trim() };
+        updateCurrentMonth({ horarioActividades: horarioActual });
+        setDiaBurbujaAbierta(dia); // Muestra la burbuja
+      }
+    } else {
+      // Ya está marcado: alternar la visibilidad de la burbuja de pensamiento
+      if (diaBurbujaAbierta === dia) {
+        setDiaBurbujaAbierta(null); // Si ya estaba abierta, se oculta
+      } else {
+        setDiaBurbujaAbierta(dia); // Se abre
+      }
+    }
+  };
+
+  const manejarDobleClickDiaHorario = (dia, e) => {
+    e.stopPropagation(); // Evita conflictos con el click simple
+    const horarioActual = { ...(currentData.horarioActividades || {}) };
+    if (horarioActual[dia]) {
+      if (window.confirm(`¿Deseas desmarcar la actividad del día ${dia}?`)) {
+        delete horarioActual[dia];
+        updateCurrentMonth({ horarioActividades: horarioActual });
+        if (diaBurbujaAbierta === dia) setDiaBurbujaAbierta(null);
+      }
+    }
+  };
+
   const formatTime12h = (time24) => {
     if (!time24) return '';
     if (!time24.includes(':')) return time24;
@@ -378,7 +416,7 @@ const App = () => {
   };
 
   const enviarWhatsApp = () => {
-    const mensaje = `Informe de Servicio\n\nMes: ${mesActualKey} ${anioActual}\nHoras: ${horas}h ${minutos}m\nCursos Bíblicos: ${estudiantesVisibles.length}`;
+    const mensaje = `📋 *Informe de Servicio* 📋\n\n📅 *Mes:* ${mesActualKey} ${anioActual}\n⏱️ *Horas:* ${horas}h ${minutos}m\n📖 *Cursos Bíblicos:* ${estudiantesVisibles.length}`;
     const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
   };
@@ -396,27 +434,7 @@ const App = () => {
     setMesIndice(nuevoIndice);
     setAnioActual(nuevoAnio);
     setDiaSeleccionado(1);
-  };
-
-  const toggleDiaHorario = (dia) => {
-    setHorarioSemanal(prev => ({
-      ...prev,
-      [dia]: {
-        ...prev[dia],
-        activo: !prev[dia].activo
-      }
-    }));
-  };
-
-  const actualizarNotaHorario = (dia, nuevaNota) => {
-    setHorarioSemanal(prev => ({
-      ...prev,
-      [dia]: {
-        ...prev[dia],
-        nota: nuevaNota,
-        activo: nuevaNota.trim() !== '' ? true : prev[dia].activo
-      }
-    }));
+    setDiaBurbujaAbierta(null);
   };
 
   const porcentaje = Math.min(100, (totalMinutos / ((currentData.meta || 1) * 60)) * 100);
@@ -442,7 +460,7 @@ const App = () => {
         </header>
 
         {/* NAVEGACIÓN DE MES & META */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-white/90 backdrop-blur-sm p-6 rounded-[2.5rem] shadow-sm border border-slate-100 flex items-center justify-between">
             <button onClick={() => cambiarMes(-1)} className={`p-3 rounded-2xl hover:bg-slate-100 transition-colors ${temaActual === 'gradienteEstatico' ? 'text-[#7a57d1]' : t.primary}`}>
               <ChevronLeft size={28} />
@@ -468,28 +486,6 @@ const App = () => {
               />
               <span className="text-lg font-bold">horas</span>
             </div>
-          </div>
-        </div>
-
-        {/* SELECTOR DE VISTAS (PESTAÑAS ESTÉTICAS Y COMPACTAS) */}
-        <div className="flex justify-center mb-6">
-          <div className="bg-white/90 backdrop-blur-sm p-1 rounded-2xl shadow-sm border border-slate-100 inline-flex gap-1">
-            <button
-              onClick={() => setVistaActiva('registro')}
-              className={`px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
-                vistaActiva === 'registro' ? `${t.primaryBg} text-white shadow-md` : 'text-slate-500 hover:bg-slate-100'
-              }`}
-            >
-              Calendario y Registro
-            </button>
-            <button
-              onClick={() => setVistaActiva('horario')}
-              className={`px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
-                vistaActiva === 'horario' ? `${t.primaryBg} text-white shadow-md` : 'text-slate-500 hover:bg-slate-100'
-              }`}
-            >
-              Horario Semanal
-            </button>
           </div>
         </div>
 
@@ -522,48 +518,72 @@ const App = () => {
           </div>
         </section>
 
-        {/* VISTA 1: CALENDARIO Y REGISTRO */}
-        {vistaActiva === 'registro' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-5 space-y-8">
-              <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center justify-between">
-                  <span>Registrar Día {diaSeleccionado}</span>
-                  {currentData.historial && currentData.historial[diaSeleccionado] && (
-                    <button 
-                      onClick={() => window.confirm(`¿Borrar registro del día ${diaSeleccionado}?`) && eliminarDia(diaSeleccionado)}
-                      className="text-red-500 hover:text-red-700 flex items-center gap-1 normal-case font-bold text-[11px]"
-                    >
-                      <Trash2 size={13}/> Borrar hoy
-                    </button>
-                  )}
+        {/* GRID PRINCIPAL */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* PANEL IZQUIERDO: FORMULARIO Y CALENDARIO DUAL (REGISTRO VS HORARIO MENSUAL) */}
+          <div className="lg:col-span-5 space-y-8">
+            <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center justify-between">
+                <span>Registrar Día {diaSeleccionado}</span>
+                {currentData.historial && currentData.historial[diaSeleccionado] && (
+                  <button 
+                    onClick={() => window.confirm(`¿Borrar registro del día ${diaSeleccionado}?`) && eliminarDia(diaSeleccionado)}
+                    className="text-red-500 hover:text-red-700 flex items-center gap-1 normal-case font-bold text-[11px]"
+                  >
+                    <Trash2 size={13}/> Borrar hoy
+                  </button>
+                )}
+              </h3>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-slate-400 ml-2">HORAS</label>
+                    <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
+                </div>
+                <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-slate-400 ml-2">MINUTOS</label>
+                    <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
+                </div>
+              </div>
+              <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>
+                Añadir Tiempo
+              </button>
+            </section>
+
+            {/* CONTENEDOR DEL CALENDARIO DUAL */}
+            <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100 relative">
+              
+              {/* SELECTOR DE VISTA: CALENDARIO DE ACTIVIDAD VS HORARIO MENSUAL */}
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">
+                  {modoCalendario === 'registro' ? 'Calendario de Actividad' : 'Horario Mensual'}
                 </h3>
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="space-y-1">
-                      <label className="text-[10px] font-bold text-slate-400 ml-2">HORAS</label>
-                      <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevaHora} onChange={e => setNuevaHora(e.target.value)}/>
-                  </div>
-                  <div className="space-y-1">
-                      <label className="text-[10px] font-bold text-slate-400 ml-2">MINUTOS</label>
-                      <input type="number" min="0" placeholder="0" className="w-full bg-slate-50 rounded-2xl p-4 text-2xl font-black text-slate-700 focus:ring-4 focus:ring-slate-100 outline-none transition-all" value={nuevoMinuto} onChange={e => setNuevoMinuto(e.target.value)}/>
-                  </div>
+                <div className="bg-slate-100 p-1 rounded-xl flex gap-1">
+                  <button 
+                    onClick={() => setModoCalendario('registro')} 
+                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${modoCalendario === 'registro' ? `${t.primaryBg} text-white shadow-sm` : 'text-slate-500 hover:bg-slate-200'}`}
+                  >
+                    Horas
+                  </button>
+                  <button 
+                    onClick={() => setModoCalendario('horarioMensual')} 
+                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${modoCalendario === 'horarioMensual' ? `${t.primaryBg} text-white shadow-sm` : 'text-slate-500 hover:bg-slate-200'}`}
+                  >
+                    Actividades
+                  </button>
                 </div>
-                <button onClick={() => {registrarActividad(nuevaHora, nuevoMinuto); setNuevaHora(''); setNuevoMinuto('');}} className={`w-full text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-xs shadow-lg active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}>
-                  Añadir Tiempo
-                </button>
-              </section>
+              </div>
+              
+              <div className="grid grid-cols-7 gap-1 text-center mb-3">
+                {diasSemana.map((d, index) => (
+                  <span key={index} className="text-[10px] font-bold text-slate-400 uppercase">
+                    {d}
+                  </span>
+                ))}
+              </div>
 
-              <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
-                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Calendario de Actividad</h3>
-                
-                <div className="grid grid-cols-7 gap-1 text-center mb-3">
-                  {diasSemana.map((d, index) => (
-                    <span key={index} className="text-[10px] font-bold text-slate-400 uppercase">
-                      {d}
-                    </span>
-                  ))}
-                </div>
-
+              {/* VISTA 1: CALENDARIO DE REGISTRO DE HORAS */}
+              {modoCalendario === 'registro' ? (
                 <div className="grid grid-cols-7 gap-1.5">
                   {[...Array(primerDiaOffset)].map((_, i) => (
                     <div key={`empty-${i}`} className="aspect-square"></div>
@@ -594,177 +614,168 @@ const App = () => {
                     );
                   })}
                 </div>
-              </section>
-            </div>
+              ) : (
+                /* VISTA 2: HORARIO MENSUAL DE ACTIVIDADES (CON BURBUJITAS FLOTANTES Y COLORES AUTOMÁTICOS) */
+                <div className="grid grid-cols-7 gap-1.5 relative">
+                  {[...Array(primerDiaOffset)].map((_, i) => (
+                    <div key={`empty-h-${i}`} className="aspect-square"></div>
+                  ))}
 
-            <div className="lg:col-span-7 space-y-8">
-              <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100 text-center">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                  <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p>
-                    <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary}`}>
-                      {horas}h {minutos}m
-                    </p>
-                  </div>
-                  <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p>
-                    <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary}`}>
-                      {estudiantesVisibles.length}
-                    </p>
-                  </div>
-                  <div className={`p-4 rounded-2xl text-white shadow-md transition-colors ${t.primaryBg}`}>
-                    <p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p>
-                    <p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p>
-                  </div>
-                  <button 
-                    onClick={() => {if(window.confirm("¿Deseas reiniciar todos los registros de este mes?")) updateCurrentMonth({historial:{}})}} 
-                    className="p-4 bg-red-50 text-red-500 rounded-2xl flex flex-col items-center justify-center hover:bg-red-100 transition-colors group"
-                    title="Reiniciar mes"
-                  >
-                    <Trash2 size={20} className="transition-transform group-hover:scale-110 mb-0.5" />
-                    <span className="text-[9px] font-black uppercase">Limpiar</span>
-                  </button>
-                </div>
+                  {[...Array(totalDiasMes)].map((_, i) => {
+                    const dia = i + 1;
+                    const infoHorario = currentData.horarioActividades && currentData.horarioActividades[dia];
+                    const estaMarcado = !!infoHorario;
+                    const mostrarBurbuja = diaBurbujaAbierta === dia;
 
-                <div className="mb-8 bg-slate-100 h-3 rounded-full overflow-hidden p-0.5">
-                  <div 
-                    className={`h-full rounded-full transition-all duration-1000 ${t.primaryBg}`} 
-                    style={{ width: `${porcentaje}%` }}
-                  ></div>
-                </div>
-
-                <button 
-                  onClick={enviarWhatsApp} 
-                  className="w-full bg-[#25D366] text-white py-4 px-8 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm shadow-lg hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-3"
-                >
-                  <Send size={18} className="fill-white" /> ENVIAR INFORME POR WHATSAPP
-                </button>
-              </section>
-
-              <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100">
-                <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <BookOpen size={16} /> Cursos Bíblicos
-                  </h3>
-                  <button 
-                    onClick={() => {
-                      setFormEstudiante({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' }); 
-                      setShowEditModal('nuevo');
-                    }} 
-                    className={`text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-1.5 transition-all ${t.primaryBg}`}
-                  >
-                    <UserPlus size={14} /> Nuevo Curso
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {estudiantesVisibles.length > 0 ? (
-                    estudiantesVisibles.map(est => (
-                      <div 
-                        key={est.id} 
-                        onClick={() => {setFormEstudiante(est); setShowEditModal(est.id)}} 
-                        className="p-5 bg-slate-50/80 rounded-[1.5rem] border border-slate-100 flex justify-between items-start cursor-pointer hover:border-slate-300 hover:bg-white hover:shadow-md transition-all group"
-                      >
-                        <div className="space-y-1">
-                          <p className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
-                            {est.nombre}
-                          </p>
-                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                            {est.fecha || 'Sin día'} {est.horaClase && `• ${formatTime12h(est.horaClase)}`}
-                          </p>
-                          {est.leccion && (
-                            <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-200/60 text-slate-600 text-[10px] font-semibold mt-1">
-                              <Bookmark size={10} /> {est.leccion}
-                            </div>
-                          )}
-                          {est.notas && (
-                            <p className="text-[11px] text-slate-500 italic line-clamp-1 mt-1">"{est.notas}"</p>
-                          )}
-                        </div>
+                    return (
+                      <div key={`h-${dia}`} className="relative">
                         <button 
-                          onClick={(e) => {
-                            e.stopPropagation(); 
-                            if(window.confirm(`¿Borrar el curso de ${est.nombre}?`)) {
-                              setEstudiantesGlobales(prev => prev.filter(i => i.id !== est.id));
-                            }
-                          }} 
-                          className="text-slate-300 hover:text-red-500 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all p-1"
-                          title="Eliminar curso"
+                          onClick={() => manejarClickDiaHorario(dia)}
+                          onDoubleClick={(e) => manejarDobleClickDiaHorario(dia, e)}
+                          className={`aspect-square w-full rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1 cursor-pointer select-none
+                            ${estaMarcado ? `${t.activeDayBg} shadow-md scale-105` : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}
+                          `}
+                          title="Un toque para nota/burbuja | Doble toque para desmarcar"
                         >
-                          <Trash2 size={16} />
+                          <span className={estaMarcado ? "font-black" : ""}>{dia}</span>
+                          {estaMarcado && (
+                            <span className="w-1.5 h-1.5 bg-white rounded-full mt-0.5 animate-pulse"></span>
+                          )}
                         </button>
+
+                        {/* BURBUJA DE PENSAMIENTO FLOTANTE */}
+                        {mostrarBurbuja && infoHorario && (
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-30 pointer-events-none animate-in fade-in zoom-in-95 duration-200">
+                            <div className={`relative px-3 py-1.5 rounded-2xl shadow-xl text-[10px] font-bold whitespace-nowrap border backdrop-blur-md ${t.bubbleBg}`}>
+                              {infoHorario.nota}
+                              {/* Triangulito inferior de la burbuja */}
+                              <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-0.5 border-4 border-transparent border-t-current opacity-90"></div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    ))
-                  ) : (
-                    <p className="col-span-full text-center py-8 text-slate-400 text-sm italic">
-                      No hay cursos bíblicos guardados
-                    </p>
-                  )}
+                    );
+                  })}
                 </div>
-              </section>
-            </div>
+              )}
+            </section>
           </div>
-        ) : (
-          /* VISTA 2: HORARIO SEMANAL ESTÉTICO (TIPO CALENDARIO, TOQUE PARA ACTIVAR Y TEXTO LIBRE) */
-          <div className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100 animate-in fade-in duration-300 max-w-2xl mx-auto">
-            <div className="text-center mb-6">
-              <h3 className="text-lg font-black text-slate-800">Horario Semanal de Actividad</h3>
-              <p className="text-xs text-slate-400 mt-0.5">Toca un día para activarlo y escribe libremente tu actividad</p>
-            </div>
 
-            <div className="space-y-3">
-              {diasCompletos.map(diaNombre => {
-                const infoDia = horarioSemanal[diaNombre] || { activo: false, nota: "" };
-                
-                return (
-                  <div 
-                    key={diaNombre}
-                    className={`p-4 rounded-2xl border transition-all flex items-center gap-4 ${
-                      infoDia.activo 
-                        ? 'border-purple-200 bg-purple-50/20 shadow-sm' 
-                        : 'border-slate-100 bg-slate-50/50 opacity-75'
-                    }`}
-                  >
-                    {/* Botón táctil tipo fecha/calendario */}
-                    <button
-                      onClick={() => toggleDiaHorario(diaNombre)}
-                      className={`w-16 py-3 rounded-xl font-black text-xs uppercase tracking-wider transition-all flex flex-col items-center justify-center shadow-sm ${
-                        infoDia.activo ? `${t.primaryBg} text-white` : 'bg-white text-slate-500 border border-slate-200 hover:bg-slate-100'
-                      }`}
-                    >
-                      <span>{diaNombre.slice(0, 3)}</span>
-                      <span className="text-[9px] font-normal opacity-90">{infoDia.activo ? 'Activo' : 'Libre'}</span>
-                    </button>
+          {/* PANEL DERECHO: MÉTRICAS, INFORMES Y ESTUDIANTES */}
+          <div className="lg:col-span-7 space-y-8">
+            <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100 text-center">
+              
+              {/* METRICAS PRINCIPALES */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p>
+                  <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] bg-clip-text text-transparent" : `text-2xl font-black ${t.primary}`}>
+                    {horas}h {minutos}m
+                  </p>
+                </div>
+                <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Cursos</p>
+                  <p className={temaActual === 'gradienteEstatico' ? "text-2xl font-black text-[#e44d9b]" : `text-2xl font-black ${t.primary}`}>
+                    {estudiantesVisibles.length}
+                  </p>
+                </div>
+                <div className={`p-4 rounded-2xl text-white shadow-md transition-colors ${t.primaryBg}`}>
+                  <p className="text-[10px] font-bold opacity-80 uppercase mb-1">Progreso</p>
+                  <p className="text-2xl font-black">{porcentaje.toFixed(0)}%</p>
+                </div>
+                <button 
+                  onClick={() => {if(window.confirm("¿Deseas reiniciar todos los registros de este mes?")) updateCurrentMonth({historial:{}})}} 
+                  className="p-4 bg-red-50 text-red-500 rounded-2xl flex flex-col items-center justify-center hover:bg-red-100 transition-colors group"
+                  title="Reiniciar mes"
+                >
+                  <Trash2 size={20} className="transition-transform group-hover:scale-110 mb-0.5" />
+                  <span className="text-[9px] font-black uppercase">Limpiar</span>
+                </button>
+              </div>
 
-                    {/* Campo de texto libre personalizado */}
-                    <div className="flex-1">
-                      <input 
-                        type="text"
-                        placeholder={`¿Qué harás el ${diaNombre}? (ej. Predicar, Cartas...)`}
-                        value={infoDia.nota}
-                        onChange={(e) => actualizarNotaHorario(diaNombre, e.target.value)}
-                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs md:text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-200 transition-all placeholder:text-slate-400 shadow-sm"
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+              {/* BARRA DE PROGRESO */}
+              <div className="mb-8 bg-slate-100 h-3 rounded-full overflow-hidden p-0.5">
+                <div 
+                  className={`h-full rounded-full transition-all duration-1000 ${t.primaryBg}`} 
+                  style={{ width: `${porcentaje}%` }}
+                ></div>
+              </div>
 
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => setVistaActiva('registro')}
-                className={`text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-md transition-all ${t.primaryBg} ${t.buttonHover}`}
+              <button 
+                onClick={enviarWhatsApp} 
+                className="w-full bg-[#25D366] text-white py-4 px-8 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm shadow-lg hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-3"
               >
-                Volver al Registro Principal
+                <Send size={18} className="fill-white" /> ENVIAR INFORME POR WHATSAPP
               </button>
-            </div>
-          </div>
-        )}
+            </section>
 
+            {/* CURSOS BÍBLICOS DETALLADOS */}
+            <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                  <BookOpen size={16} /> Cursos Bíblicos
+                </h3>
+                <button 
+                  onClick={() => {
+                    setFormEstudiante({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' }); 
+                    setShowEditModal('nuevo');
+                  }} 
+                  className={`text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md hover:brightness-105 active:scale-95 flex items-center gap-1.5 transition-all ${t.primaryBg}`}
+                >
+                  <UserPlus size={14} /> Nuevo Curso
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {estudiantesVisibles.length > 0 ? (
+                  estudiantesVisibles.map(est => (
+                    <div 
+                      key={est.id} 
+                      onClick={() => {setFormEstudiante(est); setShowEditModal(est.id)}} 
+                      className="p-5 bg-slate-50/80 rounded-[1.5rem] border border-slate-100 flex justify-between items-start cursor-pointer hover:border-slate-300 hover:bg-white hover:shadow-md transition-all group"
+                    >
+                      <div className="space-y-1">
+                        <p className="font-bold text-slate-800 text-sm flex items-center gap-1.5">
+                          {est.nombre}
+                        </p>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          🗓️ {est.fecha || 'Sin día'} {est.horaClase && `• ${formatTime12h(est.horaClase)}`}
+                        </p>
+                        {est.leccion && (
+                          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-200/60 text-slate-600 text-[10px] font-semibold mt-1">
+                            <Bookmark size={10} /> {est.leccion}
+                          </div>
+                        )}
+                        {est.notas && (
+                          <p className="text-[11px] text-slate-500 italic line-clamp-1 mt-1">"{est.notas}"</p>
+                        )}
+                      </div>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation(); 
+                          if(window.confirm(`¿Borrar el curso de ${est.nombre}?`)) {
+                            setEstudiantesGlobales(prev => prev.filter(i => i.id !== est.id));
+                          }
+                        }} 
+                        className="text-slate-300 hover:text-red-500 opacity-100 md:opacity-0 group-hover:opacity-100 transition-all p-1"
+                        title="Eliminar curso"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="col-span-full text-center py-8 text-slate-400 text-sm italic">
+                    No hay cursos bíblicos guardados
+                  </p>
+                )}
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
 
-      {/* SELECTOR FLOTANTE DE TEMAS */}
+      {/* SELECTOR FLOTANTE DE TEMAS ORGANIZADO POR TONALIDAD */}
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
         {showThemeSelector && (
             <div className="bg-white/95 backdrop-blur-md p-3 rounded-3xl shadow-2xl border border-slate-100 flex flex-col gap-3 max-h-[70vh] overflow-y-auto animate-in fade-in slide-in-from-bottom-4 scrollbar-none">
@@ -814,6 +825,7 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">NOMBRE COMPLETO</label>
                 <input 
                   type="text" 
+                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.nombre} 
                   onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}
@@ -825,6 +837,7 @@ const App = () => {
                   <label className="text-[10px] font-bold text-slate-400 ml-2">DÍA DE LA SEMANA</label>
                   <input 
                     type="text" 
+                    placeholder="" 
                     className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                     value={formEstudiante.fecha} 
                     onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}
@@ -846,6 +859,7 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">CAPÍTULO / LECCIÓN ACTUAL</label>
                 <input 
                   type="text" 
+                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.leccion} 
                   onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}
@@ -855,6 +869,7 @@ const App = () => {
               <div>
                 <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
                 <textarea 
+                  placeholder="" 
                   rows={2} 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" 
                   value={formEstudiante.notas} 
