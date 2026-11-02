@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile, CheckCircle2, Bookmark, RefreshCw
+  Palette, Smile, CheckCircle2, Bookmark
 } from 'lucide-react';
 
 const App = () => {
@@ -234,28 +234,10 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // --- MIGRACIÓN EXPLICITA Y LECTURA MULTI-VERSIÓN DE DATOS ANTERIORES ---
-  const cargarDatosPrevios = () => {
-    const keysEnOrden = ['sakura_data_v7', 'sakura_data_v6', 'sakura_data_v5', 'sakura_data'];
-    let datosCargados = {};
-    
-    for (const key of keysEnOrden) {
-      const item = localStorage.getItem(key);
-      if (item) {
-        try {
-          const parsed = JSON.parse(item);
-          if (Object.keys(parsed).length > 0) {
-            datosCargados = { ...parsed, ...datosCargados };
-          }
-        } catch (e) {
-          console.error("Error al leer " + key, e);
-        }
-      }
-    }
-    return datosCargados;
-  };
-
-  const [datosMensuales, setDatosMensuales] = useState(() => cargarDatosPrevios());
+  const [datosMensuales, setDatosMensuales] = useState(() => {
+    const salvo = localStorage.getItem('sakura_data_v7');
+    return salvo ? JSON.parse(salvo) : {};
+  });
 
   const [estudiantesGlobales, setEstudiantesGlobales] = useState(() => {
     const salvo = localStorage.getItem('sakura_estudiantes_v1');
@@ -348,10 +330,8 @@ const App = () => {
   };
   const primerDiaOffset = getPrimerDiaSemanaIndice(mesIndice, anioActual);
 
-  // Guardar siempre simultáneamente en v7 y v6 para asegurar persistencia
   useEffect(() => {
     localStorage.setItem('sakura_data_v7', JSON.stringify(datosMensuales));
-    localStorage.setItem('sakura_data_v6', JSON.stringify(datosMensuales));
   }, [datosMensuales]);
 
   useEffect(() => {
@@ -361,16 +341,6 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem('sakura_theme', temaActual);
   }, [temaActual]);
-
-  const restaurarRescateManual = () => {
-    const recuperados = cargarDatosPrevios();
-    if (Object.keys(recuperados).length > 0) {
-      setDatosMensuales(recuperados);
-      alert("¡Se han restaurado correctamente tus registros de versiones anteriores!");
-    } else {
-      alert("No se encontraron registros previos en la memoria de este navegador.");
-    }
-  };
 
   const formatTimer = (totalSeconds) => {
     const h = Math.floor(totalSeconds / 3600);
@@ -542,14 +512,7 @@ const App = () => {
       )}
 
       <div className="max-w-5xl mx-auto relative z-10">
-        <header className="text-center mb-10 relative">
-          <button 
-            onClick={restaurarRescateManual} 
-            className="absolute top-0 right-0 text-[11px] font-bold bg-white/80 hover:bg-white text-slate-600 px-3 py-1.5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-1.5 transition-all"
-            title="Sincronizar y recargar datos guardados previamente"
-          >
-            <RefreshCw size={13} /> Sincronizar V6/V7
-          </button>
+        <header className="text-center mb-10">
           <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-3 shadow-sm transition-colors animate-bounce`}>
             <Smile size={42} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1]" : t.primary} />
           </div>
