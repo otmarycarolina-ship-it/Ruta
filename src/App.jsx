@@ -9,7 +9,7 @@ const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
-  // Organizados por tonalidad/rueda cromática con clases de acento para el horario mensual
+  // Organizados por tonalidad con variaciones de intensidad para el horario mensual
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
@@ -23,7 +23,13 @@ const App = () => {
       bgOverlay: "bg-slate-50",
       localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png",
       bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
-      activeDayBg: "bg-gradient-to-r from-[#7a57d1] to-[#e44d9b] text-white"
+      // Variantes de tonos para las casillas del calendario
+      variants: [
+        "bg-purple-400 text-white shadow-sm",
+        "bg-pink-500 text-white shadow-sm",
+        "bg-purple-600 text-white shadow-sm",
+        "bg-rose-400 text-white shadow-sm"
+      ]
     },
     rosadoClaro: {
       name: "Rosado Claro",
@@ -37,7 +43,12 @@ const App = () => {
       bgOverlay: "bg-pink-50/30",
       localImg: "",
       bubbleBg: "bg-pink-100 text-pink-900 border-pink-200",
-      activeDayBg: "bg-pink-400 text-white"
+      variants: [
+        "bg-pink-300 text-pink-950 shadow-sm",
+        "bg-pink-400 text-white shadow-sm",
+        "bg-rose-300 text-rose-950 shadow-sm",
+        "bg-pink-500 text-white shadow-sm"
+      ]
     },
     sakura: {
       name: "Sakura",
@@ -51,7 +62,12 @@ const App = () => {
       bgOverlay: "bg-pink-50/50",
       localImg: "https://www.transparenttextures.com/patterns/cubes.png",
       bubbleBg: "bg-pink-200 text-pink-900 border-pink-300",
-      activeDayBg: "bg-pink-600 text-white"
+      variants: [
+        "bg-pink-400 text-white shadow-sm",
+        "bg-pink-600 text-white shadow-sm",
+        "bg-rose-500 text-white shadow-sm",
+        "bg-pink-700 text-white shadow-sm"
+      ]
     },
     rojo: {
       name: "Rojo",
@@ -65,7 +81,12 @@ const App = () => {
       bgOverlay: "bg-rose-50/40",
       localImg: "",
       bubbleBg: "bg-rose-100 text-rose-900 border-rose-200",
-      activeDayBg: "bg-rose-600 text-white"
+      variants: [
+        "bg-rose-400 text-white shadow-sm",
+        "bg-rose-600 text-white shadow-sm",
+        "bg-red-400 text-white shadow-sm",
+        "bg-rose-700 text-white shadow-sm"
+      ]
     },
     naranja: {
       name: "Naranja",
@@ -79,7 +100,12 @@ const App = () => {
       bgOverlay: "bg-orange-50/50",
       localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png",
       bubbleBg: "bg-orange-100 text-orange-900 border-orange-200",
-      activeDayBg: "bg-orange-600 text-white"
+      variants: [
+        "bg-amber-400 text-amber-950 shadow-sm",
+        "bg-orange-500 text-white shadow-sm",
+        "bg-orange-600 text-white shadow-sm",
+        "bg-amber-600 text-white shadow-sm"
+      ]
     },
     amarillo: {
       name: "Amarillo",
@@ -93,7 +119,12 @@ const App = () => {
       bgOverlay: "bg-amber-50/30",
       localImg: "",
       bubbleBg: "bg-amber-100 text-amber-900 border-amber-200",
-      activeDayBg: "bg-amber-500 text-white"
+      variants: [
+        "bg-amber-300 text-amber-950 shadow-sm",
+        "bg-amber-400 text-amber-950 shadow-sm",
+        "bg-yellow-500 text-white shadow-sm",
+        "bg-amber-500 text-white shadow-sm"
+      ]
     },
     marron: {
       name: "Marrón",
@@ -107,7 +138,12 @@ const App = () => {
       bgOverlay: "bg-amber-50/30",
       localImg: "",
       bubbleBg: "bg-amber-200 text-amber-950 border-amber-300",
-      activeDayBg: "bg-amber-800 text-white"
+      variants: [
+        "bg-amber-600 text-white shadow-sm",
+        "bg-amber-700 text-white shadow-sm",
+        "bg-yellow-800 text-white shadow-sm",
+        "bg-amber-900 text-white shadow-sm"
+      ]
     },
     verde: {
       name: "Verde",
@@ -121,7 +157,12 @@ const App = () => {
       bgOverlay: "bg-emerald-50/50",
       localImg: "https://www.transparenttextures.com/patterns/polygons.png",
       bubbleBg: "bg-emerald-100 text-emerald-900 border-emerald-200",
-      activeDayBg: "bg-emerald-600 text-white"
+      variants: [
+        "bg-emerald-400 text-white shadow-sm",
+        "bg-emerald-500 text-white shadow-sm",
+        "bg-teal-600 text-white shadow-sm",
+        "bg-emerald-600 text-white shadow-sm"
+      ]
     },
     azul: {
       name: "Azul",
@@ -135,7 +176,12 @@ const App = () => {
       bgOverlay: "bg-blue-50/50",
       localImg: "",
       bubbleBg: "bg-blue-100 text-blue-900 border-blue-200",
-      activeDayBg: "bg-blue-600 text-white"
+      variants: [
+        "bg-sky-300 text-sky-950 shadow-sm",
+        "bg-blue-400 text-white shadow-sm",
+        "bg-blue-600 text-white shadow-sm",
+        "bg-indigo-600 text-white shadow-sm"
+      ]
     },
     morado: {
       name: "Morado",
@@ -149,7 +195,12 @@ const App = () => {
       bgOverlay: "bg-purple-50/50",
       localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png",
       bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
-      activeDayBg: "bg-purple-600 text-white"
+      variants: [
+        "bg-purple-300 text-purple-950 shadow-sm",
+        "bg-purple-500 text-white shadow-sm",
+        "bg-purple-700 text-white shadow-sm",
+        "bg-indigo-500 text-white shadow-sm"
+      ]
     }
   };
 
@@ -164,11 +215,12 @@ const App = () => {
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
   const [diaSeleccionado, setDiaSeleccionado] = useState(new Date().getDate());
 
-  // Estado para alternar entre la vista del calendario de registro y el horario mensual de actividades
-  const [modoCalendario, setModoCalendario] = useState('registro'); // 'registro' o 'horarioMensual'
-  
-  // Estado para las burbujas de pensamiento visibles (guardamos el ID del día cuya burbuja está abierta)
+  const [modoCalendario, setModoCalendario] = useState('registro'); 
   const [diaBurbujaAbierta, setDiaBurbujaAbierta] = useState(null);
+
+  // Estado para el modal bonito de notas del horario mensual
+  const [modalNotaDia, setModalNotaDia] = useState(null);
+  const [textoNotaInput, setTextoNotaInput] = useState('');
 
   useEffect(() => {
     const checkDate = () => {
@@ -362,31 +414,44 @@ const App = () => {
     updateCurrentMonth({ historial: nuevoHistorial });
   };
 
-  // --- LÓGICA DE INTERACCIÓN PARA EL HORARIO MENSUAL DE ACTIVIDADES ---
+  // --- LÓGICA DE INTERACCIÓN Y MODAL ESTÉTICO PARA EL HORARIO MENSUAL ---
   const manejarClickDiaHorario = (dia) => {
     const horarioActual = { ...(currentData.horarioActividades || {}) };
     const diaInfo = horarioActual[dia];
 
     if (!diaInfo) {
-      // 1er toque: el día no está marcado -> se marca y pide la nota
-      const nota = prompt(`¿Qué actividad tienes planeada para el día ${dia}?`);
-      if (nota !== null && nota.trim() !== "") {
-        horarioActual[dia] = { nota: nota.trim() };
-        updateCurrentMonth({ horarioActividades: horarioActual });
-        setDiaBurbujaAbierta(dia); // Muestra la burbuja
-      }
+      // Abre el modal bonito en lugar del prompt feo
+      setTextoNotaInput('');
+      setModalNotaDia(dia);
     } else {
-      // Ya está marcado: alternar la visibilidad de la burbuja de pensamiento
+      // Alternar burbuja flotante si ya está marcado
       if (diaBurbujaAbierta === dia) {
-        setDiaBurbujaAbierta(null); // Si ya estaba abierta, se oculta
+        setDiaBurbujaAbierta(null);
       } else {
-        setDiaBurbujaAbierta(dia); // Se abre
+        setDiaBurbujaAbierta(dia);
       }
     }
   };
 
+  const guardarNotaModal = () => {
+    if (modalNotaDia !== null && textoNotaInput.trim() !== '') {
+      const horarioActual = { ...(currentData.horarioActividades || {}) };
+      // Asignar automáticamente una variante de tono basada en el día para que varíen los colores
+      const varianteIndex = (modalNotaDia - 1) % t.variants.length;
+      
+      horarioActual[modalNotaDia] = { 
+        nota: textoNotaInput.trim(), 
+        variantStyle: t.variants[varianteIndex] 
+      };
+      
+      updateCurrentMonth({ horarioActividades: horarioActual });
+      setDiaBurbujaAbierta(modalNotaDia);
+    }
+    setModalNotaDia(null);
+  };
+
   const manejarDobleClickDiaHorario = (dia, e) => {
-    e.stopPropagation(); // Evita conflictos con el click simple
+    e.stopPropagation();
     const horarioActual = { ...(currentData.horarioActividades || {}) };
     if (horarioActual[dia]) {
       if (window.confirm(`¿Deseas desmarcar la actividad del día ${dia}?`)) {
@@ -521,7 +586,7 @@ const App = () => {
         {/* GRID PRINCIPAL */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* PANEL IZQUIERDO: FORMULARIO Y CALENDARIO DUAL (REGISTRO VS HORARIO MENSUAL) */}
+          {/* PANEL IZQUIERDO: FORMULARIO Y CALENDARIO DUAL */}
           <div className="lg:col-span-5 space-y-8">
             <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center justify-between">
@@ -553,7 +618,6 @@ const App = () => {
             {/* CONTENEDOR DEL CALENDARIO DUAL */}
             <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100 relative">
               
-              {/* SELECTOR DE VISTA: CALENDARIO DE ACTIVIDAD VS HORARIO MENSUAL */}
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
                 <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">
                   {modoCalendario === 'registro' ? 'Calendario de Actividad' : 'Horario Mensual'}
@@ -615,7 +679,7 @@ const App = () => {
                   })}
                 </div>
               ) : (
-                /* VISTA 2: HORARIO MENSUAL DE ACTIVIDADES (CON BURBUJITAS FLOTANTES Y COLORES AUTOMÁTICOS) */
+                /* VISTA 2: HORARIO MENSUAL (CON TONALIDADES DINÁMICAS Y BURBUJAS) */
                 <div className="grid grid-cols-7 gap-1.5 relative">
                   {[...Array(primerDiaOffset)].map((_, i) => (
                     <div key={`empty-h-${i}`} className="aspect-square"></div>
@@ -626,6 +690,9 @@ const App = () => {
                     const infoHorario = currentData.horarioActividades && currentData.horarioActividades[dia];
                     const estaMarcado = !!infoHorario;
                     const mostrarBurbuja = diaBurbujaAbierta === dia;
+                    
+                    // Asignar dinámicamente un tono variante de la paleta para que destaquen entre días
+                    const varianteClass = infoHorario?.variantStyle || t.variants[(dia - 1) % t.variants.length];
 
                     return (
                       <div key={`h-${dia}`} className="relative">
@@ -633,22 +700,21 @@ const App = () => {
                           onClick={() => manejarClickDiaHorario(dia)}
                           onDoubleClick={(e) => manejarDobleClickDiaHorario(dia, e)}
                           className={`aspect-square w-full rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1 cursor-pointer select-none
-                            ${estaMarcado ? `${t.activeDayBg} shadow-md scale-105` : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}
+                            ${estaMarcado ? `${varianteClass} scale-105 font-black ring-2 ring-white/50` : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}
                           `}
                           title="Un toque para nota/burbuja | Doble toque para desmarcar"
                         >
-                          <span className={estaMarcado ? "font-black" : ""}>{dia}</span>
+                          <span>{dia}</span>
                           {estaMarcado && (
                             <span className="w-1.5 h-1.5 bg-white rounded-full mt-0.5 animate-pulse"></span>
                           )}
                         </button>
 
-                        {/* BURBUJA DE PENSAMIENTO FLOTANTE */}
+                        {/* BURBUJA DE PENSAMIENTO FLOTANTE ESTÉTICA */}
                         {mostrarBurbuja && infoHorario && (
                           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-30 pointer-events-none animate-in fade-in zoom-in-95 duration-200">
                             <div className={`relative px-3 py-1.5 rounded-2xl shadow-xl text-[10px] font-bold whitespace-nowrap border backdrop-blur-md ${t.bubbleBg}`}>
                               {infoHorario.nota}
-                              {/* Triangulito inferior de la burbuja */}
                               <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-0.5 border-4 border-transparent border-t-current opacity-90"></div>
                             </div>
                           </div>
@@ -665,7 +731,6 @@ const App = () => {
           <div className="lg:col-span-7 space-y-8">
             <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100 text-center">
               
-              {/* METRICAS PRINCIPALES */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
                   <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p>
@@ -693,7 +758,6 @@ const App = () => {
                 </button>
               </div>
 
-              {/* BARRA DE PROGRESO */}
               <div className="mb-8 bg-slate-100 h-3 rounded-full overflow-hidden p-0.5">
                 <div 
                   className={`h-full rounded-full transition-all duration-1000 ${t.primaryBg}`} 
@@ -775,6 +839,49 @@ const App = () => {
         </div>
       </div>
 
+      {/* MODAL ESTÉTICO PARA ESCRIBIR LA NOTA DE ACTIVIDAD (REEMPLAZANDO EL PROMPT NATIVO) */}
+      {modalNotaDia !== null && (
+        <div className="fixed inset-0 z-[120] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
+          <div className="bg-white w-full max-w-sm rounded-[2.5rem] p-6 md:p-8 shadow-2xl border border-slate-100 animate-in slide-in-from-bottom-6">
+            <div className="flex justify-between items-center mb-4">
+              <h4 className="text-base font-bold text-slate-800">
+                Actividad para el día {modalNotaDia}
+              </h4>
+              <button onClick={() => setModalNotaDia(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                <X size={18} />
+              </button>
+            </div>
+            
+            <p className="text-xs text-slate-500 mb-4">Escribe lo que tienes planeado hacer:</p>
+            
+            <input 
+              type="text" 
+              autoFocus
+              placeholder="Ej. Predicación, Cartas, WhatsApp..." 
+              className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-300 transition-all mb-6"
+              value={textoNotaInput}
+              onChange={(e) => setTextoNotaInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && guardarNotaModal()}
+            />
+
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setModalNotaDia(null)} 
+                className="w-1/2 bg-slate-100 text-slate-600 py-3.5 rounded-2xl font-bold uppercase tracking-widest text-[10px] hover:bg-slate-200 transition-all"
+              >
+                Cancelar
+              </button>
+              <button 
+                onClick={guardarNotaModal} 
+                className={`w-1/2 text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}
+              >
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* SELECTOR FLOTANTE DE TEMAS ORGANIZADO POR TONALIDAD */}
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
         {showThemeSelector && (
@@ -825,7 +932,6 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">NOMBRE COMPLETO</label>
                 <input 
                   type="text" 
-                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.nombre} 
                   onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}
@@ -837,7 +943,6 @@ const App = () => {
                   <label className="text-[10px] font-bold text-slate-400 ml-2">DÍA DE LA SEMANA</label>
                   <input 
                     type="text" 
-                    placeholder="" 
                     className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                     value={formEstudiante.fecha} 
                     onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}
@@ -859,7 +964,6 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">CAPÍTULO / LECCIÓN ACTUAL</label>
                 <input 
                   type="text" 
-                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.leccion} 
                   onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}
@@ -869,7 +973,6 @@ const App = () => {
               <div>
                 <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
                 <textarea 
-                  placeholder="" 
                   rows={2} 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" 
                   value={formEstudiante.notas} 
