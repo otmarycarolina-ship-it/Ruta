@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Calendar as CalendarIcon, Clock, BookOpen, Trash2, Target, 
   Timer, ChevronRight, ChevronLeft, UserPlus, Send, X, Play, Pause, RotateCcw,
-  Palette, Smile, CheckCircle2, Bookmark, Download, Upload
+  Palette, Smile, CheckCircle2, Bookmark
 } from 'lucide-react';
 
 const App = () => {
@@ -220,9 +220,6 @@ const App = () => {
   const [modalNotaDia, setModalNotaDia] = useState(null);
   const [textoNotaInput, setTextoNotaInput] = useState('');
 
-  // Referencia para el selector de archivos oculto
-  const fileInputRef = useRef(null);
-
   useEffect(() => {
     const checkDate = () => {
       const hoy = new Date();
@@ -237,10 +234,13 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // AQUÍ RECUPERAMOS TUS DATOS BAJO LA VERSIÓN V6 ORIGINAL
+  // --- CARGA DE DATOS COMPATIBLE CON sakura_data_v6 ---
   const [datosMensuales, setDatosMensuales] = useState(() => {
-    const salvo = localStorage.getItem('sakura_data_v6');
-    return salvo ? JSON.parse(salvo) : {};
+    const salvoV7 = localStorage.getItem('sakura_data_v7');
+    if (salvoV7) return JSON.parse(salvoV7);
+    
+    const salvoV6 = localStorage.getItem('sakura_data_v6');
+    return salvoV6 ? JSON.parse(salvoV6) : {};
   });
 
   const [estudiantesGlobales, setEstudiantesGlobales] = useState(() => {
@@ -253,7 +253,7 @@ const App = () => {
 
   // --- CRONÓMETRO CON RECALCULO AUTOMÁTICO CORREGIDO ---
   const [isTimerRunning, setIsTimerRunning] = useState(() => {
-    return localStorage.getItem('timer_is_running'] === 'true';
+    return localStorage.getItem('timer_is_running') === 'true';
   });
   
   const [secondsElapsed, setSecondsElapsed] = useState(() => {
@@ -325,43 +325,6 @@ const App = () => {
     setIsTimerRunning(false);
   };
 
-  // --- FUNCIONES DE RESPALDO Y RESTAURACIÓN ---
-  const descargarRespaldo = () => {
-    const todoElContenido = {
-      datosMensuales: datosMensuales,
-      estudiantesGlobales: estudiantesGlobales,
-      temaActual: temaActual
-    };
-    
-    const blob = new Blob([JSON.stringify(todoElContenido, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `Respaldo_Servicio_${new Date().toISOString().slice(0,10)}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const restaurarRespaldo = (event) => {
-    const archivo = event.target.files[0];
-    if (!archivo) return;
-
-    const lector = new FileReader();
-    lector.onload = (e) => {
-      try {
-        const contenido = JSON.parse(e.target.result);
-        if (contenido.datosMensuales) setDatosMensuales(contenido.datosMensuales);
-        if (contenido.estudiantesGlobales) setEstudiantesGlobales(contenido.estudiantesGlobales);
-        if (contenido.temaActual) setTemaActual(contenido.temaActual);
-        alert("¡Tus datos han sido restaurados con éxito! 🎉");
-      } catch (err) {
-        alert("El archivo seleccionado no es válido.");
-      }
-    };
-    lector.readAsText(archivo);
-    event.target.value = '';
-  };
-
   const mesActualKey = meses[mesIndice];
   const totalDiasMes = new Date(anioActual, mesIndice + 1, 0).getDate();
 
@@ -371,9 +334,8 @@ const App = () => {
   };
   const primerDiaOffset = getPrimerDiaSemanaIndice(mesIndice, anioActual);
 
-  // AQUÍ GUARDAMOS LOS DATOS USANDO LA LLAVE V6 PARA MANTENER TUS REGISTROS
   useEffect(() => {
-    localStorage.setItem('sakura_data_v6', JSON.stringify(datosMensuales));
+    localStorage.setItem('sakura_data_v7', JSON.stringify(datosMensuales));
   }, [datosMensuales]);
 
   useEffect(() => {
@@ -553,33 +515,8 @@ const App = () => {
         ></div>
       )}
 
-      {/* BOTONCITOS DE EMERGENCIA DE RESPALDO (SÚPER DISCRETOS) */}
-      <div className="absolute top-3 left-4 z-20 flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity">
-        <button 
-          onClick={descargarRespaldo} 
-          className="text-[10px] bg-white/60 hover:bg-white border border-slate-200 text-slate-500 px-2 py-1 rounded-md shadow-xs flex items-center gap-1 transition-all"
-          title="Descargar copia de seguridad"
-        >
-          <Download size={11} /> Respaldo
-        </button>
-        <button 
-          onClick={() => fileInputRef.current.click()} 
-          className="text-[10px] bg-white/60 hover:bg-white border border-slate-200 text-slate-500 px-2 py-1 rounded-md shadow-xs flex items-center gap-1 transition-all"
-          title="Restaurar copia de seguridad"
-        >
-          <Upload size={11} /> Restaurar
-        </button>
-        <input 
-          type="file" 
-          ref={fileInputRef} 
-          onChange={restaurarRespaldo} 
-          accept=".json" 
-          style={{ display: 'none' }} 
-        />
-      </div>
-
       <div className="max-w-5xl mx-auto relative z-10">
-        <header className="text-center mb-10 pt-4">
+        <header className="text-center mb-10">
           <div className={`inline-flex items-center justify-center p-3 rounded-full ${t.primaryLight} mb-3 shadow-sm transition-colors animate-bounce`}>
             <Smile size={42} strokeWidth={2.5} className={temaActual === 'gradienteEstatico' ? "text-[#7a57d1]" : t.primary} />
           </div>
@@ -1034,7 +971,7 @@ const App = () => {
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-slate-400 nav-label ml-2">DETALLES DE INTERÉS</label>
+                <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
                 <textarea 
                   rows={2} 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" 
