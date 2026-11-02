@@ -237,8 +237,9 @@ const App = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // AQUÍ RECUPERAMOS TUS DATOS BAJO LA VERSIÓN V6 ORIGINAL
   const [datosMensuales, setDatosMensuales] = useState(() => {
-    const salvo = localStorage.getItem('sakura_data_v7');
+    const salvo = localStorage.getItem('sakura_data_v6');
     return salvo ? JSON.parse(salvo) : {};
   });
 
@@ -252,7 +253,7 @@ const App = () => {
 
   // --- CRONÓMETRO CON RECALCULO AUTOMÁTICO CORREGIDO ---
   const [isTimerRunning, setIsTimerRunning] = useState(() => {
-    return localStorage.getItem('timer_is_running') === 'true';
+    return localStorage.getItem('timer_is_running'] === 'true';
   });
   
   const [secondsElapsed, setSecondsElapsed] = useState(() => {
@@ -358,7 +359,7 @@ const App = () => {
       }
     };
     lector.readAsText(archivo);
-    event.target.value = ''; // Limpiar input
+    event.target.value = '';
   };
 
   const mesActualKey = meses[mesIndice];
@@ -370,8 +371,9 @@ const App = () => {
   };
   const primerDiaOffset = getPrimerDiaSemanaIndice(mesIndice, anioActual);
 
+  // AQUÍ GUARDAMOS LOS DATOS USANDO LA LLAVE V6 PARA MANTENER TUS REGISTROS
   useEffect(() => {
-    localStorage.setItem('sakura_data_v7', JSON.stringify(datosMensuales));
+    localStorage.setItem('sakura_data_v6', JSON.stringify(datosMensuales));
   }, [datosMensuales]);
 
   useEffect(() => {
@@ -567,7 +569,6 @@ const App = () => {
         >
           <Upload size={11} /> Restaurar
         </button>
-        {/* Input file oculto */}
         <input 
           type="file" 
           ref={fileInputRef} 
@@ -1033,7 +1034,7 @@ const App = () => {
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
+                <label className="text-[10px] font-bold text-slate-400 nav-label ml-2">DETALLES DE INTERÉS</label>
                 <textarea 
                   rows={2} 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" 
