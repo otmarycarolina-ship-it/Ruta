@@ -9,7 +9,7 @@ const App = () => {
   const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
   const diasSemana = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
   
-  // Organizados por tonalidad con variaciones de intensidad para el horario mensual
+  // Organizados por tonalidad/rueda cromática
   const temas = {
     gradienteEstatico: {
       name: "Gradiente",
@@ -21,14 +21,7 @@ const App = () => {
       accentBg: "bg-gradient-to-r from-purple-50 via-pink-50 to-rose-50",
       buttonHover: "hover:brightness-105",
       bgOverlay: "bg-slate-50",
-      localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png",
-      bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
-      variants: [
-        "bg-purple-400 text-white shadow-sm",
-        "bg-pink-500 text-white shadow-sm",
-        "bg-purple-600 text-white shadow-sm",
-        "bg-rose-400 text-white shadow-sm"
-      ]
+      localImg: "https://www.transparenttextures.com/patterns/inspiration-geometry.png"
     },
     rosadoClaro: {
       name: "Rosado Claro",
@@ -40,14 +33,7 @@ const App = () => {
       accentBg: "bg-pink-50",
       buttonHover: "hover:bg-pink-500",
       bgOverlay: "bg-pink-50/30",
-      localImg: "",
-      bubbleBg: "bg-pink-100 text-pink-900 border-pink-200",
-      variants: [
-        "bg-pink-300 text-pink-950 shadow-sm",
-        "bg-pink-400 text-white shadow-sm",
-        "bg-rose-300 text-rose-950 shadow-sm",
-        "bg-pink-500 text-white shadow-sm"
-      ]
+      localImg: ""
     },
     sakura: {
       name: "Sakura",
@@ -59,14 +45,7 @@ const App = () => {
       accentBg: "bg-pink-100",
       buttonHover: "hover:bg-pink-700",
       bgOverlay: "bg-pink-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/cubes.png",
-      bubbleBg: "bg-pink-200 text-pink-900 border-pink-300",
-      variants: [
-        "bg-pink-400 text-white shadow-sm",
-        "bg-pink-600 text-white shadow-sm",
-        "bg-rose-500 text-white shadow-sm",
-        "bg-pink-700 text-white shadow-sm"
-      ]
+      localImg: "https://www.transparenttextures.com/patterns/cubes.png"
     },
     rojo: {
       name: "Rojo",
@@ -78,14 +57,7 @@ const App = () => {
       accentBg: "bg-rose-100",
       buttonHover: "hover:bg-rose-700",
       bgOverlay: "bg-rose-50/40",
-      localImg: "",
-      bubbleBg: "bg-rose-100 text-rose-900 border-rose-200",
-      variants: [
-        "bg-rose-400 text-white shadow-sm",
-        "bg-rose-600 text-white shadow-sm",
-        "bg-red-400 text-white shadow-sm",
-        "bg-rose-700 text-white shadow-sm"
-      ]
+      localImg: ""
     },
     naranja: {
       name: "Naranja",
@@ -97,14 +69,7 @@ const App = () => {
       accentBg: "bg-orange-100",
       buttonHover: "hover:bg-orange-700",
       bgOverlay: "bg-orange-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png",
-      bubbleBg: "bg-orange-100 text-orange-900 border-orange-200",
-      variants: [
-        "bg-amber-400 text-amber-950 shadow-sm",
-        "bg-orange-500 text-white shadow-sm",
-        "bg-orange-600 text-white shadow-sm",
-        "bg-amber-600 text-white shadow-sm"
-      ]
+      localImg: "https://www.transparenttextures.com/patterns/diagmonds-light.png"
     },
     amarillo: {
       name: "Amarillo",
@@ -116,14 +81,7 @@ const App = () => {
       accentBg: "bg-amber-100",
       buttonHover: "hover:bg-amber-600",
       bgOverlay: "bg-amber-50/30",
-      localImg: "",
-      bubbleBg: "bg-amber-100 text-amber-900 border-amber-200",
-      variants: [
-        "bg-amber-300 text-amber-950 shadow-sm",
-        "bg-amber-400 text-amber-950 shadow-sm",
-        "bg-yellow-500 text-white shadow-sm",
-        "bg-amber-500 text-white shadow-sm"
-      ]
+      localImg: ""
     },
     marron: {
       name: "Marrón",
@@ -135,14 +93,7 @@ const App = () => {
       accentBg: "bg-amber-100",
       buttonHover: "hover:bg-amber-900",
       bgOverlay: "bg-amber-50/30",
-      localImg: "",
-      bubbleBg: "bg-amber-200 text-amber-950 border-amber-300",
-      variants: [
-        "bg-amber-600 text-white shadow-sm",
-        "bg-amber-700 text-white shadow-sm",
-        "bg-yellow-800 text-white shadow-sm",
-        "bg-amber-900 text-white shadow-sm"
-      ]
+      localImg: ""
     },
     verde: {
       name: "Verde",
@@ -154,14 +105,7 @@ const App = () => {
       accentBg: "bg-emerald-100",
       buttonHover: "hover:bg-emerald-700",
       bgOverlay: "bg-emerald-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/polygons.png",
-      bubbleBg: "bg-emerald-100 text-emerald-900 border-emerald-200",
-      variants: [
-        "bg-emerald-400 text-white shadow-sm",
-        "bg-emerald-500 text-white shadow-sm",
-        "bg-teal-600 text-white shadow-sm",
-        "bg-emerald-600 text-white shadow-sm"
-      ]
+      localImg: "https://www.transparenttextures.com/patterns/polygons.png"
     },
     azul: {
       name: "Azul",
@@ -173,14 +117,7 @@ const App = () => {
       accentBg: "bg-blue-100",
       buttonHover: "hover:bg-blue-700",
       bgOverlay: "bg-blue-50/50",
-      localImg: "",
-      bubbleBg: "bg-blue-100 text-blue-900 border-blue-200",
-      variants: [
-        "bg-sky-300 text-sky-950 shadow-sm",
-        "bg-blue-400 text-white shadow-sm",
-        "bg-blue-600 text-white shadow-sm",
-        "bg-indigo-600 text-white shadow-sm"
-      ]
+      localImg: ""
     },
     morado: {
       name: "Morado",
@@ -192,14 +129,7 @@ const App = () => {
       accentBg: "bg-purple-100",
       buttonHover: "hover:bg-purple-700",
       bgOverlay: "bg-purple-50/50",
-      localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png",
-      bubbleBg: "bg-purple-100 text-purple-900 border-purple-200",
-      variants: [
-        "bg-purple-300 text-purple-950 shadow-sm",
-        "bg-purple-500 text-white shadow-sm",
-        "bg-purple-700 text-white shadow-sm",
-        "bg-indigo-500 text-white shadow-sm"
-      ]
+      localImg: "https://www.transparenttextures.com/patterns/diamond-upholstery.png"
     }
   };
 
@@ -213,12 +143,6 @@ const App = () => {
   const [mesIndice, setMesIndice] = useState(new Date().getMonth());
   const [anioActual, setAnioActual] = useState(new Date().getFullYear());
   const [diaSeleccionado, setDiaSeleccionado] = useState(new Date().getDate());
-
-  const [modoCalendario, setModoCalendario] = useState('registro'); 
-  const [diaBurbujaAbierta, setDiaBurbujaAbierta] = useState(null);
-
-  const [modalNotaDia, setModalNotaDia] = useState(null);
-  const [textoNotaInput, setTextoNotaInput] = useState('');
 
   useEffect(() => {
     const checkDate = () => {
@@ -235,7 +159,7 @@ const App = () => {
   }, []);
 
   const [datosMensuales, setDatosMensuales] = useState(() => {
-    const salvo = localStorage.getItem('sakura_data_v7');
+    const salvo = localStorage.getItem('sakura_data_v6');
     return salvo ? JSON.parse(salvo) : {};
   });
 
@@ -327,7 +251,7 @@ const App = () => {
   const primerDiaOffset = getPrimerDiaSemanaIndice(mesIndice, anioActual);
 
   useEffect(() => {
-    localStorage.setItem('sakura_data_v7', JSON.stringify(datosMensuales));
+    localStorage.setItem('sakura_data_v6', JSON.stringify(datosMensuales));
   }, [datosMensuales]);
 
   useEffect(() => {
@@ -346,7 +270,7 @@ const App = () => {
   };
 
   const storageKey = `${mesActualKey}_${anioActual}`;
-  const currentData = datosMensuales[storageKey] || { meta: 50, historial: {}, horarioActividades: {} };
+  const currentData = datosMensuales[storageKey] || { meta: 50, historial: {} };
 
   const estudiantesVisibles = estudiantesGlobales.filter(est => {
     if (!est.mesRegistro) return true;
@@ -374,6 +298,8 @@ const App = () => {
 
   const [nuevaHora, setNuevaHora] = useState('');
   const [nuevoMinuto, setNuevoMinuto] = useState('');
+  
+  // Estado para el formulario (por defecto en blanco)
   const [formEstudiante, setFormEstudiante] = useState({ nombre: '', fecha: '', horaClase: '', leccion: '', notas: '' });
 
   const registrarActividad = (hInput, mInput) => {
@@ -412,48 +338,6 @@ const App = () => {
     updateCurrentMonth({ historial: nuevoHistorial });
   };
 
-  const manejarClickDiaHorario = (dia) => {
-    const horarioActual = { ...(currentData.horarioActividades || {}) };
-    const diaInfo = horarioActual[dia];
-
-    if (!diaInfo) {
-      setTextoNotaInput('');
-      setModalNotaDia(dia);
-    } else {
-      if (diaBurbujaAbierta === dia) {
-        setDiaBurbujaAbierta(null);
-      } else {
-        setDiaBurbujaAbierta(dia);
-      }
-    }
-  };
-
-  const guardarNotaModal = () => {
-    if (modalNotaDia !== null && textoNotaInput.trim() !== '') {
-      const horarioActual = { ...(currentData.horarioActividades || {}) };
-      
-      horarioActual[modalNotaDia] = { 
-        nota: textoNotaInput.trim()
-      };
-      
-      updateCurrentMonth({ horarioActividades: horarioActual });
-      setDiaBurbujaAbierta(modalNotaDia);
-    }
-    setModalNotaDia(null);
-  };
-
-  const manejarDobleClickDiaHorario = (dia, e) => {
-    e.stopPropagation();
-    const horarioActual = { ...(currentData.horarioActividades || {}) };
-    if (horarioActual[dia]) {
-      if (window.confirm(`¿Deseas desmarcar la actividad del día ${dia}?`)) {
-        delete horarioActual[dia];
-        updateCurrentMonth({ horarioActividades: horarioActual });
-        if (diaBurbujaAbierta === dia) setDiaBurbujaAbierta(null);
-      }
-    }
-  };
-
   const formatTime12h = (time24) => {
     if (!time24) return '';
     if (!time24.includes(':')) return time24;
@@ -465,6 +349,7 @@ const App = () => {
     return `${hours12}:${m} ${suffix}`;
   };
 
+  // Función para darle formato exacto a las horas y minutos en cada casilla del calendario
   const formatearTiempoCalendario = (h, m) => {
     if (h > 0 && m > 0) return `${h}h ${m}m`;
     if (h > 0) return `${h}h`;
@@ -491,7 +376,6 @@ const App = () => {
     setMesIndice(nuevoIndice);
     setAnioActual(nuevoAnio);
     setDiaSeleccionado(1);
-    setDiaBurbujaAbierta(null);
   };
 
   const porcentaje = Math.min(100, (totalMinutos / ((currentData.meta || 1) * 60)) * 100);
@@ -578,7 +462,7 @@ const App = () => {
         {/* GRID PRINCIPAL */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          {/* PANEL IZQUIERDO: FORMULARIO Y CALENDARIO DUAL */}
+          {/* PANEL IZQUIERDO: FORMULARIO Y CALENDARIO */}
           <div className="lg:col-span-5 space-y-8">
             <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
               <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center justify-between">
@@ -607,28 +491,8 @@ const App = () => {
               </button>
             </section>
 
-            {/* CONTENEDOR DEL CALENDARIO DUAL */}
-            <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100 relative">
-              
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
-                <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest">
-                  {modoCalendario === 'registro' ? 'Calendario de Actividad' : 'Horario Mensual'}
-                </h3>
-                <div className="bg-slate-100 p-1 rounded-xl flex gap-1">
-                  <button 
-                    onClick={() => setModoCalendario('registro')} 
-                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${modoCalendario === 'registro' ? `${t.primaryBg} text-white shadow-sm` : 'text-slate-500 hover:bg-slate-200'}`}
-                  >
-                    Horas
-                  </button>
-                  <button 
-                    onClick={() => setModoCalendario('horarioMensual')} 
-                    className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${modoCalendario === 'horarioMensual' ? `${t.primaryBg} text-white shadow-sm` : 'text-slate-500 hover:bg-slate-200'}`}
-                  >
-                    Actividades
-                  </button>
-                </div>
-              </div>
+            <section className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
+              <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Calendario de Actividad</h3>
               
               <div className="grid grid-cols-7 gap-1 text-center mb-3">
                 {diasSemana.map((d, index) => (
@@ -638,85 +502,36 @@ const App = () => {
                 ))}
               </div>
 
-              {/* VISTA 1: CALENDARIO DE REGISTRO DE HORAS */}
-              {modoCalendario === 'registro' ? (
-                <div className="grid grid-cols-7 gap-1.5">
-                  {[...Array(primerDiaOffset)].map((_, i) => (
-                    <div key={`empty-${i}`} className="aspect-square"></div>
-                  ))}
+              <div className="grid grid-cols-7 gap-1.5">
+                {[...Array(primerDiaOffset)].map((_, i) => (
+                  <div key={`empty-${i}`} className="aspect-square"></div>
+                ))}
 
-                  {[...Array(totalDiasMes)].map((_, i) => {
-                    const dia = i + 1;
-                    const reg = currentData.historial && currentData.historial[dia];
-                    const tieneActividad = !!reg;
-                    const esSeleccionado = diaSeleccionado === dia;
-                    
-                    return (
-                      <button 
-                        key={dia} 
-                        onClick={() => setDiaSeleccionado(dia)}
-                        className={`aspect-square rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1
-                          ${tieneActividad ? `text-white shadow-sm ${t.primaryBg}` : `bg-slate-50 text-slate-600 hover:bg-slate-100`}
-                          ${esSeleccionado ? 'ring-2 ring-slate-800 ring-offset-2 scale-105 z-10 font-black' : ''}
-                        `}
-                      >
-                        <span>{dia}</span>
-                        {reg && (
-                          <span className="text-[7.5px] opacity-95 font-mono leading-tight font-semibold">
-                            {formatearTiempoCalendario(reg.h, reg.m)}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : (
-                /* VISTA 2: HORARIO MENSUAL CON VARIACIONES DINÁMICAS DEL TEMA */
-                <div className="grid grid-cols-7 gap-1.5 relative">
-                  {[...Array(primerDiaOffset)].map((_, i) => (
-                    <div key={`empty-h-${i}`} className="aspect-square"></div>
-                  ))}
-
-                  {[...Array(totalDiasMes)].map((_, i) => {
-                    const dia = i + 1;
-                    const infoHorario = currentData.horarioActividades && currentData.horarioActividades[dia];
-                    const estaMarcado = !!infoHorario;
-                    const mostrarBurbuja = diaBurbujaAbierta === dia;
-                    
-                    // Se calcula la variante dinámicamente según el tema actual activo (t.variants)
-                    const varianteIndex = (dia - 1) % t.variants.length;
-                    const varianteClass = t.variants[varianteIndex];
-
-                    return (
-                      <div key={`h-${dia}`} className="relative">
-                        <button 
-                          onClick={() => manejarClickDiaHorario(dia)}
-                          onDoubleClick={(e) => manejarDobleClickDiaHorario(dia, e)}
-                          className={`aspect-square w-full rounded-xl text-xs font-bold transition-all duration-300 relative flex flex-col items-center justify-center p-1 cursor-pointer select-none
-                            ${estaMarcado ? `${varianteClass} scale-105 font-black ring-2 ring-white/50` : 'bg-slate-50 text-slate-600 hover:bg-slate-100'}
-                          `}
-                          title="Un toque para nota/burbuja | Doble toque para desmarcar"
-                        >
-                          <span>{dia}</span>
-                          {estaMarcado && (
-                            <span className="w-1.5 h-1.5 bg-white rounded-full mt-0.5 animate-pulse"></span>
-                          )}
-                        </button>
-
-                        {/* BURBUJA DE PENSAMIENTO FLOTANTE */}
-                        {mostrarBurbuja && infoHorario && (
-                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-30 pointer-events-none animate-in fade-in zoom-in-95 duration-200">
-                            <div className={`relative px-3 py-1.5 rounded-2xl shadow-xl text-[10px] font-bold whitespace-nowrap border backdrop-blur-md ${t.bubbleBg}`}>
-                              {infoHorario.nota}
-                              <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-0.5 border-4 border-transparent border-t-current opacity-90"></div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+                {[...Array(totalDiasMes)].map((_, i) => {
+                  const dia = i + 1;
+                  const reg = currentData.historial && currentData.historial[dia];
+                  const tieneActividad = !!reg;
+                  const esSeleccionado = diaSeleccionado === dia;
+                  
+                  return (
+                    <button 
+                      key={dia} 
+                      onClick={() => setDiaSeleccionado(dia)}
+                      className={`aspect-square rounded-xl text-xs font-bold transition-all relative flex flex-col items-center justify-center p-1
+                        ${tieneActividad ? `text-white shadow-sm ${t.primaryBg}` : `bg-slate-50 text-slate-600 hover:bg-slate-100`}
+                        ${esSeleccionado ? 'ring-2 ring-slate-800 ring-offset-2 scale-105 z-10 font-black' : ''}
+                      `}
+                    >
+                      <span>{dia}</span>
+                      {reg && (
+                        <span className="text-[7.5px] opacity-95 font-mono leading-tight font-semibold">
+                          {formatearTiempoCalendario(reg.h, reg.m)}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </section>
           </div>
 
@@ -724,6 +539,7 @@ const App = () => {
           <div className="lg:col-span-7 space-y-8">
             <section className="bg-white p-6 md:p-8 rounded-[3rem] shadow-sm border border-slate-100 text-center">
               
+              {/* METRICAS PRINCIPALES */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div className="p-4 bg-slate-50 rounded-2xl transition-all hover:shadow-inner">
                   <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Horas</p>
@@ -751,6 +567,7 @@ const App = () => {
                 </button>
               </div>
 
+              {/* BARRA DE PROGRESO */}
               <div className="mb-8 bg-slate-100 h-3 rounded-full overflow-hidden p-0.5">
                 <div 
                   className={`h-full rounded-full transition-all duration-1000 ${t.primaryBg}`} 
@@ -832,48 +649,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* MODAL ESTÉTICO (SIN PLACEHOLDER GRIS) */}
-      {modalNotaDia !== null && (
-        <div className="fixed inset-0 z-[120] bg-slate-900/40 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-white w-full max-w-sm rounded-[2.5rem] p-6 md:p-8 shadow-2xl border border-slate-100 animate-in slide-in-from-bottom-6">
-            <div className="flex justify-between items-center mb-4">
-              <h4 className="text-base font-bold text-slate-800">
-                Actividad para el día {modalNotaDia}
-              </h4>
-              <button onClick={() => setModalNotaDia(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
-                <X size={18} />
-              </button>
-            </div>
-            
-            <p className="text-xs text-slate-500 mb-4">Escribe lo que tienes planeado hacer:</p>
-            
-            <input 
-              type="text" 
-              autoFocus
-              className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-300 transition-all mb-6"
-              value={textoNotaInput}
-              onChange={(e) => setTextoNotaInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && guardarNotaModal()}
-            />
-
-            <div className="flex gap-2">
-              <button 
-                onClick={() => setModalNotaDia(null)} 
-                className="w-1/2 bg-slate-100 text-slate-600 py-3.5 rounded-2xl font-bold uppercase tracking-widest text-[10px] hover:bg-slate-200 transition-all"
-              >
-                Cancelar
-              </button>
-              <button 
-                onClick={guardarNotaModal} 
-                className={`w-1/2 text-white py-3.5 rounded-2xl font-bold uppercase tracking-widest text-[10px] shadow-md active:scale-95 transition-all ${t.primaryBg} ${t.buttonHover}`}
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* SELECTOR FLOTANTE DE TEMAS ORGANIZADO POR TONALIDAD */}
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end gap-3">
         {showThemeSelector && (
@@ -924,6 +699,7 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">NOMBRE COMPLETO</label>
                 <input 
                   type="text" 
+                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.nombre} 
                   onChange={e => setFormEstudiante({...formEstudiante, nombre: e.target.value})}
@@ -935,6 +711,7 @@ const App = () => {
                   <label className="text-[10px] font-bold text-slate-400 ml-2">DÍA DE LA SEMANA</label>
                   <input 
                     type="text" 
+                    placeholder="" 
                     className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                     value={formEstudiante.fecha} 
                     onChange={e => setFormEstudiante({...formEstudiante, fecha: e.target.value})}
@@ -956,6 +733,7 @@ const App = () => {
                 <label className="text-[10px] font-bold text-slate-400 ml-2">CAPÍTULO / LECCIÓN ACTUAL</label>
                 <input 
                   type="text" 
+                  placeholder="" 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none transition-all mt-1" 
                   value={formEstudiante.leccion} 
                   onChange={e => setFormEstudiante({...formEstudiante, leccion: e.target.value})}
@@ -965,6 +743,7 @@ const App = () => {
               <div>
                 <label className="text-[10px] font-bold text-slate-400 ml-2">DETALLES DE INTERÉS</label>
                 <textarea 
+                  placeholder="" 
                   rows={2} 
                   className="w-full bg-slate-50 rounded-2xl p-4 text-sm focus:ring-2 focus:ring-slate-200 outline-none resize-none transition-all mt-1" 
                   value={formEstudiante.notas} 
